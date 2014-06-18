@@ -5,6 +5,9 @@ Webapp
  -css (view)
  -javascript (control)
 
+ -server language (hooks into other APIs)
+ -database
+
  web app treats all 3 as the view, then has a serverside language
  as a control, and a database as the model.
 
