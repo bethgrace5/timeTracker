@@ -1,0 +1,24 @@
+Time and mileage database 
+
+
+-track my time and mileage for this project
+
+Requirements analysis
+	-we need an effective way to track time and mileage for a task
+	in a milestone associated with the project for a specific client.
+
+	-existing tools
+		-github
+		-toggl
+		-google docs
+
+   java server pages 
+
+
+which design
+- webframework (choose between existing frameworks )
+- from scratch
+
+which language
+- depending on design
+
