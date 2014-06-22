@@ -1,77 +1,66 @@
-Time and mileage database 
+Requirements analysis:
+-create an effective way to track time and mileage for a task
+in a milestone associated with the project for a specific client.
+
+Existing tools
+-github
+-toggl
+-google docs (optional)
 
 
--track time and mileage for this project
-
-Requirements analysis
-	-we need an effective way to track time and mileage for a task
-	in a milestone associated with the project for a specific client.
-
-	-existing tools
-		-github*
-		-toggl
-		-google docs (optional)
-
-   java server pages 
-
-
-design
-- webframework ( Stripes java web framework )
-    -maven2 required for stripes
+Design
+- web application framework: Struts 2
+- web server/ servlet container: apache Tomcat
+- java server pages
+- H2 database engine (uncertain: need to research)
 - bottom-up design
--H2 database engine
 
+Ideas
 - can clients log in and see times for contractor
 - different accounts for client vs contractor
-- 
 -as a contractor, with several clients, store different clients' time 
     and mileage seperately
-
-    - relational databases to relate clients to servers, then they can 
+- relational databases to relate clients to servers, then they can 
         
-        user -has projects
-             -has type (contractor, client)
-             -has github username 
+    user -has projects
+         -has type (contractor, client)
+         -has github username 
 
-        project
-            -has a client
-            -has github URL
+    project
+        -has a client
+        -has github URL
                 
-        client
-            -has projects 
-            -has users
+    client
+        -has projects 
+        -has users
 
-        milestone (optional in github)
-            -has github URL
+    milestone (optional in github)
+        -has github URL
 
-        issue (optionally has milestone)
-            - has rate items 
-            -has github URL
+    issue (optionally has milestone)
+        - has rate items 
+        -has github URL
 
-        (work -things that require time)
-        milestones -> issues -> time  -> mileage
-        issues
+    (work -things that require time)
+    milestones -> issues -> time  -> mileage
+    issues
 
 
-         haverate item with type, rate and amount.
+    have rate item with type, rate and amount.
 
-        time -associated with a projects
-        -has a rate and amount
+    time -associated with a projects
+    -has a rate and amount
 
-        mileage 
-        -rate of cost per mile
-        -amount of miles
+    mileage 
+    -rate of cost per mile
+    -amount of miles
 
 
 -associate github account with user account
 
 
-
-Features
+Other Notes
+-clock in/out
+-mileage
+-"fix time" (insert historical time while currently counting time)
 -duration, start time, and end time
--start date
--date math
-
-
--insert historical time while currently counting time without stopping
--
