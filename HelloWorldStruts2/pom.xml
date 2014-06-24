@@ -4,7 +4,7 @@
     <groupId>com.tutorialspoint.struts2</groupId>
     <artifactId>hello-world</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <name>Hello World</name>
     <url>http://maven.apache.org</url>
 
