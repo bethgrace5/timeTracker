@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- web.xml file is an entry point for any request to Struts2 -->
+
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xmlns="http://java.sun.com/xml/ns/javaee" 
    xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
@@ -17,6 +19,7 @@
       </filter-class>
    </filter>
 
+<!-- this filter specifies index.jsp to run on all urls "/*" -->
    <filter-mapping>
       <filter-name>struts2</filter-name>
       <url-pattern>/*</url-pattern>
