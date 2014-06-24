@@ -1,0 +1,22 @@
+#git ignore files
+
+#vim swapfiles
+*.swp
+*.swo
+
+#ctags files
+.tags
+
+# ignore binaries from version control
+
+HelloWorldStruts2/build/
+HelloWorldStruts2/target/
+HelloWorldStruts2/WebContent/META-INF/
+HelloWorldStruts2/WebContent/WEB-INF/classes
+HelloWorldStruts2/WebContent/WEB-INF/lib
+HelloWorldStruts2/WebContent/WEB-INF/*.jar
+
+.metadata
+.classpath
+.project
+.settings/
