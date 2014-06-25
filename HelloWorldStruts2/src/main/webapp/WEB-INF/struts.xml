@@ -1,0 +1,3 @@
+<struts>
+    <constant name="struts.devMode" value="true" />
+</struts>
