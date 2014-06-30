@@ -11,7 +11,14 @@ public class HelloWorldAction extends ActionSupport {
 
 // execute method is called by Struts2
    public String execute() throws Exception {
-      return "success";
+    ConnectDatabase.openConnection();
+    //ConnectDatabase.initializeDatabase();
+    //ConnectDatabase.addData();
+    //ConnectDatabase.queryDatabase();
+    //ConnectDatabase.updateRecords();
+    //ConnectDatabase.delete();
+    ConnectDatabase.closeConnection();
+   return "success";
    }
 
    public String getName() {
