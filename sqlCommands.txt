@@ -1,0 +1,15 @@
+//SQL commands executed in H2 console to create test database
+
+CREATE TABLE login(
+id INTEGER PRIMARY KEY,
+user TEXT,
+password TEXT,
+name TEXT
+);
+
+insert into login (id, user, password, name)
+values(1, 'asdff', 'asdf', 'person1');
+
+insert into login(id, user, password, name)
+values(2, 'qwertyy', 'qwerty', 'person2');
+
