@@ -6,10 +6,18 @@
     <constant name="struts.devMode" value="true" />
 
     <package name="default" namespace="/" extends="struts-default">
+        <action name="index">
+            <result>index.jsp</result>
+        </action>
 
-        <action name="index" class="com.tutorialspoint.struts2.LoginAction" method="execute">
-            <result name="success">/success.jsp</result>
-            <result name="error">/error.jsp</result>
+        <action name="loginaction" class="com.tutorialspoint.struts2.LoginAction" method="execute">
+            <result name="success">success.jsp</result>
+            <result name="error">error.jsp</result>
+        </action>
+
+        <action name="login" class="com.tutorialspoint.struts2.LoginAction" method="execute">
+            <result name="success">success.jsp</result>
+            <result name="error">error.jsp</result>
         </action>
     </package>
 </struts>

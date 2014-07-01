@@ -20,7 +20,7 @@ public class LoginAction extends ActionSupport{
     public String execute(){
         String ret = ERROR;
         Connection connection = null;
-
+    if(false){
         try{
             String url = "jdbc:h2:~/test"; //database
             Class.forName("org.h2.Driver");
@@ -45,8 +45,11 @@ public class LoginAction extends ActionSupport{
             }
         }
     }
+    }
 
-        return "success";
+        //return "success";
+        return "error";
+        
     }
 
     public String getUser() {

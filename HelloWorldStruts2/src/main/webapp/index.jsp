@@ -16,12 +16,12 @@
 <body>
    <h1>Hello World From Struts2</h1>
 
-<!-- this hello action maps to execute method in HelloWorldAction class
+<!-- this action maps to execute method in LoginAction class
  using struts.xml file-->
    <form action="login" method="post">
         User: <br/><input type = "text" name="user"/><br/>
         Password: <br/><input type = "password" name="password"/><br/>
-      <input type="submit" value="Login"/>
+      <input type="submit" value="login"/>
    </form>
 </body>
 </html>
