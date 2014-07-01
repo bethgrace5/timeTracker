@@ -22,17 +22,18 @@ public class LoginAction extends ActionSupport{
         Connection connection = null;
     if(false){
         try{
-            String url = "jdbc:h2:~/test"; //database
+            String url = "jdbc:h2:~/test/test"; //database
             Class.forName("org.h2.Driver");
             connection = DriverManager.getConnection(url, "sa", "");
-            String sql = "SELECT FIRST_NAME FROM PERSON WHERE ";
-            sql+=" ID=?";
+            String sql = "SELECT * FROM login WHERE ";
+            sql+=" user = '?' AND password = '?'";
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, password);
+            ps.setString(1, user);
+            ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()){
-                name = rs.getString(2);
+                name = rs.getString(1);
                 ret = SUCCESS;
             }
         } catch (Exception e) {
@@ -47,8 +48,7 @@ public class LoginAction extends ActionSupport{
     }
     }
 
-        //return "success";
-        return "error";
+        return ret;
         
     }
 
