@@ -18,10 +18,10 @@
 
 <!-- this hello action maps to execute method in HelloWorldAction class
  using struts.xml file-->
-   <form action="hello">
-      <label for="name">Please enter your name</label><br/>
-      <input type="text" name="name"/>
-      <input type="submit" value="Say Hello"/>
+   <form action="login" method="post">
+        User: <br/><input type = "text" name="user"/><br/>
+        Password: <br/><input type = "password" name="password"/><br/>
+      <input type="submit" value="Login"/>
    </form>
 </body>
 </html>
