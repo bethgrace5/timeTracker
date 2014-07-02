@@ -6,6 +6,6 @@
     <title>Successful</title>
 </head>
 <body>
-    success. Hello, <s:property value="name"/> 
+    success. Hello, <s:property value="user.name"/> 
 </body>
 </html>

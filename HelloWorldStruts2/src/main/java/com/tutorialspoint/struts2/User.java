@@ -5,10 +5,10 @@ public class User{
     private String name;
 
     public void setName(String name){
-        name=this.name;
+        this.name=name;
     }
     public void setId(int id){
-        id=this.id;
+        this.id=id;
     }
     public String getName(){
         return name;

@@ -12,8 +12,8 @@
 <body>
    <h3>Hello World From Struts2</h3>
    <s:form action="register">
-   <s:textfield name="name" label="Name"></s:textfield>
-   <s:submit value="register"></s:submit>
+   <s:textfield name="user.name" label="Name"></s:textfield>
+   <s:submit value="register new account"></s:submit>
    </s:form>
 
 </body>
