@@ -10,11 +10,12 @@
 <title>Hello World</title>
 </head>
 <body>
-   <h3>Hello World From Struts2</h3>
-   <s:form action="register">
-   <s:textfield name="name" label="Name"></s:textfield>
-   <s:submit value="register new account"></s:submit>
-   </s:form>
-
+    <h3>Hello World From Struts2</h3>
+    <s:form action="register">
+    <s:textfield name="name" label="Name"></s:textfield>
+    <s:textfield name="password" label="Password"></s:textfield>
+    <s:submit value="Create Account"></s:submit>
+    </s:form>
+    
 </body>
 </html>

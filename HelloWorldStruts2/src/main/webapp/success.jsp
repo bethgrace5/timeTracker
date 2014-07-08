@@ -7,5 +7,6 @@
 </head>
 <body>
     success. Hello, <s:property value="name"/>
+    password: <s:property value="password"/>
 </body>
 </html>
