@@ -11,6 +11,12 @@
         <action name="register" class="com.tutorialspoint.struts2.User" method="execute">
             <result name="success">success.jsp</result>
             <result name="error">error.jsp</result>
+            <result name="accountDeactivated">deactivatedAccount.jsp</result>
+        </action>
+
+        <action name="deactivate" class="com.tutorialspoint.struts2.User" method="deactivateAccount">
+            <result name="success">deactivateSuccess.jsp</result>
+            <result name="error">deactivatedAccount.jsp</result>
         </action>
 
         <action name="index">

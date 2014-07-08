@@ -8,5 +8,9 @@
 <body>
     success. Hello, <s:property value="name"/>
     password: <s:property value="password"/>
+
+    <s:form action="deactivate">
+    <s:submit value="Deactivate Account"></s:submit>
+    </s:form>
 </body>
 </html>

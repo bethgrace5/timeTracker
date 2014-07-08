@@ -10,5 +10,6 @@
     </id>
     <property name="name" type="string" column="name"></property>
     <property name="password" type="string" column="password"></property>
+    <property name="deactivated" type="int" column="deactivated"></property>
 </class>
 </hibernate-mapping>
