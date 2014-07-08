@@ -7,6 +7,7 @@
     <constant name="struts.action.excludePattern" value="/dbconsole/*"></constant>
 
     <package name="default" namespace="/" extends="struts-default">
+        <default-action-ref name="index" />
 
         <action name="register" class="com.tutorialspoint.struts2.User" method="execute">
             <result name="success">success.jsp</result>
