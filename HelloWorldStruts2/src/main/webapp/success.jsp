@@ -6,10 +6,12 @@
     <title>Successful</title>
 </head>
 <body>
-    success. Hello, <s:property value="name"/>
-    password: <s:property value="password"/>
+    success. Hello, <s:property value="name"/> <br/>
+    password: <s:property value="password"/> <br/>
+    Id: <s:property value="id"/>
 
     <s:form action="deactivate">
+    <s:hidden name="id"/>
     <s:submit value="Deactivate Account"></s:submit>
     </s:form>
 </body>

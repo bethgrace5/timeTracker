@@ -1,6 +1,8 @@
 package com.tutorialspoint.struts2;
 
 import com.opensymphony.xwork2.ActionSupport;
+import java.lang.Integer;
+import java.lang.String;
 
 public class User extends ActionSupport{
     private int id;
@@ -8,6 +10,26 @@ public class User extends ActionSupport{
     private String name;
     private String password;
 
+//actions
+    public String deactivateAccount(){
+        Database.deactivateUser(this.id);
+        return "success";
+    }
+
+    public String execute(){
+        if(this.isDeactivated() == 0){
+            Database.saveUser(this);
+            return "success";
+        }
+        else if (this.isDeactivated() == 1){
+            return "accountDeactivated";
+        }
+        else {
+            return "error";
+        }
+    }
+
+//getters and setters
     public void setName(String name){
         this.name=name;
         return;
@@ -28,11 +50,6 @@ public class User extends ActionSupport{
         return;
     }
 
-    public String deactivateAccount(){
-        Database.deactivateUser(this);
-        return "success";
-    }
-
     public String getName(){
         return name;
     }
@@ -49,16 +66,4 @@ public class User extends ActionSupport{
         return deactivated;
     }
 
-    public String execute(){
-        if(this.isDeactivated() == 0){
-            Database.saveUser(this);
-            return "success";
-        }
-        else if (this.isDeactivated() == 1){
-            return "accountDeactivated";
-        }
-        else {
-            return "error";
-        }
-    }
 }
