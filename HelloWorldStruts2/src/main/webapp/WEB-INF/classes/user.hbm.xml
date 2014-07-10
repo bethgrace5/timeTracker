@@ -8,8 +8,9 @@
     <id name="id" type="int" column="id">
         <generator class="increment"></generator>
     </id>
-    <property name="name" type="string" column="name"></property>
-    <property name="password" type="string" column="password"></property>
-    <property name="deactivated" type="int" column="deactivated"></property>
+    <property name="isDeactivated" type="int" column="isDeactivated"></property>
+    <property name="userName" type="string" column="UserName"></property>
+    <property name="email" type="string" column="email"></property>
+    <property name="type" type="int" column="type"></property>
 </class>
 </hibernate-mapping>

@@ -1,16 +1,20 @@
 package com.tutorialspoint.struts2;
-
 import com.opensymphony.xwork2.ActionSupport;
-import java.lang.Integer;
-import java.lang.String;
 
+/**
+ * User class. 
+ * user is either a client or contractor type.
+ * Contractor's userName must be github username. Contractor is authenticated via github.
+ * Client's userName must be company name. Client is added by a contractor.
+ */
 public class User extends ActionSupport{
-    private int id;
-    private int deactivated = 0;
-    private String name;
-    private String password;
+    private int userPrimaryKey;
+    private int isDeactivated = 0;
+    private String userName;
+    private String email;
+    private int type;
+    //NOTE: password will be specific to Clients instead of Users
 
-//actions
     public String execute(){
         if(this.isDeactivated() == 0){
             Database.saveUser(this);
@@ -23,42 +27,45 @@ public class User extends ActionSupport{
             return "error";
         }
     }
-
-//getters and setters
-    public void setName(String name){
-        this.name=name;
+    public int getUserPrimaryKey(){
+        return userPrimaryKey;
+    }
+    public void setUserPrimaryKey(int userPrimaryKey){
+        this.userPrimaryKey = userPrimaryKey;
         return;
     }
-
-    public void setId(int id){
-        this.id=id;
+    public int getIsDeactivated(){
+        return isDeactivated;
+    }
+    public void setIsDeactivated(int isDeactivated){
+        if(isDeactivated == 0 || isDeactivated == 1)
+            this.isDeactivated = isDeactivated;
+        //else
         return;
     }
-
-    public void setPassword(String password){
-        this.password=password;
+    public String getUserName(){
+        return userName;
+    }
+    public void setUserName(String userName){
+        this.userName = userName;
         return;
     }
-
-    public void setDeactivated(int deactivated){
-        this.deactivated = deactivated;
+    public String getEmail(){
+        return email;
+    }
+    public void setEmail(String email){
+        this.email = email;
         return;
     }
-
-    public String getName(){
-        return name;
+    public int getType(){
+        return type;
     }
-
-    public int getId(){
-        return id;
+    public void setType(int type){
+        //TODO: use string instead of int?
+        //Currently 0="contractor" and 1="client"
+        if(type == 0 || type == 1)
+            this.type = type;
+        //else
+        return;
     }
-
-    public String getPassword(){
-        return password;
-    }
-
-    public int isDeactivated(){
-        return deactivated;
-    }
-
 }
