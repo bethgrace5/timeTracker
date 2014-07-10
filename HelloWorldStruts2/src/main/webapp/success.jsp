@@ -6,9 +6,7 @@
     <title>Successful</title>
 </head>
 <body>
-    success. Hello, <s:property value="name"/> <br/>
-    password: <s:property value="password"/> <br/>
-    Id: <s:property value="id"/>
+    Successfully created account for: <s:property value="name"/> <br/>
 
     <s:form action="deactivate">
     <s:hidden name="id"/>

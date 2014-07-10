@@ -11,11 +11,6 @@ public class User extends ActionSupport{
     private String password;
 
 //actions
-    public String deactivateAccount(){
-        Database.deactivateUser(this.id);
-        return "success";
-    }
-
     public String execute(){
         if(this.isDeactivated() == 0){
             Database.saveUser(this);

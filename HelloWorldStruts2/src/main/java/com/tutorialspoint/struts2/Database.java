@@ -24,7 +24,7 @@ public class Database{
         session.close();
         return i;
     }
-    public static void deactivateUser(int id){
+    public static int deactivateUser(int id){
         SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
         Session session = factory.openSession();
             Transaction tr = null;
@@ -33,14 +33,12 @@ public class Database{
             if(u != null){
                 u.setDeactivated(1);
                 session.update(u);
+                tr.commit();
+                session.close();
+                return 1;
             }
             tr.commit();
-        //}catch(HibernateException e) {
-            //if (tr != null) tr.rollback();
-            //e.printStackTrace();
-        //}finally{
             session.close();
-        //}
-        return;
+        return 0;
     }
 }
