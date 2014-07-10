@@ -6,7 +6,8 @@
     <title>Successful Deactivation</title>
 </head>
 <body>
-    Successfully deactivated account.
-
+    Successfully deactivated account. 
+    <br/>
+    <a href="/">Back to home</a>
 </body>
 </html>
