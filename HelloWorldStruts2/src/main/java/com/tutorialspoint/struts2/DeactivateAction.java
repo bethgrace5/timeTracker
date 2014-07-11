@@ -1,7 +1,7 @@
 package com.tutorialspoint.struts2;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class deactivateAction extends ActionSupport{
+public class DeactivateAction extends ActionSupport{
     private int id;
 
     public String execute(){
