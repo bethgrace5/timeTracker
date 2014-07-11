@@ -16,16 +16,16 @@ public class User extends ActionSupport{
     //NOTE: password will be specific to Clients instead of Users
 
     public String execute(){
-        if(this.isDeactivated() == 0){
+        //if(this.isDeactivated() == 0){
             Database.saveUser(this);
             return "success";
-        }
-        else if (this.isDeactivated() == 1){
-            return "accountDeactivated";
-        }
-        else {
-            return "error";
-        }
+        //}
+        //else if (this.isDeactivated() == 1){
+            //return "accountDeactivated";
+        //}
+        //else {
+            //return "error";
+        //}
     }
     public int getUserPrimaryKey(){
         return userPrimaryKey;

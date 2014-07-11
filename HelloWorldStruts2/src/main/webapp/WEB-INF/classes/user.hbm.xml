@@ -5,7 +5,7 @@
 
 <hibernate-mapping>
 <class name="com.tutorialspoint.struts2.User" table="login">
-    <id name="id" type="int" column="id">
+    <id name="userPrimaryKey" type="int" column="userPrimaryKey">
         <generator class="increment"></generator>
     </id>
     <property name="isDeactivated" type="int" column="isDeactivated"></property>

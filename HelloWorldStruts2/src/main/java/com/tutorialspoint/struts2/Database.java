@@ -31,7 +31,7 @@ public class Database{
             tr = session.beginTransaction();
             User u = (User) session.get(User.class, id);
             if(u != null){
-                u.setDeactivated(1);
+                u.setIsDeactivated(1);
                 session.update(u);
                 tr.commit();
                 session.close();

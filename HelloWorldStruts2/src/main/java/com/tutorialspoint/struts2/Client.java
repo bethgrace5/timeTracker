@@ -21,7 +21,7 @@ public class Client{
         return;
     }
     public int getUserForeignKey(){
-        return UserForeignKey;
+        return userForeignKey;
     }
     public void setUserForeignKey(int userForeignKey){
     //TODO: how to associate client with specific user primary key?
@@ -43,7 +43,7 @@ public class Client{
         if( this.passwordChanged == 0 ){
     //TODO: call method to prompt to change password for the first time.
             this.passwordChanged = passwordChanged;
-            isDefaultPassword = 1;
+            //isDefaultPassword = 1;
         }
         //else
     //TODO: call method to change password that already exists.

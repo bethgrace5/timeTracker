@@ -18,7 +18,7 @@ public class Contractor{
         return;
     }
     public int getUserForeignKey(){
-        return UserForeignKey;
+        return userForeignKey;
     }
     public void setUserForeignKey(int userForeignKey){
     //TODO: see note in setUserForeignKey() in Client.java

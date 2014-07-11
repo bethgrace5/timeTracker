@@ -6,10 +6,10 @@
     <title>Successful</title>
 </head>
 <body>
-    Successfully created account for: <s:property value="name"/> <br/>
+    Successfully created account for: <s:property value="userName"/> <br/>
 
     <s:form action="deactivate">
-    <s:hidden name="id"/>
+    <s:hidden name="userPrimaryKey"/>
     <s:submit value="Deactivate Account"></s:submit>
     </s:form>
 </body>

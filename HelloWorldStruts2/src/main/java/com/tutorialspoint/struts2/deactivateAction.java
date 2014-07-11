@@ -5,17 +5,15 @@ public class deactivateAction extends ActionSupport{
     private int id;
 
     public String execute(){
-        if( Database.deactivateUser() )
+        Database.deactivateUser(getId());
             return "success";
-        else
-            return "error";
     }
 
     public int getId(){
         return id;
     }
 
-    public void setId(String id){
+    public void setId(int id){
         this.id=id;
         return;
     }
