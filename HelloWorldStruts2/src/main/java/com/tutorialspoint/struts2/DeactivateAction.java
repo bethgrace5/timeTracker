@@ -5,7 +5,7 @@ public class DeactivateAction extends ActionSupport{
     private int id;
 
     public String execute(){
-        Database.deactivateUser(getId());
+        Database.deactivateUser(this.getId());
             return "success";
     }
 

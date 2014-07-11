@@ -7,9 +7,10 @@
 </head>
 <body>
     Successfully created account for: <s:property value="userName"/> <br/>
+    <s:property value="id"/>
 
     <s:form action="deactivate">
-    <s:hidden name="userPrimaryKey"/>
+    <s:hidden name="id"/>
     <s:submit value="Deactivate Account"></s:submit>
     </s:form>
 </body>

@@ -8,11 +8,12 @@ import com.opensymphony.xwork2.ActionSupport;
  * Client's userName must be company name. Client is added by a contractor.
  */
 public class User extends ActionSupport{
-    private int userPrimaryKey;
-    private int isDeactivated = 0;
+    private int id;
+    private String name;
+    private boolean isDeactivated = false;
     private String userName;
     private String email;
-    private int type;
+    private String type;
     //NOTE: password will be specific to Clients instead of Users
 
     public String execute(){
@@ -27,18 +28,24 @@ public class User extends ActionSupport{
             //return "error";
         //}
     }
-    public int getUserPrimaryKey(){
-        return userPrimaryKey;
+    public int getId(){
+        return id;
     }
-    public void setUserPrimaryKey(int userPrimaryKey){
-        this.userPrimaryKey = userPrimaryKey;
+    public void setId(int id){
+        this.id = id;
         return;
     }
-    public int getIsDeactivated(){
+    public String getName(){
+        return name;
+    }
+    public void setName(String name){
+        this.name = name;
+        return;
+    }
+    public boolean getIsDeactivated(){
         return isDeactivated;
     }
-    public void setIsDeactivated(int isDeactivated){
-        if(isDeactivated == 0 || isDeactivated == 1)
+    public void setIsDeactivated(boolean isDeactivated){
             this.isDeactivated = isDeactivated;
         //else
         return;
@@ -57,13 +64,11 @@ public class User extends ActionSupport{
         this.email = email;
         return;
     }
-    public int getType(){
+    public String getType(){
         return type;
     }
-    public void setType(int type){
-        //TODO: use string instead of int?
-        //Currently 0="contractor" and 1="client"
-        if(type == 0 || type == 1)
+    public void setType(String type){
+        //TODO: set a condition to only allow type= "contractor" or "client"
             this.type = type;
         //else
         return;

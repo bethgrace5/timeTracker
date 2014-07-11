@@ -13,7 +13,12 @@
     <h3>Time and Mileage Tracker</h3>
     <h4>Create account:</h4>
     <s:form action="register">
-    <s:textfield name="name" label="Username"></s:textfield>
+    <s:textfield name="name" label="Name"></s:textfield>
+    <s:textfield name="email" label="Email"></s:textfield>
+    <s:textfield name="userName" label="Username"></s:textfield>
+    <s:select label="Choose Type"
+        list="#{'contractor':'Contractor', 'client':'Client'}"
+        name="type"/>
     <s:textfield name="password" label="Password"></s:textfield>
     <s:submit value="Submit"></s:submit>
     </s:form>

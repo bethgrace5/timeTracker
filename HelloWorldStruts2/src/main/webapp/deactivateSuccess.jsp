@@ -8,6 +8,7 @@
 <body>
     Successfully deactivated account. 
     <br/>
-    <a href="/">Back to home</a>
+    <a href="/">Back to home</a><br/>
+    <a href="/dbconsole">dbconsole</a>
 </body>
 </html>
