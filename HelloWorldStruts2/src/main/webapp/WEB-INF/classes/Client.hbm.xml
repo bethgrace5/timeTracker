@@ -1,4 +1,3 @@
-
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE hibernate-mapping PUBLIC
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
@@ -7,7 +6,7 @@
 <hibernate-mapping>
     <class name="com.tutorialspoint.struts2.Client" table="CLIENT">
         <property name="password" type="string" column="password"></property>
-        <property date="lastLogin" type="date" column="lastLogin"></property>
+        <property name="lastLogin" type="date" column="lastLogin"></property>
         <many-to-one name="user" column="user" unique="true" class="User" not-null="true"></many-to-one>
     </class>
 </hibernate-mapping>
