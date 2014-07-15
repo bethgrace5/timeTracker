@@ -1,4 +1,5 @@
 package com.tutorialspoint.struts2;
+import java.util.Date;
 
 /**
  * Client class. 
@@ -7,49 +8,35 @@ package com.tutorialspoint.struts2;
 
 public class Client{
 
-    //TODO: rename clientPrimaryKey and userForeignKey to client_id and user_id
-    private int clientPrimaryKey;
-    private int userForeignKey;
-    //TODO: change passwordChanged to previousLoginDate
-    private int passwordChanged;
-    private String password;
+    private User user;
+    private String password = null;
+    private Date lastLogin = null;
 
-    public int getClientPrimaryKey(){
-        return clientPrimaryKey;
+    public User getUser(){
+        return user;
     }
-    public void setClientPrimaryKey(int clientPrimaryKey){
-        this.clientPrimaryKey = clientPrimaryKey;
-        return;
-    }
-    public int getUserForeignKey(){
-        return userForeignKey;
-    }
-    public void setUserForeignKey(int userForeignKey){
-    //TODO: read about defining hibernate mapping files.
-        this.userForeignKey = userForeignKey;
-        return;
-    }
-    //TODO: Create field containing last login, if last login is null,
-    //      prompt to change password.
-    //TODO: read about password hashing, and look at Java's
-    //      RandomStringUtils.randomAlphanumeric()
-    public int getPasswordChanged(){
-        return passwordChanged;
-    }
-    public void setPasswordChanged(int passwordChanged){
-        if( this.passwordChanged == 0 ){
-    //TODO: call method to prompt to change password for the first time.
-            this.passwordChanged = passwordChanged;
-        }
-        //else
-    //TODO: call method to change password that already exists.
+    public void setUser(User user){
+        this.user = user;
         return;
     }
     public String getPassword(){
         return password;
     }
-    public void setPassword(){
+    public void setPassword( String password ){
+        if( this.password == null ){
+            //TODO: calls a random string generator,
+            //      and emails initial password to client;
+            //password = RandomAlphaNumericWhatever()
+            //email to user.getEmail(); 
+        }
         this.password = password;
+        return;
+    }
+    public Date getLastLogin(){
+        return lastLogin;
+    }
+    public void setLastLogin( Date lastLogin ){
+        this.lastLogin = lastLogin;
         return;
     }
 }

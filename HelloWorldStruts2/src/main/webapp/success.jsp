@@ -9,7 +9,7 @@
     Successfully created account for: <s:property value="userName"/> <br/>
 
     <s:form action="deactivate">
-    <s:submit value="Deactivate Account"></s:submit>
+        <s:submit value="Deactivate Account"></s:submit>
     </s:form>
 </body>
 </html>

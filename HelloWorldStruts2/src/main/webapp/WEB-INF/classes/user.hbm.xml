@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-<class name="com.tutorialspoint.struts2.User" table="login">
+<class name="com.tutorialspoint.struts2.User" table="USER">
     <id name="id" type="int" column="id">
         <generator class="increment"></generator>
     </id>
