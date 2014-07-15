@@ -7,7 +7,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * Contractor's userName must be github username. Contractor is authenticated via github.
  * Client's userName must be company name. Client is added by a contractor.
  */
-public class User extends ActionSupport{
+public class User {
     private int id;
     private String name;
     private boolean isDeactivated = false;
@@ -15,11 +15,23 @@ public class User extends ActionSupport{
     private String email;
     private String type;
     //NOTE: password will be specific to Clients instead of Users
+    
+    //constructor
+    public User(String name, String userName, String email, String type){
+        this.userName = userName;
+        this.name = name;
+        this.email = email;
+        this.type = type;
+        return;
+    }
+    public User(){
+        return;
+    }
 
-    public String execute(){
+    //public String execute(){
         //if(this.isDeactivated() == 0){
-            Database.saveUser(this);
-            return "success";
+            //Database.saveUser(this);
+            //return "success";
         //}
         //else if (this.isDeactivated() == 1){
             //return "accountDeactivated";
@@ -27,7 +39,7 @@ public class User extends ActionSupport{
         //else {
             //return "error";
         //}
-    }
+    //}
     public int getId(){
         return id;
     }

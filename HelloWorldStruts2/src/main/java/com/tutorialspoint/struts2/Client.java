@@ -2,16 +2,17 @@ package com.tutorialspoint.struts2;
 
 /**
  * Client class. 
- * Clients may be added by a contractor with a default password that 
- * must be changed upon first login.
+ * Clients may be added by a contractor
  */
 
 public class Client{
 
+    //TODO: rename clientPrimaryKey and userForeignKey to client_id and user_id
     private int clientPrimaryKey;
     private int userForeignKey;
+    //TODO: change passwordChanged to previousLoginDate
     private int passwordChanged;
-    private String password = "someObscureDefaultValue"; //or randomly generated and sent to email.
+    private String password;
 
     public int getClientPrimaryKey(){
         return clientPrimaryKey;
@@ -24,18 +25,14 @@ public class Client{
         return userForeignKey;
     }
     public void setUserForeignKey(int userForeignKey){
-    //TODO: how to associate client with specific user primary key?
-    //      probably in .hbm.xml file. ->check
-    //      if done in .hbm.xml file, then there does not need to be
-    //      a way to "set" the foreign key.
-    //      Or, does the .hbm.xml file use this set method?
-    //this.userForeignKey = this.User.getUserPrimaryKey();
+    //TODO: read about defining hibernate mapping files.
         this.userForeignKey = userForeignKey;
         return;
     }
-    //TODO: instead of having "passwordChanged", set password to some obscure
-    //      default value, and when logging in, check to see that password
-    //      has been changed from that value. If not, prompt to change.
+    //TODO: Create field containing last login, if last login is null,
+    //      prompt to change password.
+    //TODO: read about password hashing, and look at Java's
+    //      RandomStringUtils.randomAlphanumeric()
     public int getPasswordChanged(){
         return passwordChanged;
     }
@@ -43,7 +40,6 @@ public class Client{
         if( this.passwordChanged == 0 ){
     //TODO: call method to prompt to change password for the first time.
             this.passwordChanged = passwordChanged;
-            //isDefaultPassword = 1;
         }
         //else
     //TODO: call method to change password that already exists.

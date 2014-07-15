@@ -15,30 +15,30 @@ import java.lang.String;
 
 public class Database{
 
-    public static int saveUser(User u){
+    public static Integer saveUser(User u){
         SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
         Session session = factory.openSession();
         Transaction tr = session.beginTransaction();
-        int i= (Integer)session.save(u);
+        session.save(u);
         tr.commit();
         session.close();
-        return i;
+        return u.getId();
     }
     public static int deactivateUser(int id){
         SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
         Session session = factory.openSession();
-            Transaction tr = null;
-            tr = session.beginTransaction();
-            User u = (User) session.get(User.class, id);
-            if(u != null){
-                u.setIsDeactivated(true);
-                session.update(u);
-                tr.commit();
-                session.close();
-                return 1;
-            }
+        Transaction tr = null;
+        tr = session.beginTransaction();
+        User u = (User) session.get(User.class, id);
+        if(u != null){
+            u.setIsDeactivated(true);
+            session.update(u);
             tr.commit();
             session.close();
+            return 1;
+        }
+        tr.commit();
+        session.close();
         return 0;
     }
 }
