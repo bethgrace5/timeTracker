@@ -12,6 +12,8 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.HibernateException;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Database{
 
@@ -61,7 +63,22 @@ public class Database{
         User user = (User) session.get(User.class, id);
         tr.commit();
         session.close();
-
         return user;
+    }
+    public static List<String> getTeams(User user){
+        List<String> teams = new ArrayList<String>();
+        String name;
+        SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+        Session session = factory.openSession();
+        Transaction tr = null;
+        tr = session.beginTransaction();
+        teams = session.createCriteria(Team.class).list();
+        //while(name = session.get(Team.class)){
+            //TODO: teams that the user is already associated with is not added to list.
+            //teams.add(name);
+        //}
+        tr.commit();
+        session.close();
+        return teams;
     }
 }

@@ -22,6 +22,9 @@ public class Team{
         //users.add(user);
         //return;
     //}
+    public Team(){
+        return;
+    }
     public Team(String teamName){
         this.teamName = teamName;
     }
@@ -34,6 +37,9 @@ public class Team{
     }
     public String getTeamName(){
         return teamName;
+    }
+    public String toString(){
+        return this.getTeamName();
     }
     public void setTeamName( String teamName ){
         this.teamName = teamName;

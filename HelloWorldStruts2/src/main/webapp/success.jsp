@@ -15,8 +15,10 @@
     <s:textfield name="teamName" label="Team Name"></s:textfield>
         <s:submit value="Create Team"></s:submit>
     </s:form>
-    <s:form action="joinTeam">
-        <s:submit value="Join Team"></s:submit>
+
+    <p> List of Teams </p>
+    <s:form action="ListTeamsAction">
+        <s:submit value="List teams"></s:submit>
     </s:form>
 </body>
 </html>
