@@ -9,7 +9,6 @@
 <body>
     <p> List of Teams </p>
 
-
     <s:select list="teams" name="team">
         <s:iterator value="teams">
         </s:iterator>
