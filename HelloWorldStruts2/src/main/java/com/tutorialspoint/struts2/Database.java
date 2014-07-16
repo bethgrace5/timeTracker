@@ -29,10 +29,10 @@ public class Database{
         Session session = factory.openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
-        User u = (User) session.get(User.class, id);
-        if(u != null){
-            u.setIsDeactivated(true);
-            session.update(u);
+        User user = (User) session.get(User.class, id);
+        if(user != null){
+            user.setIsDeactivated(true);
+            session.update(user);
             tr.commit();
             session.close();
             return 1;
@@ -40,5 +40,28 @@ public class Database{
         tr.commit();
         session.close();
         return 0;
+    }
+    public static int saveTeam(Team team, User user){
+        SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+        Session session = factory.openSession();
+        Transaction tr = session.beginTransaction();
+        team.getUsers().add(user);
+        session.refresh(user);
+        user.getTeams().add(team);
+        session.save(team);
+        tr.commit();
+        session.close();
+        return team.getId();
+    }
+    public static User getUserById(int id){
+        SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+        Session session = factory.openSession();
+        Transaction tr = null;
+        tr = session.beginTransaction();
+        User user = (User) session.get(User.class, id);
+        tr.commit();
+        session.close();
+
+        return user;
     }
 }

@@ -11,5 +11,12 @@
     <s:form action="deactivate">
         <s:submit value="Deactivate Account"></s:submit>
     </s:form>
+    <s:form action="createTeam">
+    <s:textfield name="teamName" label="Team Name"></s:textfield>
+        <s:submit value="Create Team"></s:submit>
+    </s:form>
+    <s:form action="joinTeam">
+        <s:submit value="Join Team"></s:submit>
+    </s:form>
 </body>
 </html>

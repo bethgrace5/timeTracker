@@ -17,7 +17,10 @@
 
         <action name="deactivate" class="com.tutorialspoint.struts2.DeactivateAction" method="execute">
             <result name="success">deactivateSuccess.jsp</result>
-            <result name="error">deactivatedAccount.jsp</result>
+        </action>
+
+        <action name="createTeam" class="com.tutorialspoint.struts2.CreateTeamAction" method="execute">
+            <result name="success">deactivateSuccess.jsp</result>
         </action>
 
         <action name="index">

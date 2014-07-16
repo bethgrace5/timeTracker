@@ -1,5 +1,7 @@
 package com.tutorialspoint.struts2;
 import com.opensymphony.xwork2.ActionSupport;
+import java.util.Set;
+import java.util.HashSet;
 
 /**
  * User class. 
@@ -14,6 +16,7 @@ public class User {
     private String userName;
     private String email;
     private String type;
+    private Set<Team> teams = new HashSet<Team>();
     //NOTE: password will be specific to Clients instead of Users
     
     //constructor
@@ -83,6 +86,13 @@ public class User {
         //TODO: set a condition to only allow type= "contractor" or "client"
             this.type = type;
         //else
+        return;
+    }
+    public Set getTeams(){
+        return teams;
+    }
+    public void setTeams( Set<Team> teams ){
+        this.teams = teams;
         return;
     }
 }

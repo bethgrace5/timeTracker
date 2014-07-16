@@ -9,7 +9,10 @@
             <generator class="increment"></generator>
         </id>
         <property name="teamName" type="string" column="teamName"></property>
-        <many-to-one name="user" column="user" unique="true" class="User" not-null="true"></many-to-one>
+        <set name="users" cascade="save-update" table="TEAM_USER" inverse="false">
+            <key column="team_id"></key>
+            <many-to-many column="user_id" entity-name="com.tutorialspoint.struts2.User"></many-to-many>
+        </set>
        <!-- class Project not created yet -->
        <!-- <many-to-one name="project" column="project" unique="true" class="Project" not-null="true"></many-to-one> -->
     </class>

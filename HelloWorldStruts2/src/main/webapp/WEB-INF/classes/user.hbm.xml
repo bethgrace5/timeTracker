@@ -8,6 +8,10 @@
     <id name="id" type="int" column="id">
         <generator class="increment"></generator>
     </id>
+    <set name="teams" cascade="save-update" table="TEAM_USER" inverse="true">
+        <key column="user_id"></key>
+        <many-to-many column="team_id" entity-name="com.tutorialspoint.struts2.Team"></many-to-many>
+    </set>
     <property name="name" type="string" column="name"></property>
     <property name="isDeactivated" type="boolean" column="isDeactivated"></property>
     <property name="userName" type="string" column="UserName"></property>

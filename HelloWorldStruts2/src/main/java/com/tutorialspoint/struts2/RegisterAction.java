@@ -7,7 +7,6 @@ public class RegisterAction extends ActionSupport implements SessionAware{
     private String name;
     private String email;
     private String userName;
-    private String password;
     private String type;
     private Map<String, Object> session;
 
