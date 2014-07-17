@@ -11,4 +11,12 @@
         <put-attribute name="body" value="Body Text"/>
     </definition>
 
+    <definition name="login" extends="baseLayout">
+        <put-attribute name="title" value="Time and Mileage Tracker - Login"/>
+    </definition>
+
+    <definition name="register" extends="baseLayout">
+        <put-attribute name="title" value="Time and Mileage Tracker - Register"/>
+    </definition>
+
 </tiles-definitions>
