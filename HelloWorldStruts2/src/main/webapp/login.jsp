@@ -5,7 +5,7 @@
 
 <section id="login-form">
     <h4>Login</h4>
-    <form action="login">
+    <form action="login" method="post">
         <table>
             <s:textfield name="userName" label="Username"></s:textfield>
             <s:textfield name="password" label="Password"></s:textfield>

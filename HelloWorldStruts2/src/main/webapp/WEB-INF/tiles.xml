@@ -21,4 +21,9 @@
         <put-attribute name="body" value="/register.jsp"/>
     </definition>
 
+    <definition name="dashboard" extends="baseLayout">
+        <put-attribute name="title" value="Time and Mileage Tracker - Dashboard"/>
+        <put-attribute name="body" value="/dashboard.jsp"/>
+    </definition>
+
 </tiles-definitions>

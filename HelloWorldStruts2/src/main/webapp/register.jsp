@@ -5,7 +5,7 @@
 
 <section id="register-form">
     <h4>Create Account</h4>
-    <form action="register">
+    <form action="register" method="post">
         <table>
             <s:textfield name="name" label="Name"></s:textfield>
             <s:textfield name="email" label="Email"></s:textfield>
