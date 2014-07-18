@@ -9,11 +9,11 @@
 <body>
     <p> List of Teams </p>
 
-
-    <s:select list="teams" name="team">
-        <s:iterator value="teams">
-        </s:iterator>
-    </s:select>
+    <s:form action="joinTeam">
+        <s:select list="teams" label="Choose Team" name="teamName">
+            <s:iterator value="teams"> </s:iterator>
+        </s:select>
+    </s:form>
 
 </body>
 </html>

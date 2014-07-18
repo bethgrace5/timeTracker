@@ -95,4 +95,7 @@ public class User {
         this.teams = teams;
         return;
     }
+    public String toString(){
+        return getUserName();
+    }
 }

@@ -38,11 +38,11 @@ public class Team{
     public String getTeamName(){
         return teamName;
     }
-    public String toString(){
-        return this.getTeamName();
-    }
     public void setTeamName( String teamName ){
         this.teamName = teamName;
+    }
+    public String toString(){
+        return this.getTeamName();
     }
     //public Date getStartDate(){
         //return startDate;
