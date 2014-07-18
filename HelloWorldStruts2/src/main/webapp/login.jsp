@@ -8,7 +8,7 @@
     <form action="login" method="post">
         <table>
             <s:textfield name="userName" label="Username"></s:textfield>
-            <s:textfield name="password" label="Password"></s:textfield>
+            <s:password name="password" label="Password"></s:password>
             <s:submit value="Login"></s:submit>
         </table>
     </form>

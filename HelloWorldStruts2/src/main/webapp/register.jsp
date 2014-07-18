@@ -13,7 +13,7 @@
             <s:select label="Choose Type"
                 list="#{'contractor':'Contractor', 'client':'Client'}"
                 name="type"/>
-            <s:textfield name="password" label="Password"></s:textfield>
+            <s:password name="password" label="Password"></s:password>
             <s:submit value="Register"></s:submit>
         </table>
     </form>
