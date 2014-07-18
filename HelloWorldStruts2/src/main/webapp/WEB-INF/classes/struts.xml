@@ -7,10 +7,15 @@
     <constant name="struts.action.excludePattern" value="/dbconsole/*"></constant>
 
     <package name="default" namespace="/" extends="struts-default">
+        <result-types>
+            <result-type name="tiles"
+                class="org.apache.struts2.views.tiles.TilesResult" />
+        </result-types>
+
         <default-action-ref name="login" />
 
         <action name="login">
-            <result>login.jsp</result>
+            <result type="tiles">login</result>
         </action>
 
         <action name="register" class="com.tutorialspoint.struts2.RegisterAction" method="execute">
