@@ -35,4 +35,9 @@
         <put-attribute name="body" value="/error.jsp"/>
     </definition>
 
+    <definition name="joinTeam" extends="baseLayout">
+        <put-attribute name="title" value="Time and Mileage Tracker - Join Team Success"/>
+        <put-attribute name="body" value="/joinTeamSuccess.jsp"/>
+    </definition>
+
 </tiles-definitions>
