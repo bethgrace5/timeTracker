@@ -27,9 +27,14 @@
             <result>index.jsp</result>
         </action>
 
-        <action name="ListTeams" class="com.tutorialspoint.struts2.ListTeamsAction" method="execute">
+        <action name="listTeams" class="com.tutorialspoint.struts2.ListTeamsAction" method="execute">
             <result name="success">iterator.jsp</result>
         </action>
+
+        <action name="joinTeam" class="com.tutorialspoint.struts2.JoinTeamAction" method="execute">
+            <result name="success">joinTeamSuccess.jsp</result>
+        </action>
+
 
     </package>
 </struts>

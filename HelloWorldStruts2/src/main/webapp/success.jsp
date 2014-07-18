@@ -15,6 +15,13 @@
     <s:textfield name="teamName" label="Team Name"></s:textfield>
         <s:submit value="Create Team"></s:submit>
     </s:form>
-    <s:action name="ListTeams" executeResult="true"/>
+
+    <%-- TODO: get the team that is selected from the action --%>
+    <s:action name="listTeams" var="selectedTeam" executeResult="true"/>
+    <s:form action="joinTeam">
+        <s:submit value="Join Selected Team"/>
+        <s:property value="selectedTeam.teamName"/>
+    </s:form>
+
 </body>
 </html>

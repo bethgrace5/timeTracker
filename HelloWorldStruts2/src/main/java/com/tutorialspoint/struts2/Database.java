@@ -43,7 +43,8 @@ public class Database{
         session.close();
         return 0;
     }
-    public static int saveTeam(Team team, User user){
+    // associates team with user and user with team
+    public static int saveTeam(User user, Team team){
         SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
         Session session = factory.openSession();
         Transaction tr = session.beginTransaction();
@@ -64,6 +65,16 @@ public class Database{
         tr.commit();
         session.close();
         return user;
+    }
+    public static Team getTeamByName(String name){
+        SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+        Session session = factory.openSession();
+        Transaction tr = null;
+        tr = session.beginTransaction();
+        Team team = (Team) session.get(Team.class, teamName);
+        tr.commit();
+        session.close();
+        return team;
     }
     public static List<String> getTeams(User user){
         List<String> teams = new ArrayList<String>();
