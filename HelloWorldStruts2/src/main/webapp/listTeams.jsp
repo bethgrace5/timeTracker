@@ -2,14 +2,10 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
-<html>
-<head>
-    <title>Iterator</title>
-</head>
-<body>
-        <s:select list="teams" label="Join Team" name="team">
-            <s:iterator value="teams"> </s:iterator>
-        </s:select>
 
-</body>
-</html>
+<section>
+    <s:select list="teams" label="Join Team" name="team">
+        <s:iterator value="teams"> </s:iterator>
+    </s:select>
+
+</section>

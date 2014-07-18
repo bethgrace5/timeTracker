@@ -45,7 +45,7 @@
         </action>
 
         <action name="listTeams" class="com.tutorialspoint.struts2.ListTeamsAction" method="execute">
-            <result name="success">iterator.jsp</result>
+            <result name="success" type="tiles">listTeams</result>
         </action>
 
         <action name="joinTeam" class="com.tutorialspoint.struts2.JoinTeamAction" method="execute">

@@ -26,4 +26,8 @@
         <put-attribute name="body" value="/dashboard.jsp"/>
     </definition>
 
+    <definition name="listTeams" extends="baseLayout">
+        <put-attribute name="body" value="/listTeams.jsp"/>
+    </definition>
+
 </tiles-definitions>
