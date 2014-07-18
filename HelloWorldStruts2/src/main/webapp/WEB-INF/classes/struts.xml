@@ -4,15 +4,32 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
     <constant name="struts.devMode" value="true" />
-    <constant name="struts.action.excludePattern" value="/dbconsole/*"></constant>
+    <constant name="struts.action.excludePattern" value="/dbconsole/*, /static/css/.*?"></constant>
 
     <package name="default" namespace="/" extends="struts-default">
-        <default-action-ref name="index" />
+        <result-types>
+            <result-type name="tiles"
+                class="org.apache.struts2.views.tiles.TilesResult" />
+        </result-types>
+
+        <default-action-ref name="show-login" />
+
+        <action name="show-login">
+            <result type="tiles">login</result>
+        </action>
+
+        <action name="show-register">
+            <result type="tiles">register</result>
+        </action>
+
+        <action name="login" class="com.tutorialspoint.struts2.LoginAction" method="execute">
+            <result name="success" type="tiles">dashboard</result>
+            <result name="error">error.jsp</result>
+        </action>
 
         <action name="register" class="com.tutorialspoint.struts2.RegisterAction" method="execute">
-            <result name="success">success.jsp</result>
+            <result name="success" type="tiles">dashboard</result>
             <result name="error">error.jsp</result>
-            <result name="accountDeactivated">deactivatedAccount.jsp</result>
         </action>
 
         <action name="deactivate" class="com.tutorialspoint.struts2.DeactivateAction" method="execute">

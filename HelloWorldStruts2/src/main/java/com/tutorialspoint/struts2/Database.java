@@ -1,24 +1,26 @@
-/**
- *  Class that saves data using the Hibernate framework
- */
-
 package com.tutorialspoint.struts2;
 
-import org.hibernate.Session;
-import org.hibernate.Query;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.HibernateException;
-import java.lang.Integer;
-import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+
+import org.hibernate.cfg.Configuration;
+
+import org.hibernate.criterion.Restrictions;
+
+/**
+ *  Class that saves data using the Hibernate framework
+ */
 public class Database{
+    private static final SessionFactory factory =
+        new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 
     public static Integer saveUser(User u){
-        SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
         Session session = factory.openSession();
         Transaction tr = session.beginTransaction();
         session.save(u);
@@ -27,7 +29,6 @@ public class Database{
         return u.getId();
     }
     public static int deactivateUser(int id){
-        SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
         Session session = factory.openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
@@ -43,9 +44,7 @@ public class Database{
         session.close();
         return 0;
     }
-    // associates team with user and user with team
-    public static int saveTeam(User user, Team team){
-        SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+    public static int saveTeam(Team team, User user){
         Session session = factory.openSession();
         Transaction tr = session.beginTransaction();
         team.getUsers().add(user);
@@ -56,8 +55,20 @@ public class Database{
         session.close();
         return team.getId();
     }
+    public static User findUserByUsernameAndPassword(String userName,
+            String password) {
+        Session session = factory.openSession();
+        Transaction tr = null;
+        tr = session.beginTransaction();
+        // TODO -- implement using password as part of the query
+        User user = (User) session.createCriteria(User.class).
+                                   add(Restrictions.eq("userName", userName)).
+                                   uniqueResult();
+        tr.commit();
+        session.close();
+        return user;
+    }
     public static User getUserById(int id){
-        SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
         Session session = factory.openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
@@ -79,7 +90,6 @@ public class Database{
     public static List<String> getTeams(User user){
         List<String> teams = new ArrayList<String>();
         String name;
-        SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
         Session session = factory.openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
