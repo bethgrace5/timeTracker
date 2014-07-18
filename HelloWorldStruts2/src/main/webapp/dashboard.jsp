@@ -20,8 +20,8 @@
         <s:submit value="Create Team"></s:submit>
     </s:form>
 
-    <p>List of Teams</p>
-    <s:form action="ListTeamsAction">
-        <s:submit value="List teams"></s:submit>
+    <s:form action="joinTeam">
+    <s:action name="listTeams" executeResult="true"/>
+        <s:submit value="Join Selected Team"/>
     </s:form>
 </section>

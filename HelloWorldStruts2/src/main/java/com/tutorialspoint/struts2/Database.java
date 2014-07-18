@@ -82,7 +82,7 @@ public class Database{
         Session session = factory.openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
-        Team team = (Team) session.get(Team.class, teamName);
+        Team team = (Team) session.get(Team.class, name);
         tr.commit();
         session.close();
         return team;

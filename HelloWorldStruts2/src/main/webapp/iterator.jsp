@@ -7,13 +7,9 @@
     <title>Iterator</title>
 </head>
 <body>
-    <p> List of Teams </p>
-
-    <s:form action="joinTeam">
-        <s:select list="teams" label="Choose Team" name="teamName">
+        <s:select list="teams" label="Join Team" name="team">
             <s:iterator value="teams"> </s:iterator>
         </s:select>
-    </s:form>
 
 </body>
 </html>

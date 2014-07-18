@@ -3,11 +3,11 @@
 
 <html>
 <head>
-    <title>Successfully added to team</title>
+    <title>Created Team</title>
 </head>
 <body>
     <s:property value="currentUser"/>
-    Successfully added to team 
+    Successfully Created team: <s:property value="teamName"/>
     <br/>
     <a href="/">Back to home</a><br/>
     <a href="/dbconsole">dbconsole</a>

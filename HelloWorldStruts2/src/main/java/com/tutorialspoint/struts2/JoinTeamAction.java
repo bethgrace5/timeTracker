@@ -12,7 +12,7 @@ public class JoinTeamAction extends ActionSupport implements SessionAware {
         User currentUser = Database.getUserById((int)session.get("userId"));
         //TODO: gets team ID from list, or gets Team from database by name.
         Team team = Database.getTeamByName(teamName);
-        Database.saveTeam(team, user);
+        Database.saveTeam(team, currentUser);
         return "success";
     }
     public void setSession(Map<String, Object> session){
