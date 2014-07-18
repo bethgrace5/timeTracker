@@ -6,8 +6,13 @@
 <section id="login-form">
     <h4>Login</h4>
     <form action="login">
-        <s:textfield name="userName" label="Username"></s:textfield>
-        <s:textfield name="password" label="Password"></s:textfield>
-        <s:submit value="Login"></s:submit>
+        <table>
+            <s:textfield name="userName" label="Username"></s:textfield>
+            <s:textfield name="password" label="Password"></s:textfield>
+            <s:submit value="Login"></s:submit>
+        </table>
     </form>
+    <div>
+        <a href="<s:url action='register' />">Register</a>
+    </div>
 </section>
