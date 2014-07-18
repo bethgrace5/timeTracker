@@ -19,3 +19,5 @@ HelloWorldStruts2/target/
 .classpath
 .project
 .settings/
+*.properties
+/Servers
