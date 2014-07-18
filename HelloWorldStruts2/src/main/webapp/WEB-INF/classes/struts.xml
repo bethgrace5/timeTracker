@@ -13,10 +13,14 @@
                 class="org.apache.struts2.views.tiles.TilesResult" />
         </result-types>
 
-        <default-action-ref name="login" />
+        <default-action-ref name="show-login" />
 
-        <action name="login">
+        <action name="show-login">
             <result type="tiles">login</result>
+        </action>
+
+        <action name="show-register">
+            <result type="tiles">register</result>
         </action>
 
         <action name="register" class="com.tutorialspoint.struts2.RegisterAction" method="execute">

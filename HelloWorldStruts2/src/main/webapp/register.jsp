@@ -6,13 +6,15 @@
 <section id="register-form">
     <h4>Create Account</h4>
     <form action="register">
-        <s:textfield name="name" label="Name"></s:textfield>
-        <s:textfield name="email" label="Email"></s:textfield>
-        <s:textfield name="userName" label="Username"></s:textfield>
-        <s:select label="Choose Type"
-            list="#{'contractor':'Contractor', 'client':'Client'}"
-            name="type"/>
+        <table>
+            <s:textfield name="name" label="Name"></s:textfield>
+            <s:textfield name="email" label="Email"></s:textfield>
+            <s:textfield name="userName" label="Username"></s:textfield>
+            <s:select label="Choose Type"
+                list="#{'contractor':'Contractor', 'client':'Client'}"
+                name="type"/>
             <s:textfield name="password" label="Password"></s:textfield>
             <s:submit value="Register"></s:submit>
+        </table>
     </form>
 </section>
