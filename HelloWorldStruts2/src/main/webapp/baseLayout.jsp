@@ -10,6 +10,7 @@
             <%-- filled in by Struts2 Tiles --%>
             <tiles:insertAttribute name="title"/>
         </title>
+        <link rel="stylesheet" type="text/css" href="static/css/main.css" />
     </head>
     <body>
         <%-- filled in by Struts2 Tiles --%>
