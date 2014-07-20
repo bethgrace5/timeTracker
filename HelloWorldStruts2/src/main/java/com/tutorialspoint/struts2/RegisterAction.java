@@ -8,11 +8,12 @@ public class RegisterAction extends ActionSupport implements SessionAware{
     private String email;
     private String userName;
     private String type;
+    private String password;
     private Map<String, Object> session;
 
     public String execute(){
 
-        User user = new User(name, userName, email, type);
+        User user = new User(name, userName, email, type, password);
         Integer userId = Database.saveUser(user);
         session.put("userId", user.getId());
         return "success";
@@ -48,6 +49,13 @@ public class RegisterAction extends ActionSupport implements SessionAware{
     }
     public void setType(String type){
         this.type = type;
+        return;
+    }
+    public String getPassword(){
+        return password ;
+    }
+    public void setPassword(String password){
+        this.password = password;
         return;
     }
     

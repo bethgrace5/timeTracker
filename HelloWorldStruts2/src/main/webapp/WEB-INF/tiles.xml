@@ -11,6 +11,11 @@
         <put-attribute name="body" value="Body Text"/>
     </definition>
 
+    <definition name="show-login" extends="baseLayout">
+        <put-attribute name="title" value="Time and Mileage Tracker - Login"/>
+        <put-attribute name="body" value="/login.jsp"/>
+    </definition>
+
     <definition name="login" extends="baseLayout">
         <put-attribute name="title" value="Time and Mileage Tracker - Login"/>
         <put-attribute name="body" value="/login.jsp"/>
@@ -24,6 +29,16 @@
     <definition name="dashboard" extends="baseLayout">
         <put-attribute name="title" value="Time and Mileage Tracker - Dashboard"/>
         <put-attribute name="body" value="/dashboard.jsp"/>
+    </definition>
+
+    <definition name="dashboard-contractor" extends="baseLayout">
+        <put-attribute name="title" value="Time and Mileage Tracker - Dashboard-contractor"/>
+        <put-attribute name="body" value="/dashboard-contractor.jsp"/>
+    </definition>
+
+    <definition name="dashboard-client" extends="baseLayout">
+        <put-attribute name="title" value="Time and Mileage Tracker - Dashboard-client"/>
+        <put-attribute name="body" value="/dashboard-client.jsp"/>
     </definition>
 
     <definition name="listTeams" extends="baseLayout">

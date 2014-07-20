@@ -12,37 +12,25 @@ import java.util.HashSet;
 public class User {
     private int id;
     private String name;
-    private boolean isDeactivated = false;
     private String userName;
     private String email;
     private String type;
-    private Set<Team> teams = new HashSet<Team>();
-    //NOTE: password will be specific to Clients instead of Users
+    private String password;
+    private boolean isDeactivated = false;
     
-    //constructor
-    public User(String name, String userName, String email, String type){
-        this.userName = userName;
+    public User(String name, String userName, String email, 
+                String type, String password){
         this.name = name;
+        this.userName = userName;
         this.email = email;
         this.type = type;
+        this.password = password;
+        this.isDeactivated = false;
         return;
     }
     public User(){
         return;
     }
-
-    //public String execute(){
-        //if(this.isDeactivated() == 0){
-            //Database.saveUser(this);
-            //return "success";
-        //}
-        //else if (this.isDeactivated() == 1){
-            //return "accountDeactivated";
-        //}
-        //else {
-            //return "error";
-        //}
-    //}
     public int getId(){
         return id;
     }
@@ -61,8 +49,7 @@ public class User {
         return isDeactivated;
     }
     public void setIsDeactivated(boolean isDeactivated){
-            this.isDeactivated = isDeactivated;
-        //else
+        this.isDeactivated = isDeactivated;
         return;
     }
     public String getUserName(){
@@ -83,16 +70,14 @@ public class User {
         return type;
     }
     public void setType(String type){
-        //TODO: set a condition to only allow type= "contractor" or "client"
-            this.type = type;
-        //else
+        this.type = type;
         return;
     }
-    public Set getTeams(){
-        return teams;
+    public String getPassword(){
+        return password;
     }
-    public void setTeams( Set<Team> teams ){
-        this.teams = teams;
+    public void setPassword(String password){
+        this.password = password;
         return;
     }
     public String toString(){
