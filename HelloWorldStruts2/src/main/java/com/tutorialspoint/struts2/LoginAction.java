@@ -9,14 +9,12 @@ import com.opensymphony.xwork2.ActionSupport;
 public class LoginAction extends ActionSupport implements SessionAware {
     private String userName;
     private String password;
-    private User user;
     private Map<String, Object> session;
 
     public String execute() {
-        user = Database.findUserByUsernameAndPassword(
+        User user = Database.findUserByUsernameAndPassword(
                 this.userName, this.password);
         if( user == null ){
-            //FIXME: user is not being created successfully.
             return "error";
         }
         session.put("userId", user.getId());
@@ -41,11 +39,5 @@ public class LoginAction extends ActionSupport implements SessionAware {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-    public User getUser(){
-        return user;
-    }
-    public void setUser(User user){
-        this.user = user;
     }
 }
