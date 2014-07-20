@@ -1,66 +1,189 @@
 Requirements analysis:
--create an effective way to track time and mileage for a task
-in a milestone associated with the project for a specific client.
 
+-----------------------------------------------------------------------
+Uses an existing github repository to itemize time and mileage billed to 
+clients by issues, milestones, or general association to the repository.
+
+-----------------------------------------------------------------------
 Existing tools
 -github
 -toggl
 -google docs (optional)
 
-
 Design
 - web application framework: Struts 2
-- web server/ servlet container: apache Tomcat
 - java server pages
 - H2 database engine (uncertain: need to research)
 - bottom-up design
 
-Ideas
-- can clients log in and see times for contractor
-- different accounts for client vs contractor
--as a contractor, with several clients, store different clients' time 
-    and mileage seperately
-- relational databases to relate clients to servers, then they can 
-        
-    user -has projects
-         -has type (contractor, client)
-         -has github username 
+Notation note: 'repos' were previously referred to as 'projects'
+Naming will updated throughout.
 
-    project
-        -has a client
-        -has github URL
-                
-    client
-        -has projects 
-        -has users
+-----------------------------------------------------------------------
+github API supports creating and modifying repos, teams, issues, etc. 
+remotely. For simplicity, this web app will simply read and display
+data associated with the repos. Minimal data will be stored in order to 
+efficiently associate users and repos.
 
-    milestone (optional in github)
-        -has github URL
+There are two types of users. Contractors and clients. Each has a
+different dashboard page with different options.
 
-    issue (optionally has milestone)
-        - has rate items 
-        -has github URL
+-----------------------------------------------------------------------
+Contractors:
+Contractors are authenticated by github, therefore must have github account.
 
-    (work -things that require time)
-    milestones -> issues -> time  -> mileage
-    issues
+Upon Authentication: 
+    -if user does not exist in database, new data is added to database by
+        retrieving data from github including: username, name, email, and
+        github id. Type will be set to contractor, and deactivated is false
+
+    -if user exists in database, check if user is deactivated before continuing.
+
+Dashboard (in no particular order yet):
+    Menu Options:
+        1. Track new repo: 
+            input: gitub repo url. 
+            new data is added to the database by retrieving info from 
+            github including: repo name, repo url, contributors, 
+            (Milestones and Issues will be added to the database as well)
+            associated with the repo. The repo is then associated with the
+            user who added it for tracking.
+
+        2. Connect to tracked repo: if user is not associated with the repo
+            in the database, or listed as a contributor in github, they can 
+            supply the url to associate themselves with the repo. 
+
+        3. Add a new client:
+            input: company or individual name -> this is username, 
+            email address, select a repo to associate the client with,
+            Note: client must be added to a repo when they are created.
+            (if client is not added to a repo initially, how to associate client 
+            with the contractor who added them so the client may be added
+            to a repo later? create an association between the client and
+            the contractor?)
+
+            note: when a client user is created they will be sent an
+            email with their username and a random generated password. 
+            they must change this password upon first login. The email
+            will also contain info on how the website works, and any other
+            helpful information they might need.
+
+        4. Update existing client:
+            -select client to update. 
+
+        5. Start time session now
+            -select repo
+            -select issue or milestone from repo
+            -add miles driven to location
+            -optional comments
+
+        6. Stop current time session (add option to stop for breaks?)
+
+        7. Backlog time session
+            -select date/time started
+            -select date/time stopped
+            -select repo
+            -select issue or milestone from repo
+            -add miles driven to location
+            -optional comments
+
+        8. Self Destruct
+            -deactivate account ( Contractor accounts can only be re-activated by web admin)
+            -deactivate client account. -select client
+            -reactivate client account. -select client
+    Main View:
+        1. Ideas: show time sessions, show totals by pay period
+                show list of projects...
+
+-----------------------------------------------------------------------
+Clients:
+Clients will be far more restricted than contractors. Mostly, they will
+be able to access information on their associated repos.
+There will be no option to register an account. Client accounts are
+created by contractors. Clients may have a github account, but it is not
+required. 
+
+Dashboard (in no particular order yet):
+    Menu Options:
+        1. Connect to tracked repo: user can add themselves to a repo
+            by adding the url of the repo if they have a github account.
+
+    Main View:
+        1. Ideas: show list of repos they are associated with. 
+            Note: rename repos to 'projects' or 'jobs' or something more
+            familiar sounding to someone who is not familiar with repos.
+
+            How much information should a client be able to access?
+            -who is working on their project.
+            -how much time is being put into the project and for what
+            (milestones, issues).
+            -only show milestones and if they are achieved or not.
+            -itemize who is working on what and when and where?
+            -link them to the repo they are associated with?
+            -create a way for them to send or post a question about
+            their projects. 
+
+-----------------------------------------------------------------------
+Database Redesign:
+
+User Table
+    int id (github id for contractors, generated id for clients)
+    String username
+    String name
+    String type (Contractor, client)
+    String password (store password for client only)
+        Note: look into methods of secure password handling (hashing etc.)
+    Boolean isActive
+
+Repos Table
+    int id (there must be an id that github uses for repos)
+    String githubURL
+    String name
+    String status (pending, inProgress, complete, cancelled)
 
 
-    have rate item with type, rate and amount.
+User_Repo Table
+    (many to many association between users and repos)
 
-    time -associated with a projects
-    -has a rate and amount
+TimeSession Table
+    int id
+    int userId
+    int repoId
+    int milestoneId
+    int issueId
+    (type? Date?) start date/time
+    (type? Date?) stop date/time
+    int MilesDriven
+    (? rate for time- how to determine rate based on which client)
 
-    mileage 
-    -rate of cost per mile
-    -amount of miles
+Milestone Table
+    int id
+    int projectId
+ 
+Issue Table
+    int id
+    int projectId
 
 
--associate github account with user account
+-----------------------------------------------------------------------
+Misc. Notes and Issues
 
+Note: Teams will no longer exist, only users associated with the project.
+github can be queried to find its existing teams and then the data can be 
+used to associate a user with a project. 
 
-Other Notes
--clock in/out
--mileage
--"fix time" (insert historical time while currently counting time)
--duration, start time, and end time
+How web admin will log in.
+    -create special entry in database
+
+when to check for updates with new milestones or issues assocated with the
+repo? (in order to update Milestones Table and Issues Table)
+    -upon user login, include a button to refresh repo?
+
+Look into how contractors can update rates for billed time. 
+Look into standards on rate per mile.
+
+Look into automatically generating a google doc time sheet and having the
+doc automatically and securely emailed to accounting or financial person 
+each pay period.
+
+-----------------------------------------------------------------------
