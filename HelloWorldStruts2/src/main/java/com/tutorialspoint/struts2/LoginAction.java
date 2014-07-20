@@ -13,11 +13,6 @@ public class LoginAction extends ActionSupport implements SessionAware {
     private Map<String, Object> session;
 
     public String execute() {
-        if(true){
-            //return "client" not working 
-        return "client";
-        }
-        else{
         user = Database.findUserByUsernameAndPassword(
                 this.userName, this.password);
         if( user == null ){
@@ -26,7 +21,6 @@ public class LoginAction extends ActionSupport implements SessionAware {
         }
         session.put("userId", user.getId());
         return user.getType();
-        }
     }
 
     public void setSession(Map<String, Object> session) {
