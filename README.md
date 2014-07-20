@@ -7,7 +7,8 @@ Collaborators:
 - [Kevin Mershon](https://github.com/kevinmershon)
 
 ### Summary
-Web application that efficiently tracks time and mileage costs billed to clients.
+Uses an existing github repository to itemize time and mileage billed to 
+clients by issues, milestones, or general association to the repository.
 
 ### Getting Started
 #### Windows + Eclipse users:
