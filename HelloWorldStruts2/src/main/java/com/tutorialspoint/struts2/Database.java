@@ -66,4 +66,16 @@ public class Database{
         session.close();
         return user;
     }
+    public static List<String> getClientUsers(){
+        //ArrayList<String> clients = new ArrayList<String>();
+        Session session = factory.openSession();
+        Transaction tr = null;
+        tr = session.beginTransaction();
+        Query query = session.createQuery("from users where type='client'");
+        List<String> clients = query.list();
+        tr.commit();
+        session.close();
+        return clients;
+    }
+
 }

@@ -28,7 +28,17 @@
             <result name="error">error.jsp</result>
         </action>
 
-        <action name="register" class="com.tutorialspoint.struts2.RegisterAction" method="execute">
+        <action name="register" class="com.tutorialspoint.struts2.ClientAction" method="execute">
+            <result name="success" type="tiles">dashboard</result>
+            <result name="error">error.jsp</result>
+        </action>
+
+        <action name="selectAction" class="com.tutorialspoint.struts2.ClientAction" method="display">
+            <result name="success" type="tiles">dashboard</result>
+            <result name="error">error.jsp</result>
+        </action>
+
+        <action name="getSelectedClient" class="com.tutorialspoint.struts2.ClientAction">
             <result name="success" type="tiles">dashboard</result>
             <result name="error">error.jsp</result>
         </action>

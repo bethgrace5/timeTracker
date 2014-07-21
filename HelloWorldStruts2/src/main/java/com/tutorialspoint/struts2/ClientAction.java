@@ -1,16 +1,25 @@
 package com.tutorialspoint.struts2;
+
 import org.apache.struts2.interceptor.SessionAware;
-import com.opensymphony.xwork2.ActionSupport;
-import java.util.Map;
 import org.apache.commons.lang3.RandomStringUtils;
+import com.opensymphony.xwork2.ActionSupport;
+
+import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 import java.lang.Object;
 
-public class RegisterAction extends ActionSupport implements SessionAware{
+public class ClientAction extends ActionSupport implements SessionAware{
     private String name;
     private String email;
     private String userName;
     private Map<String, Object> session;
+    private List<String> clients;
+    private String selectedClient;
 
+    /**
+     * Registers New Client User account
+     */
     public String execute(){
         //FIXME: method not found
         //String password = randomAlphanumeric(15);
@@ -21,6 +30,15 @@ public class RegisterAction extends ActionSupport implements SessionAware{
         Integer userId = Database.saveUser(user);
         session.put("userId", user.getId());
         // TODO: automatically email userName and password to client.
+        return "success";
+    }
+
+/**
+ * Updates Existing Client User account
+ */
+    public String display(){
+        clients = new ArrayList<String>();
+        clients = Database.getClientUsers();
         return "success";
     }
 
@@ -48,6 +66,12 @@ public class RegisterAction extends ActionSupport implements SessionAware{
     public void setEmail(String email){
         this.email = email;
         return;
+    }
+    public List<String> getClients(){
+        return clients;
+    }
+    public void setClients(List<String> clients){
+        this.clients = clients;
     }
     
 }

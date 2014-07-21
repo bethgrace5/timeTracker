@@ -11,5 +11,7 @@
         <h5>Successfully logged in as <s:property value="%{#parameters.userName}"/></h5>
     </s:elseif> --%>
         <h5> generic dashboard </h5>
+        <h4> selected client </h4>
+        <s:property value="selectedClient"/>
 
 </section>
