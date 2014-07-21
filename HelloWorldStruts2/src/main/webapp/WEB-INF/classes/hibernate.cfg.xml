@@ -13,9 +13,6 @@
 <property name="connection.password"></property>
 <property name="connection.driver_class">org.h2.Driver</property>
 <mapping resource="user.hbm.xml"/>
-<!--<mapping resource="team.hbm.xml"/>-->
-<!-- hibernate mapping broken for this file -->
-<!-- <mapping resource="client.hbm.xml"/> -->
 </session-factory>
 
 </hibernate-configuration>

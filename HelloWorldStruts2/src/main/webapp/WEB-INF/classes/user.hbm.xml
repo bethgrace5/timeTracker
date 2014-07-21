@@ -8,7 +8,11 @@
     <id name="id" type="int" column="id">
         <generator class="increment"></generator>
     </id>
-    <!--<set name="teams" cascade="save-update" table="TEAM_USER" inverse="true">
+    <!-- 
+        Leaving this set for a template to set up the user_repo
+        many-to-many
+          
+        <set name="teams" cascade="save-update" table="TEAM_USER" inverse="true">
         <key column="user_id"></key>
         <many-to-many column="team_id" entity-name="com.tutorialspoint.struts2.Team"></many-to-many>
     </set>-->

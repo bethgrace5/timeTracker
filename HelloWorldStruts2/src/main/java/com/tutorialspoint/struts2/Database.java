@@ -44,16 +44,6 @@ public class Database{
         session.close();
         return 0;
     }
-    public static int saveTeam(Team team, User user){
-        Session session = factory.openSession();
-        Transaction tr = session.beginTransaction();
-        team.getUsers().add(user);
-        session.refresh(user);
-        session.save(team);
-        tr.commit();
-        session.close();
-        return team.getId();
-    }
     public static User findUserByUsernameAndPassword(String userName,
             String password) {
         Session session = factory.openSession();
@@ -76,29 +66,4 @@ public class Database{
         session.close();
         return user;
     }
-    public static Team getTeamByName(String name){
-        SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
-        Session session = factory.openSession();
-        Transaction tr = null;
-        tr = session.beginTransaction();
-        Team team = (Team) session.get(Team.class, name);
-        tr.commit();
-        session.close();
-        return team;
-    }
-    /*public static List<String> getTeams(User user){
-        List<String> teams = new ArrayList<String>();
-        String name;
-        Session session = factory.openSession();
-        Transaction tr = null;
-        tr = session.beginTransaction();
-        teams = session.createCriteria(Team.class).list();
-        //while(name = session.get(Team.class)){
-            //TODO: teams that the user is already associated with is not added to list.
-            //teams.add(name);
-        //}
-        tr.commit();
-        session.close();
-        return teams;
-    } */
 }

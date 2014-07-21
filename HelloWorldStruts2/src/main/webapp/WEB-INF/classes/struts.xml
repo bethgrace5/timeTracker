@@ -25,7 +25,6 @@
         <action name="login" class="com.tutorialspoint.struts2.LoginAction" method="execute">
             <result name="contractor" type="tiles">dashboard-contractor</result>
             <result name="client" type="tiles">dashboard-client</result>
-            <result name="success">dashboard.jsp</result>
             <result name="error">error.jsp</result>
         </action>
 
@@ -36,10 +35,6 @@
 
         <action name="deactivate" class="com.tutorialspoint.struts2.DeactivateAction" method="execute">
             <result name="success">deactivateSuccess.jsp</result>
-        </action>
-
-        <action name="createTeam" class="com.tutorialspoint.struts2.CreateTeamAction" method="execute">
-            <result name="success">joinTeamSuccess.jsp</result>
         </action>
 
         <action name="index">
