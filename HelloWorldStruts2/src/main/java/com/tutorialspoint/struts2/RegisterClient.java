@@ -3,6 +3,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.Map;
 import org.apache.commons.lang3.RandomStringUtils;
+import java.lang.Object;
 
 public class RegisterAction extends ActionSupport implements SessionAware{
     private String name;
@@ -11,11 +12,12 @@ public class RegisterAction extends ActionSupport implements SessionAware{
     private Map<String, Object> session;
 
     public String execute(){
+        //FIXME: method not found
+        //String password = randomAlphanumeric(15);
+        String password = "password";
 
         //TODO: test if email is valid
-        User user = new User(name, userName, email, "client",
-                                   //randomAlphanumeric(15));
-                                   "password");
+        User user = new User(name, userName, email, "client", password);
         Integer userId = Database.saveUser(user);
         session.put("userId", user.getId());
         // TODO: automatically email userName and password to client.
