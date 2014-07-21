@@ -186,4 +186,7 @@ Look into automatically generating a google doc time sheet and having the
 doc automatically and securely emailed to accounting or financial person 
 each pay period.
 
+remember previous time session for contractors, so that the next time 
+session defaults to the same issue/milestone/repo, to make things easier.
+    -maybe check time session table to find immediate previous session.
 -----------------------------------------------------------------------
