@@ -8,12 +8,8 @@ import java.util.ArrayList;
 
 public class ListTeamsAction extends ActionSupport implements SessionAware {
     private Map<String, Object> session;
-    private List<String> teams;
 
     public String execute(){
-        teams = new ArrayList<String>();
-        User user = Database.getUserById((int)session.get("userId"));
-        teams = Database.getTeams(user);
 
         return "success";
     }
@@ -23,12 +19,4 @@ public class ListTeamsAction extends ActionSupport implements SessionAware {
         return;
     }
 
-    public List<String> getTeams(){
-        return teams;    
-    }
-
-    public void setTeams(List<String> teams){
-        this.teams = teams;
-    }
-    
 }

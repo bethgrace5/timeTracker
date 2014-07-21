@@ -8,14 +8,15 @@
     <id name="id" type="int" column="id">
         <generator class="increment"></generator>
     </id>
-    <set name="teams" cascade="save-update" table="TEAM_USER" inverse="true">
+    <!--<set name="teams" cascade="save-update" table="TEAM_USER" inverse="true">
         <key column="user_id"></key>
         <many-to-many column="team_id" entity-name="com.tutorialspoint.struts2.Team"></many-to-many>
-    </set>
-    <property name="name" type="string" column="name"></property>
+    </set>-->
+    <property name="name" type="string" column="name" unique="true"></property>
     <property name="isDeactivated" type="boolean" column="isDeactivated"></property>
-    <property name="userName" type="string" column="UserName"></property>
-    <property name="email" type="string" column="email"></property>
+    <property name="userName" type="string" column="UserName" unique="true"></property>
+    <property name="email" type="string" column="email" unique="true"></property>
     <property name="type" type="string" column="type"></property>
+    <property name="password" type="string" column="password"></property>
 </class>
 </hibernate-mapping>

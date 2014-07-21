@@ -49,7 +49,6 @@ public class Database{
         Transaction tr = session.beginTransaction();
         team.getUsers().add(user);
         session.refresh(user);
-        user.getTeams().add(team);
         session.save(team);
         tr.commit();
         session.close();
@@ -87,7 +86,7 @@ public class Database{
         session.close();
         return team;
     }
-    public static List<String> getTeams(User user){
+    /*public static List<String> getTeams(User user){
         List<String> teams = new ArrayList<String>();
         String name;
         Session session = factory.openSession();
@@ -101,5 +100,5 @@ public class Database{
         tr.commit();
         session.close();
         return teams;
-    }
+    } */
 }
