@@ -12,5 +12,8 @@
     </s:elseif> --%>
 
         <h5>Welcome contractor</h5>
+    <div>
+        <a href="<s:url action='show-registerClient' />">Add New Client</a>
+    </div>
 
 </section>

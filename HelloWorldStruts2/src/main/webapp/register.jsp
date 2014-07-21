@@ -4,16 +4,12 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
 <section id="register-form">
-    <h4>Create Account</h4>
+    <h4>Register New Client Account</h4>
     <form action="register" method="post">
         <table>
-            <s:textfield name="name" label="Name"></s:textfield>
-            <s:textfield name="email" label="Email"></s:textfield>
-            <s:textfield name="userName" label="Username"></s:textfield>
-            <s:select label="Choose Type"
-                list="#{'contractor':'Contractor', 'client':'Client'}"
-                name="type"/>
-            <s:password name="password" label="Password"></s:password>
+            <s:textfield name="userName" label="User Name"></s:textfield>
+            <s:textfield name="name" label="Full Name"></s:textfield>
+            <s:textfield name="email" label="Email Address"></s:textfield>
             <s:submit value="Register"></s:submit>
         </table>
     </form>

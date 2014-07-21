@@ -12,7 +12,4 @@
             <s:submit value="Login"></s:submit>
         </table>
     </form>
-    <div>
-        <a href="<s:url action='show-register' />">Register</a>
-    </div>
 </section>

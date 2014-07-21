@@ -21,7 +21,7 @@
         <put-attribute name="body" value="/login.jsp"/>
     </definition>
 
-    <definition name="register" extends="baseLayout">
+    <definition name="registerClient" extends="baseLayout">
         <put-attribute name="title" value="Time and Mileage Tracker - Register"/>
         <put-attribute name="body" value="/register.jsp"/>
     </definition>

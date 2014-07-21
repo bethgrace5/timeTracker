@@ -2,20 +2,23 @@ package com.tutorialspoint.struts2;
 import org.apache.struts2.interceptor.SessionAware;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.Map;
+import org.apache.commons.lang3.RandomStringUtils;
 
 public class RegisterAction extends ActionSupport implements SessionAware{
     private String name;
     private String email;
     private String userName;
-    private String type;
-    private String password;
     private Map<String, Object> session;
 
     public String execute(){
 
-        User user = new User(name, userName, email, type, password);
+        //TODO: test if email is valid
+        User user = new User(name, userName, email, "client",
+                                   //randomAlphanumeric(15));
+                                   "password");
         Integer userId = Database.saveUser(user);
         session.put("userId", user.getId());
+        // TODO: automatically email userName and password to client.
         return "success";
     }
 
@@ -42,20 +45,6 @@ public class RegisterAction extends ActionSupport implements SessionAware{
     }
     public void setEmail(String email){
         this.email = email;
-        return;
-    }
-    public String getType(){
-        return type;
-    }
-    public void setType(String type){
-        this.type = type;
-        return;
-    }
-    public String getPassword(){
-        return password ;
-    }
-    public void setPassword(String password){
-        this.password = password;
         return;
     }
     
