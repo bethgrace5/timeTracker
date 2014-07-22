@@ -71,8 +71,9 @@ public class Database{
         Session session = factory.openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
-        Query query = session.createQuery("from users where type='client'");
-        List<String> clients = query.list();
+        List<String> clients = session.createCriteria(User.class).
+                               add(Restrictions.eq("type", "client")).
+                               list();
         tr.commit();
         session.close();
         return clients;

@@ -26,8 +26,12 @@ public class ClientAction extends ActionSupport implements SessionAware{
         User user = new User(name, userName, email, "client", password);
         Integer userId = Database.saveUser(user);
         session.put("userId", user.getId());
-        this.clients = Database.getClientUsers();
         // TODO: automatically email userName and password to client.
+        return "success";
+    }
+
+    public String display() {
+        this.clients = Database.getClientUsers();
         return "success";
     }
     public void setSession(Map<String, Object> session){
