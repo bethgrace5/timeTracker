@@ -18,7 +18,7 @@
             <result type="tiles">login</result>
         </action>
 
-        <action name="show-registerClient" class="com.tutorialspoint.struts2.ClientAction" method="display">
+        <action name="show-registerClient" class="com.tutorialspoint.struts2.ClientAction" method="listClients">
             <result type="tiles">registerClient</result>
         </action>
 

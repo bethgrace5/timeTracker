@@ -30,7 +30,7 @@ public class ClientAction extends ActionSupport implements SessionAware{
         return "success";
     }
 
-    public String display() {
+    public String listClients() {
         this.clients = Database.getClientUsers();
         return "success";
     }

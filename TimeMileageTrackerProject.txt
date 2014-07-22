@@ -151,8 +151,8 @@ TimeSession Table
     int repoId
     int milestoneId
     int issueId
-    (type? Date?) start date/time
-    (type? Date?) stop date/time
+    Date start date/time
+    Date stop date/time
     int MilesDriven
     (? rate for time- how to determine rate based on which client)
 
@@ -173,20 +173,22 @@ github can be queried to find its existing teams and then the data can be
 used to associate a user with a project. 
 
 How web admin will log in.
-    -create special entry in database
+    -type is admin in database.
+    
 
 when to check for updates with new milestones or issues assocated with the
 repo? (in order to update Milestones Table and Issues Table)
     -upon user login, include a button to refresh repo?
+   github can check for updates and push to web app. 
 
 Look into how contractors can update rates for billed time. 
 Look into standards on rate per mile.
+-input rate on timeSession.
 
-Look into automatically generating a google doc time sheet and having the
-doc automatically and securely emailed to accounting or financial person 
-each pay period.
+-send time information to time person later.
 
 remember previous time session for contractors, so that the next time 
 session defaults to the same issue/milestone/repo, to make things easier.
     -maybe check time session table to find immediate previous session.
+- 
 -----------------------------------------------------------------------
