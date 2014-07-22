@@ -15,7 +15,8 @@
     </form>
     <s:form action="getSelectedClient">
         <s:select label="select client to update"
-        list="clients"
+        headerKey="-1" headerValue="Select Client"
+        list="#{}"
         name="selectedClient"/>
     <s:submit value="submit" name="submit"/>
     </s:form>

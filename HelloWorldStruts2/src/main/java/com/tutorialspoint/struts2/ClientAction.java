@@ -21,27 +21,15 @@ public class ClientAction extends ActionSupport implements SessionAware{
      * Registers New Client User account
      */
     public String execute(){
-        //FIXME: method not found
-        //String password = randomAlphanumeric(15);
-        String password = "password";
-
+        String password = RandomStringUtils.randomAlphanumeric(15);
         //TODO: test if email is valid
         User user = new User(name, userName, email, "client", password);
         Integer userId = Database.saveUser(user);
         session.put("userId", user.getId());
+        this.clients = Database.getClientUsers();
         // TODO: automatically email userName and password to client.
         return "success";
     }
-
-/**
- * Updates Existing Client User account
- */
-    public String display(){
-        clients = new ArrayList<String>();
-        clients = Database.getClientUsers();
-        return "success";
-    }
-
     public void setSession(Map<String, Object> session){
         this.session = session;
         return;
@@ -73,5 +61,11 @@ public class ClientAction extends ActionSupport implements SessionAware{
     public void setClients(List<String> clients){
         this.clients = clients;
     }
-    
+    public String getSelectedClient(){
+        return selectedClient;
+    }
+    public void setSelectedClient(String selectedClient){
+        this.selectedClient = selectedClient;
+        return;
+    }
 }
