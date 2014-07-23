@@ -1,10 +1,10 @@
-package com.tutorialspoint.struts2;
+package com.bethgrace5.timetracker;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.Set;
 import java.util.HashSet;
 
 /**
- * User class. 
+ * User class.
  * user is either a client or contractor type.
  * Contractor's userName must be github username. Contractor is authenticated via github.
  * Client's userName must be company name. Client is added by a contractor.
@@ -17,8 +17,8 @@ public class User {
     private String type;
     private String password;
     private boolean isDeactivated = false;
-    
-    public User(String name, String userName, String email, 
+
+    public User(String name, String userName, String email,
                 String type, String password){
         this.name = name;
         this.userName = userName;

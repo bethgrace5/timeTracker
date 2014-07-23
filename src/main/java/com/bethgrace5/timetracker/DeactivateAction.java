@@ -1,6 +1,6 @@
-package com.tutorialspoint.struts2;
+package com.bethgrace5.timetracker;
+
 import com.opensymphony.xwork2.ActionSupport;
-import com.tutorialspoint.struts2.User;
 import org.apache.struts2.interceptor.SessionAware;
 import java.util.Map;
 

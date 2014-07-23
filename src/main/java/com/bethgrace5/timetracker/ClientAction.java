@@ -1,4 +1,4 @@
-package com.tutorialspoint.struts2;
+package com.bethgrace5.timetracker;
 
 import org.apache.struts2.interceptor.SessionAware;
 import org.apache.commons.lang3.RandomStringUtils;

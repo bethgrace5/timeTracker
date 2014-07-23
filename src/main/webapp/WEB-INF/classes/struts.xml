@@ -18,28 +18,28 @@
             <result type="tiles">login</result>
         </action>
 
-        <action name="show-registerClient" class="com.tutorialspoint.struts2.ClientAction" method="listClients">
+        <action name="show-registerClient" class="com.bethgrace5.timetracker.ClientAction" method="listClients">
             <result type="tiles">registerClient</result>
         </action>
 
-        <action name="login" class="com.tutorialspoint.struts2.LoginAction" method="execute">
+        <action name="login" class="com.bethgrace5.timetracker.LoginAction" method="execute">
             <result name="contractor" type="tiles">dashboard-contractor</result>
             <result name="client" type="tiles">dashboard-client</result>
             <result name="error">error.jsp</result>
         </action>
 
-        <action name="register" class="com.tutorialspoint.struts2.ClientAction" method="execute">
+        <action name="register" class="com.bethgrace5.timetracker.ClientAction" method="execute">
             <result name="success" type="tiles">dashboard</result>
             <result name="error">error.jsp</result>
         </action>
 
-        <!--<action name="getSelectedClient" class="com.tutorialspoint.struts2.ClientAction">
+        <!--<action name="getSelectedClient" class="com.bethgrace5.timetracker.ClientAction">
             <result name="success" type="tiles">dashboard</result>
             <result name="error">error.jsp</result>
         </action> -->
 
 
-        <action name="deactivate" class="com.tutorialspoint.struts2.DeactivateAction" method="execute">
+        <action name="deactivate" class="com.bethgrace5.timetracker.DeactivateAction" method="execute">
             <result name="success">deactivateSuccess.jsp</result>
         </action>
 
