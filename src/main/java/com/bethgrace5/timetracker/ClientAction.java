@@ -24,10 +24,9 @@ public class ClientAction extends ActionSupport implements SessionAware{
     public String execute(){
         String password = RandomStringUtils.randomAlphanumeric(15);
         //TODO: test if email is valid
-        if( Database.existsUsernameEmail(userName, email)){
+        if(Database.existsUsernameEmail(userName, email)){
             return "error";
         }
-
         User user = new User(name, userName, email, "client", password);
         Integer userId = Database.saveUser(user);
         session.put("userId", user.getId());
