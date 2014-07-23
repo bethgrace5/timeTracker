@@ -11,6 +11,8 @@ public class Repository {
     private String name;
     private RepositoryStatus status;
 
+    private Set<User> users = new HashSet<User>();
+
     public Repository() {
         // default constructor required by Hibernate
     }
@@ -44,6 +46,13 @@ public class Repository {
         this.status = status;
     }
 
+    public Set<User> getUsers() {
+        return this.users;
+    }
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
     // don't use these -- used by hibernate
     public String getStatusString() {
         if (this.status == null)
@@ -54,4 +63,5 @@ public class Repository {
     public void setStatusString(String statusString) {
         this.status = Enum.valueOf(RepositoryStatus.class, statusString);
     }
+
 }

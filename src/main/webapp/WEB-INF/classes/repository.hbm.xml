@@ -8,6 +8,10 @@
     <id name="id" type="int" column="id">
         <generator class="increment"></generator>
     </id>
+    <set name="users" cascade="save-update" table="USER_REPOSITORY" inverse="true">
+        <key column="repository_id"></key>
+        <many-to-many column="user_id" entity-name="com.bethgrace5.timetracker.Repository"></many-to-many>
+    </set>
     <property name="githubUrl" type="string" column="github_url"></property>
     <property name="name" type="string" column="name"></property>
     <property name="status" type="string" column="status"></property>
