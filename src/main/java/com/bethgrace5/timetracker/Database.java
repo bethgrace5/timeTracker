@@ -53,11 +53,8 @@ public class Database{
         Criteria criteria = session.createCriteria(User.class);
         criteria.add(Restrictions.eq("userName", userName));
         criteria.add(Restrictions.eq("email", email));
-        List users = criteria.list();
-        if(users.isEmpty())
-            return true;
-        else
-            return false;
+        User user = (User) criteria.uniqueResult();
+        return user != null;
     }
     public static User findUserByUsernameAndPassword(String userName,
             String password) {
