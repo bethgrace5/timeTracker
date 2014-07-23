@@ -14,6 +14,8 @@
         <h5>Welcome contractor</h5>
     <div>
         <a href="<s:url action='show-registerClient' />">Add New Client</a>
+        <br/>
+        <a href="<s:url action='show-updateClient' />">Update Existing Client</a>
     </div>
 
 </section>

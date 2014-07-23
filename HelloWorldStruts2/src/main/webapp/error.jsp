@@ -4,5 +4,6 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
 <section>
+    Error! 
     Wrong user name or password provided
 </section>
