@@ -13,6 +13,7 @@
 <property name="connection.password"></property>
 <property name="connection.driver_class">org.h2.Driver</property>
 <mapping resource="user.hbm.xml"/>
+<mapping resource="repository.hbm.xml"/>
 </session-factory>
 
 </hibernate-configuration>
