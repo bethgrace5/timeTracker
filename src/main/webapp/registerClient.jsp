@@ -13,11 +13,11 @@
             <s:submit value="Register"></s:submit>
         </table>
     </form>
-    <s:form action="getSelectedClient">
+<%--    <s:form action="getSelectedClient">
         <s:select label="select client to update"
         headerKey="-1" headerValue="Select Client"
         list="clients"
         name="selectedClient"/>
     <s:submit value="submit" name="submit"/>
-    </s:form>
+    </s:form> --%>
 </section>

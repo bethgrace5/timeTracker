@@ -13,6 +13,7 @@ public class ClientAction extends ActionSupport implements SessionAware{
     private String name;
     private String email;
     private String userName;
+    private String client;
     private Map<String, Object> session;
     private List<String> clients;
     private String selectedClient;
@@ -23,6 +24,10 @@ public class ClientAction extends ActionSupport implements SessionAware{
     public String execute(){
         String password = RandomStringUtils.randomAlphanumeric(15);
         //TODO: test if email is valid
+        if( Database.existsUsernameEmail(userName, email)){
+            return "error";
+        }
+
         User user = new User(name, userName, email, "client", password);
         Integer userId = Database.saveUser(user);
         session.put("userId", user.getId());
@@ -36,21 +41,18 @@ public class ClientAction extends ActionSupport implements SessionAware{
     }
     public void setSession(Map<String, Object> session){
         this.session = session;
-        return;
     }
     public String getName(){
         return name;
     }
     public void setName(String name){
         this.name = name;
-        return;
     }
     public String getUserName(){
         return userName;
     }
     public void setUserName(String userName){
         this.userName = userName;
-        return;
     }
     public String getEmail(){
         return email;
@@ -70,6 +72,11 @@ public class ClientAction extends ActionSupport implements SessionAware{
     }
     public void setSelectedClient(String selectedClient){
         this.selectedClient = selectedClient;
-        return;
+    }
+    public String getClient(){
+        return client;
+    }
+    public void setClient(String client){
+        this.client = client;
     }
 }

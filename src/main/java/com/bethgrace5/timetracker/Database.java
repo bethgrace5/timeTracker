@@ -8,7 +8,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.Criteria;
 
+import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Configuration;
 
 import org.hibernate.criterion.Restrictions;
@@ -43,6 +45,19 @@ public class Database{
         tr.commit();
         session.close();
         return 0;
+    }
+    public static boolean existsUsernameEmail(String userName, String email){
+        Session session = factory.openSession();
+        Transaction tr = null;
+        tr = session.beginTransaction();
+        Criteria criteria = session.createCriteria(User.class);
+        criteria.add(Restrictions.eq("userName", userName));
+        criteria.add(Restrictions.eq("email", email));
+        List users = criteria.list();
+        if(users.isEmpty())
+            return true;
+        else
+            return false;
     }
     public static User findUserByUsernameAndPassword(String userName,
             String password) {

@@ -22,8 +22,13 @@
     </definition>
 
     <definition name="registerClient" extends="baseLayout">
-        <put-attribute name="title" value="Time and Mileage Tracker - Register"/>
-        <put-attribute name="body" value="/register.jsp"/>
+        <put-attribute name="title" value="Time and Mileage Tracker - Register Client"/>
+        <put-attribute name="body" value="/registerClient.jsp"/>
+    </definition>
+    
+    <definition name="updateClient" extends="baseLayout">
+        <put-attribute name="title" value="Time and Mileage Tracker - Update Client"/>
+        <put-attribute name="body" value="/updateClient.jsp"/>
     </definition>
 
     <definition name="dashboard" extends="baseLayout">

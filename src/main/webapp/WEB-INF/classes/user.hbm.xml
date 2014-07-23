@@ -16,7 +16,7 @@
         <key column="user_id"></key>
         <many-to-many column="team_id" entity-name="com.bethgrace5.timetracker.Team"></many-to-many>
     </set>-->
-    <property name="name" type="string" column="name" unique="true"></property>
+    <property name="name" type="string" column="name"></property>
     <property name="isDeactivated" type="boolean" column="isDeactivated"></property>
     <property name="userName" type="string" column="UserName" unique="true"></property>
     <property name="email" type="string" column="email" unique="true"></property>
