@@ -1,4 +1,4 @@
-package com.tutorialspoint.struts2;
+package com.bethgrace5.timetracker;
 
 import java.util.ArrayList;
 import java.util.List;

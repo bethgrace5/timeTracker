@@ -13,7 +13,7 @@
 
 # ignore binaries from version control
 
-HelloWorldStruts2/target/
+target/
 
 .metadata
 .classpath
