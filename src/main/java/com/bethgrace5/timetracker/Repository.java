@@ -3,8 +3,6 @@ package com.bethgrace5.timetracker;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.opensymphony.xwork2.ActionSupport;
-
 public class Repository {
     private int id;
     private String githubUrl;
@@ -12,6 +10,7 @@ public class Repository {
     private RepositoryStatus status;
 
     private Set<User> users = new HashSet<User>();
+    private Set<Milestone> milestones = new HashSet<Milestone>();
 
     public Repository() {
         // default constructor required by Hibernate
@@ -51,6 +50,13 @@ public class Repository {
     }
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public Set<Milestone> getMilestones() {
+        return this.milestones;
+    }
+    public void setMilestones(Set<Milestone> milestones) {
+        this.milestones = milestones;
     }
 
     // don't use these -- used by hibernate

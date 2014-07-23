@@ -10,7 +10,11 @@
     </id>
     <set name="users" cascade="save-update" table="USER_REPOSITORY" inverse="true">
         <key column="repository_id"></key>
-        <many-to-many column="user_id" entity-name="com.bethgrace5.timetracker.Repository"></many-to-many>
+        <many-to-many column="user_id" class="com.bethgrace5.timetracker.Repository"></many-to-many>
+    </set>
+    <set name="milestones" cascade="save-update" table="MILESTONE">
+        <key column="repository_id"></key>
+        <one-to-many class="com.bethgrace5.timetracker.Milestone"></one-to-many>
     </set>
     <property name="githubUrl" type="string" column="github_url"></property>
     <property name="name" type="string" column="name"></property>
