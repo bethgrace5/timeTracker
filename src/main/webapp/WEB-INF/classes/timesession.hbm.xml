@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<class name="com.bethgrace5.timetracker.TimeSession" table="TIME_SESSION">
+    <id name="id" type="int" column="id">
+        <generator class="increment"></generator>
+    </id>
+    <many-to-one name="user" class="com.bethgrace5.timetracker.User" fetch="select">
+        <column name="user_id" not-null="true" />
+    </many-to-one>
+    <many-to-one name="repository" class="com.bethgrace5.timetracker.Repository" fetch="select">
+        <column name="repository_id" not-null="true" />
+    </many-to-one>
+    <many-to-one name="milestone" class="com.bethgrace5.timetracker.Milestone" fetch="select">
+        <column name="milestone_id" not-null="false" />
+    </many-to-one>
+    <many-to-one name="issue" class="com.bethgrace5.timetracker.Issue" fetch="select">
+        <column name="issue_id" not-null="false" />
+    </many-to-one>
+    <property name="startDate" type="timestamp" column="start_date"></property>
+    <property name="endDate" type="timestamp" column="end_date"></property>
+    <property name="milesDriven" type="double" column="miles_driven"></property>
+    <property name="hourlyRate" type="double" column="hourly_rate"></property>
+</class>
+</hibernate-mapping>

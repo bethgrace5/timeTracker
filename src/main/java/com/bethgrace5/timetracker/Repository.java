@@ -11,6 +11,7 @@ public class Repository {
 
     private Set<User> users = new HashSet<User>();
     private Set<Milestone> milestones = new HashSet<Milestone>();
+    private Set<TimeSession> timeSessions = new HashSet<TimeSession>();
 
     public Repository() {
         // default constructor required by Hibernate
@@ -57,6 +58,13 @@ public class Repository {
     }
     public void setMilestones(Set<Milestone> milestones) {
         this.milestones = milestones;
+    }
+
+    public Set<TimeSession> getTimeSessions() {
+        return this.timeSessions;
+    }
+    public void setTimeSessions(Set<TimeSession> timeSessions) {
+        this.timeSessions = timeSessions;
     }
 
     // don't use these -- used by hibernate

@@ -9,6 +9,8 @@ public class Issue {
     private Repository repository;
     private Milestone milestone;
 
+    private Set<TimeSession> timeSessions = new HashSet<TimeSession>();
+
     public Issue() {
         // default constructor required by Hibernate
     }
@@ -39,6 +41,13 @@ public class Issue {
     }
     public void setMilestone(Milestone milestone) {
         this.milestone = milestone;
+    }
+
+    public Set<TimeSession> getTimeSessions() {
+        return this.timeSessions;
+    }
+    public void setTimeSessions(Set<TimeSession> timeSessions) {
+        this.timeSessions = timeSessions;
     }
 
     public String toString() {

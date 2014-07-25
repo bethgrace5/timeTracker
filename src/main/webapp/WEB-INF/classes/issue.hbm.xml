@@ -14,6 +14,10 @@
     <many-to-one name="milestone" class="com.bethgrace5.timetracker.Milestone" fetch="select">
         <column name="milestone_id" not-null="false" />
     </many-to-one>
+    <set name="timeSessions" cascade="save-update" table="TIME_SESSION">
+        <key column="issue_id"></key>
+        <one-to-many class="com.bethgrace5.timetracker.TimeSession"></one-to-many>
+    </set>
     <property name="title" type="string" column="title"></property>
 </class>
 </hibernate-mapping>

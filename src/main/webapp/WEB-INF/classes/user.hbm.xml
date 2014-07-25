@@ -12,6 +12,10 @@
         <key column="user_id"></key>
         <many-to-many column="repository_id" entity-name="com.bethgrace5.timetracker.Repository"></many-to-many>
     </set>
+    <set name="timeSessions" cascade="save-update" table="TIME_SESSION">
+        <key column="user_id"></key>
+        <one-to-many class="com.bethgrace5.timetracker.TimeSession"></one-to-many>
+    </set>
     <property name="name" type="string" column="name"></property>
     <property name="isDeactivated" type="boolean" column="isDeactivated"></property>
     <property name="userName" type="string" column="UserName" unique="true"></property>
