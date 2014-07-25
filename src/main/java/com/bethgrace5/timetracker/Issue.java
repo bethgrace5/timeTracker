@@ -42,6 +42,6 @@ public class Issue {
     }
 
     public String toString() {
-        return this.repository.toString();
+        return this.title;
     }
 }
