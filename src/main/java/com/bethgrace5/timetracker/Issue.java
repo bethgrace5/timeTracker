@@ -3,15 +3,15 @@ package com.bethgrace5.timetracker;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Milestone {
+public class Issue {
     private int id;
-    private String name;
+    private String title;
     private Repository repository;
+    private Milestone milestone;
 
-    private Set<Issue> issues = new HashSet<Issue>();
     private Set<TimeSession> timeSessions = new HashSet<TimeSession>();
 
-    public Milestone() {
+    public Issue() {
         // default constructor required by Hibernate
     }
 
@@ -22,11 +22,11 @@ public class Milestone {
         this.id = id;
     }
 
-    public String getName() {
-        return this.name;
+    public String getTitle() {
+        return this.title;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Repository getRepository() {
@@ -36,11 +36,11 @@ public class Milestone {
         this.repository = repository;
     }
 
-    public Set<Issue> getIssues() {
-        return this.issues;
+    public Milestone getMilestone() {
+        return this.milestone;
     }
-    public void setIssues(Set<Issue> issues) {
-        this.issues = issues;
+    public void setMilestone(Milestone milestone) {
+        this.milestone = milestone;
     }
 
     public Set<TimeSession> getTimeSessions() {
@@ -51,7 +51,6 @@ public class Milestone {
     }
 
     public String toString() {
-        return this.repository.toString();
+        return this.title;
     }
-
 }

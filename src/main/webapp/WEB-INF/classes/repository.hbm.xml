@@ -16,6 +16,10 @@
         <key column="repository_id"></key>
         <one-to-many class="com.bethgrace5.timetracker.Milestone"></one-to-many>
     </set>
+    <set name="timeSessions" cascade="save-update" table="TIME_SESSION">
+        <key column="repository_id"></key>
+        <one-to-many class="com.bethgrace5.timetracker.TimeSession"></one-to-many>
+    </set>
     <property name="githubUrl" type="string" column="github_url"></property>
     <property name="name" type="string" column="name"></property>
     <property name="status" type="string" column="status"></property>

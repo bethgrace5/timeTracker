@@ -19,6 +19,7 @@ public class User {
     private boolean isDeactivated = false;
 
     private Set<Repository> repositories = new HashSet<Repository>();
+    private Set<TimeSession> timeSessions = new HashSet<TimeSession>();
 
     public User() {
         // default constructor required by Hibernate
@@ -102,6 +103,12 @@ public class User {
         this.repositories = repositories;
     }
 
+    public Set<TimeSession> getTimeSessions() {
+        return this.timeSessions;
+    }
+    public void setTimeSessions(Set<TimeSession> timeSessions) {
+        this.timeSessions = timeSessions;
+    }
 
     public String toString() {
         return getUserName();
