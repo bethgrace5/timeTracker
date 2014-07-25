@@ -29,12 +29,13 @@
         <action name="login" class="com.bethgrace5.timetracker.LoginAction" method="execute">
             <result name="contractor" type="tiles">dashboard-contractor</result>
             <result name="client" type="tiles">dashboard-client</result>
-            <result name="error">error.jsp</result>
+            <result name="error" type="tiles">login</result>
         </action>
 
         <action name="registerClient" class="com.bethgrace5.timetracker.ClientAction" method="execute">
             <result name="success" type="tiles">dashboard-contractor</result>
             <result name="error" type="tiles">registerClient</result>
+            <result name="input" type="tiles">registerClient</result>
         </action>
 
         <action name="getSelectedClient" class="com.bethgrace5.timetracker.ClientAction" method="getClient">

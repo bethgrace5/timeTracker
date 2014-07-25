@@ -54,6 +54,7 @@ public class Database{
         criteria.add(Restrictions.eq("userName", userName));
         criteria.add(Restrictions.eq("email", email));
         User user = (User) criteria.uniqueResult();
+        //FIXME: user is never returned null
         return user != null;
     }
     public static User findUserByUsernameAndPassword(String userName,

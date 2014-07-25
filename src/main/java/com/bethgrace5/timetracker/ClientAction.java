@@ -13,10 +13,8 @@ public class ClientAction extends ActionSupport implements SessionAware{
     private String name;
     private String email;
     private String userName;
-    private String client;
     private Map<String, Object> session;
     private List<String> clients;
-    private String selectedClient;
 
     /**
      * Registers New Client User account
@@ -27,9 +25,6 @@ public class ClientAction extends ActionSupport implements SessionAware{
         if(Database.existsUsernameEmail(userName, email)){
             addActionError("User or Email exists!");
             return "error";
-        }
-        if(!email.contains("@") && email.contains(".")){
-            //return "error";
         }
 
         User user = new User(name, userName, email, "client", password);
@@ -64,24 +59,11 @@ public class ClientAction extends ActionSupport implements SessionAware{
     }
     public void setEmail(String email){
         this.email = email;
-        return;
     }
     public List<String> getClients(){
         return clients;
     }
     public void setClients(List<String> clients){
         this.clients = clients;
-    }
-    public String getSelectedClient(){
-        return selectedClient;
-    }
-    public void setSelectedClient(String selectedClient){
-        this.selectedClient = selectedClient;
-    }
-    public String getClient(){
-        return client;
-    }
-    public void setClient(String client){
-        this.client = client;
     }
 }
