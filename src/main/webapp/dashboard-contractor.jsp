@@ -10,8 +10,14 @@
     <s:elseif test="%{#context['struts.actionMapping'].name=='login'}">
         <h5>Successfully logged in as <s:property value="%{#parameters.userName}"/></h5>
     </s:elseif> --%>
+    <h5>Welcome contractor</h5>
 
-        <h5>Welcome contractor</h5>
+    <s:if test="hasActionMessages()">
+        <div class="success">
+            <s:actionmessage/>
+        </div>
+    </s:if>
+
     <div>
         <a href="<s:url action='show-registerClient' />">Add New Client</a>
         <br/>

@@ -7,10 +7,15 @@
     <h4>Register New Client Account</h4>
     <form action="registerClient" method="post">
         <table>
-            <s:textfield name="userName" label="User Name"></s:textfield>
-            <s:textfield name="name" label="Full Name"></s:textfield>
-            <s:textfield name="email" label="Email Address"></s:textfield>
+            <s:textfield key="global.username" name="userName" label="User Name"></s:textfield>
+            <s:textfield key="global.name" name="name" label="Full Name"></s:textfield>
+            <s:textfield key="global.password" name="email" label="Email Address"></s:textfield>
             <s:submit value="Register"></s:submit>
         </table>
     </form>
+    <s:if test="hasActionErrors()">
+        <div class="errors">
+            <s:actionerror/>
+        </div>
+    </s:if>
 </section>

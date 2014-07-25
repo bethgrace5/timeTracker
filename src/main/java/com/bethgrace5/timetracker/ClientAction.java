@@ -25,12 +25,18 @@ public class ClientAction extends ActionSupport implements SessionAware{
         String password = RandomStringUtils.randomAlphanumeric(15);
         //TODO: test if email is valid
         if(Database.existsUsernameEmail(userName, email)){
+            addActionError("User or Email exists!");
             return "error";
         }
+        if(!email.contains("@") && email.contains(".")){
+            //return "error";
+        }
+
         User user = new User(name, userName, email, "client", password);
         Integer userId = Database.saveUser(user);
         session.put("userId", user.getId());
         // TODO: automatically email userName and password to client.
+        addActionMessage("Client Successfully added.");
         return "success";
     }
 
