@@ -4,17 +4,16 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-<class name="com.bethgrace5.timetracker.Milestone" table="MILESTONE">
+<class name="com.bethgrace5.timetracker.Issue" table="ISSUE">
     <id name="id" type="int" column="id">
         <generator class="increment"></generator>
     </id>
     <many-to-one name="repository" class="com.bethgrace5.timetracker.Repository" fetch="select">
         <column name="repository_id" not-null="true" />
     </many-to-one>
-    <set name="issues" cascade="save-update" table="ISSUE">
-        <key column="milestone_id"></key>
-        <one-to-many class="com.bethgrace5.timetracker.Issue"></one-to-many>
-    </set>
-    <property name="name" type="string" column="name"></property>
+    <many-to-one name="milestone" class="com.bethgrace5.timetracker.Milestone" fetch="select">
+        <column name="milestone_id" not-null="false" />
+    </many-to-one>
+    <property name="title" type="string" column="title"></property>
 </class>
 </hibernate-mapping>

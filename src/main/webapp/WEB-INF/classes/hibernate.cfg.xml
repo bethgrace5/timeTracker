@@ -15,6 +15,7 @@
 <mapping resource="user.hbm.xml"/>
 <mapping resource="repository.hbm.xml"/>
 <mapping resource="milestone.hbm.xml"/>
+<mapping resource="issue.hbm.xml"/>
 </session-factory>
 
 </hibernate-configuration>
