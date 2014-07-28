@@ -11,6 +11,12 @@
         <h5>Successfully logged in as <s:property value="%{#parameters.userName}"/></h5>
     </s:elseif> --%>
 
-        <h5>Welcome client</h5>
+    <s:if test="hasActionMessages()">
+        <div class="success">
+            <s:actionmessage/>
+        </div>
+    </s:if>
+
+    <a href="<s:url action='logout' />">Logout</a>
 
 </section>

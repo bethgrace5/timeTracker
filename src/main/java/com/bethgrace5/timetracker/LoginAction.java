@@ -3,6 +3,7 @@ package com.bethgrace5.timetracker;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
+import org.apache.struts2.dispatcher.SessionMap;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -18,8 +19,15 @@ public class LoginAction extends ActionSupport implements SessionAware {
             addActionError("Invalid Username or Password!");
             return "error";
         }
+        addActionMessage("Welcome " + user.getName());
         session.put("userId", user.getId());
         return user.getType();
+    }
+
+    public String logout(){
+        ((SessionMap) session).invalidate();
+        addActionMessage("Successfully logged out.");
+        return "success";
     }
 
     public void setSession(Map<String, Object> session) {

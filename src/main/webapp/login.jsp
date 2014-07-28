@@ -11,6 +11,11 @@
             <s:password name="password" label="Password"></s:password>
             <s:submit value="Login"></s:submit>
         </table>
+    <s:if test="hasActionMessages()">
+        <div class="errors">
+            <s:actionmessage/>
+        </div>
+    </s:if>
     <s:if test="hasActionErrors()">
         <div class="errors">
             <s:actionerror/>

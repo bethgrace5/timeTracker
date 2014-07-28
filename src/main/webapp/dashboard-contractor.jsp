@@ -22,6 +22,8 @@
         <a href="<s:url action='show-registerClient' />">Add New Client</a>
         <br/>
         <a href="<s:url action='show-updateClient' />">Update Existing Client</a>
+        <br/>
+        <a href="<s:url action='logout' />">Logout</a>
     </div>
 
 </section>
