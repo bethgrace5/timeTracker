@@ -50,12 +50,30 @@ public class Database{
         Session session = factory.openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
-        Criteria criteria = session.createCriteria(User.class);
-        criteria.add(Restrictions.eq("userName", userName));
-        criteria.add(Restrictions.eq("email", email));
-        User user = (User) criteria.uniqueResult();
-        //FIXME: user is never returned null
-        return user != null;
+        
+        // test if userName exists
+        Criteria criteria1 = session.createCriteria(User.class);
+        criteria1.add(Restrictions.eq("userName", userName ));
+        User user = (User) criteria1.uniqueResult();
+        if ( user != null ){
+            tr.commit();
+            session.close();
+            return true;
+        }
+
+        // test if email exists
+        Criteria criteria2 = session.createCriteria(User.class);
+        criteria2.add(Restrictions.eq("email", email));
+        user = (User) criteria2.uniqueResult();
+        if ( user != null ){
+            tr.commit();
+            session.close();
+            return true;
+        }
+
+        tr.commit();
+        session.close();
+        return false;
     }
     public static User findUserByUsernameAndPassword(String userName,
             String password) {
