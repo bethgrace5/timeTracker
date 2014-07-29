@@ -7,9 +7,8 @@ import java.util.Map;
 import java.lang.NullPointerException;
 
 public class LoggingInterceptor implements Interceptor, SessionAware{
-    private Map<String, Object> session;
-    private String userName;
 
+    private Map<String, Object> session;
     public String intercept(ActionInvocation invocation) throws Exception{
 
         try{ 
@@ -22,30 +21,18 @@ public class LoggingInterceptor implements Interceptor, SessionAware{
         }
         catch (NullPointerException e){
         }
-
         String result = invocation.invoke();
-        //System.out.println(result);
+
         return result;
     }
 
     public void destroy(){
-
     }
 
     public void init(){
-
     }
 
     public void setSession(Map<String, Object> session){
         this.session = session;
     }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
 }
