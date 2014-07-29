@@ -6,10 +6,12 @@
 <section id="register-form">
     <h4>Update Existing Client Account</h4>
     <s:form action="getSelectedClient">
-
         <s:select label="Select" headerKey="-1" headerValue="Select Client"
         list="clients" name="selectedClient"/>
-
         <s:submit value="submit" name="submit"/>
+    </s:form>
+
+    <s:form> 
+        <s:textfield name="userName" label="User Name" value="%{selectedClient}"></s:textfield>
     </s:form>
 </section>
