@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class LoggingInterceptor implements Interceptor, SessionAware{
     private Map<String, Object> session;
+    private String userName;
 
     public String intercept(ActionInvocation invocation) throws Exception{
 
@@ -15,7 +16,8 @@ public class LoggingInterceptor implements Interceptor, SessionAware{
         //}
 
         String result = invocation.invoke();
-        //System.out.println(result);
+        System.out.println(userName);
+        System.out.println(result);
 
         return result;
     }
@@ -31,4 +33,13 @@ public class LoggingInterceptor implements Interceptor, SessionAware{
     public void setSession(Map<String, Object> session){
         this.session = session;
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
 }

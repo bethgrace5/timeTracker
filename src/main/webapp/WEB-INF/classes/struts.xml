@@ -16,10 +16,15 @@
             <interceptor name="show-login" class="com.bethgrace5.timetracker.LoggingInterceptor">
                 <param name="excludeMethods">login, show-login</param>
             </interceptor>
+
+            <interceptor-stack name="defaultLoginStack">
+                <interceptor-ref name="show-login"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+
         </interceptors> 
-        <!-- 
-        <default-interceptor-ref name="show-login"></default-interceptor-ref>
-        -->
+
+        <default-interceptor-ref name="defaultLoginStack"></default-interceptor-ref>
         <default-action-ref name="show-login" />
 
         <global-results>
