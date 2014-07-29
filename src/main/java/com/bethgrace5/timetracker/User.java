@@ -3,13 +3,17 @@ package com.bethgrace5.timetracker;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.interceptor.SessionAware;
+import java.util.Map;
+
 /**
  * User class.
  * user is either a client or contractor type.
  * Contractor's userName must be github username. Contractor is authenticated via github.
  * Client's userName must be company name. Client is added by a contractor.
  */
-public class User {
+public class User extends ActionSupport implements SessionAware {
     private int id;
     private String name;
     private String userName;
@@ -17,6 +21,7 @@ public class User {
     private String type;
     private String password;
     private boolean isDeactivated = false;
+    private Map<String, Object> session;
 
     private Set<Repository> repositories = new HashSet<Repository>();
     private Set<TimeSession> timeSessions = new HashSet<TimeSession>();
@@ -38,6 +43,11 @@ public class User {
         this.password = password;
         this.isDeactivated = false;
         return;
+    }
+
+    public String deactivateUser(){
+        Database.deactivateUser((int)session.get("userId"));
+        return "success";
     }
 
     public int getId() {
@@ -112,5 +122,9 @@ public class User {
 
     public String toString() {
         return getUserName();
+    }
+
+    public void setSession(Map<String, Object> session){
+        this.session = session;
     }
 }
