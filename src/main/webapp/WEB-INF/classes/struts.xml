@@ -13,8 +13,7 @@
         </result-types>
 
         <interceptors>
-            <interceptor name="show-login" class="com.bethgrace5.timetracker.interceptor.LoggingInterceptor">
-                <param name="excludeMethods">login, show-login</param>
+            <interceptor name="show-login" class="com.bethgrace5.timetracker.LoggingInterceptor">
             </interceptor>
 
             <interceptor-stack name="defaultLoginStack">
@@ -44,6 +43,8 @@
         </action>
 
         <action name="login" class="com.bethgrace5.timetracker.LoginAction" method="execute">
+            <interceptor-ref name="show-login"/>
+            <interceptor-ref name="defaultStack"/>
             <result name="contractor" type="tiles">dashboard-contractor</result>
             <result name="client" type="tiles">dashboard-client</result>
             <result name="error" type="tiles">login</result>
