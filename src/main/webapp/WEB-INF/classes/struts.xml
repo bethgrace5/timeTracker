@@ -12,7 +12,19 @@
                 class="org.apache.struts2.views.tiles.TilesResult" />
         </result-types>
 
+        <interceptors>
+            <interceptor name="show-login" class="com.bethgrace5.timetracker.LoggingInterceptor">
+                <param name="excludeMethods">login, show-login</param>
+            </interceptor>
+        </interceptors> 
+        <!-- 
+        <default-interceptor-ref name="show-login"></default-interceptor-ref>
+        -->
         <default-action-ref name="show-login" />
+
+        <global-results>
+            <result name="show-login" type="tiles">login</result>
+        </global-results>
 
         <action name="show-login">
             <result type="tiles">login</result>
@@ -43,6 +55,9 @@
         </action>
 
         <action name="getSelectedClient" class="com.bethgrace5.timetracker.ClientAction" method="getClient">
+            <result name="input" type="tiles">updateClient</result>
+            <result name="success" type="tiles">updateClient</result>
+            <result name="error" type="tiles">updateClient</result>
             <!-- show which client is selected -->
             <!-- <result name="success"></result> -->
         </action>

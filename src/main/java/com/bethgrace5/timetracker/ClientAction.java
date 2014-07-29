@@ -13,6 +13,7 @@ public class ClientAction extends ActionSupport implements SessionAware{
     private String name;
     private String email;
     private String userName;
+    private String selectedClient;
     private Map<String, Object> session;
     private List<String> clients;
 
@@ -38,6 +39,12 @@ public class ClientAction extends ActionSupport implements SessionAware{
         this.clients = Database.getClientUsers();
         return "success";
     }
+    public String getClient(){
+        if(this.selectedClient != null ){
+            return "success";
+        }
+        return "error";
+    }
     public void setSession(Map<String, Object> session){
         this.session = session;
     }
@@ -58,6 +65,12 @@ public class ClientAction extends ActionSupport implements SessionAware{
     }
     public void setEmail(String email){
         this.email = email;
+    }
+    public String getSelectedClient(){
+        return selectedClient;
+    }
+    public void setSelectedClient(String selectedClient){
+        this.selectedClient = selectedClient;
     }
     public List<String> getClients(){
         return clients;

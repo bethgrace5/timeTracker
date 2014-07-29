@@ -88,6 +88,18 @@ public class Database{
         session.close();
         return user;
     }
+    public static User findUserByUsername(String userName){
+        Session session = factory.openSession();
+        Transaction tr = null;
+        tr = session.beginTransaction();
+        User user = (User) session.createCriteria(User.class).
+                                   add(Restrictions.eq("userName", userName)).
+                                   uniqueResult();
+        tr.commit();
+        session.close();
+        return user;
+
+    }
     public static User getUserById(int id){
         Session session = factory.openSession();
         Transaction tr = null;

@@ -26,7 +26,13 @@ public class LoginAction extends ActionSupport implements SessionAware {
 
     public String logout(){
         ((SessionMap) session).invalidate();
-        addActionMessage("Successfully logged out.");
+        //session.clear();
+        //if((int) session.get(userId) != 0){
+            //addActionError("User is not logged out.");
+        //}
+        //else{
+            addActionMessage("Successfully logged out.");
+        //}
         return "success";
     }
 
