@@ -43,7 +43,6 @@
         </action>
 
         <action name="login" class="com.bethgrace5.timetracker.LoginAction" method="execute">
-            <interceptor-ref name="show-login"/>
             <interceptor-ref name="defaultStack"/>
             <result name="contractor" type="tiles">dashboard-contractor</result>
             <result name="client" type="tiles">dashboard-client</result>
