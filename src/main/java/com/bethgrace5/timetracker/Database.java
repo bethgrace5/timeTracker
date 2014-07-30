@@ -1,16 +1,17 @@
 package com.bethgrace5.timetracker;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.Criteria;
 
-import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Configuration;
 
 import org.hibernate.criterion.Restrictions;
@@ -110,7 +111,6 @@ public class Database{
         return user;
     }
     public static List<String> getClientUsers(){
-        //ArrayList<String> clients = new ArrayList<String>();
         Session session = factory.openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
@@ -122,4 +122,16 @@ public class Database{
         return clients;
     }
 
+    public static Map<String, String> getClientInfo(String userName){
+        User user = (User) findUserByUsername(userName);
+
+        System.out.println(userName);
+
+        Map<String, String> userInfo = new HashMap<String, String>();
+        userInfo.put("userName", userName);        
+        //userInfo.put("name", user.getName());        
+        //userInfo.put("email", user.getEmail());        
+
+        return userInfo;
+    }
 }

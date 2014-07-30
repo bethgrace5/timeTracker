@@ -1,13 +1,14 @@
 package com.bethgrace5.timetracker;
 
-import org.apache.struts2.interceptor.SessionAware;
-import org.apache.commons.lang3.RandomStringUtils;
+import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.struts2.interceptor.SessionAware;
 
-import java.util.Map;
-import java.util.List;
-import java.util.ArrayList;
 import java.lang.Object;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class ClientAction extends ActionSupport implements SessionAware{
     private String name;
@@ -45,6 +46,15 @@ public class ClientAction extends ActionSupport implements SessionAware{
         }
         return "error";
     }
+
+    public String getClientInfo(){
+        Map<String, String> map = Database.getClientInfo(this.selectedClient);
+        Gson converter = new Gson();
+        //return converter.toJson(map);
+        System.out.println("action called");
+        return "success";
+    }
+
     public void setSession(Map<String, Object> session){
         this.session = session;
     }

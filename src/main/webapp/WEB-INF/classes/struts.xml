@@ -6,7 +6,7 @@
     <constant name="struts.devMode" value="true" />
     <constant name="struts.action.excludePattern" value="/dbconsole/*, /static/css/.*?"></constant>
 
-    <package name="default" namespace="/" extends="struts-default">
+    <package name="default" namespace="/" extends="json-default">
         <result-types>
             <result-type name="tiles"
                 class="org.apache.struts2.views.tiles.TilesResult" />
@@ -79,6 +79,12 @@
         <action name="index">
             <result>index.jsp</result>
         </action>
+
+        <action name="getClientInfo" class="com.bethgrace5.timetracker.ClientAction" method="getClientInfo"> 
+            <result type="json"/>
+        </action>
+         
+
 
     </package>
 </struts>
