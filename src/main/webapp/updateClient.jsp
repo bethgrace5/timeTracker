@@ -29,11 +29,12 @@
             $.ajax({
                 type: "GET",
                 url: "/getClientInfo",
-                dataType: 'text',
+                dataType: 'json',
                 success : function(result){
+                    alert(result);
                    // parse string as json object.
                    var obj = JSON.parse(result);
-                   $("#userName").val(obj.selectedClient)
+                   $("#userName").val(obj.userName)
                    $("#name").val(obj.name)
                    $("#email").val(obj.email)
                }

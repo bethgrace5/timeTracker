@@ -81,7 +81,9 @@
         </action>
 
         <action name="getClientInfo" class="com.bethgrace5.timetracker.ClientAction" method="getClientInfo"> 
-            <result type="json"/>
+            <result type="json">
+                <param name="root">clientJSON</param> 
+            </result>
         </action>
          
 
