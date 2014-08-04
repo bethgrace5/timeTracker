@@ -5,18 +5,13 @@
 
 <section id="register-form">
     <h4>Update Existing Client Account</h4>
-    <s:form action="getClientInfo">
-        <s:select id="selectClient" label="Select" headerKey="-1" headerValue="Select Client"
+    <s:form>
+        <s:select id="selectClient" name="selectedClient" label="Select" headerKey="-1" headerValue="Select Client"
         list="clients"/>
-        <s:submit value="submit" name="submit"/>
+        <s:textfield id="userName" label="User Name"></s:textfield>
+        <s:textfield id="name" label="Name" ></s:textfield>
+        <s:textfield id="email" label="Email" ></s:textfield>
     </s:form>
-
-    <s:form action="getClientInfo"> 
-        <s:textfield name="userName" label="User Name"></s:textfield>
-        <s:textfield name="name" label="Name" ></s:textfield>
-        <s:textfield name="email" label="Email" ></s:textfield>
-    </s:form>
-        <div id="userName"></div>
 </section>
 
 <script type="text/javascript">
@@ -26,15 +21,22 @@
        // jquery, with element identified by the name "selectClient",
        // when the change event is fired, call this anonymous function.
        $( "#selectClient" ).change(function() {
-           //alert, jquery with this(the element calling the event, in
-           // this case, selectClient), get the value.
-           $.ajax({
-               url: "<s:url action='getClientInfo'/>",
-               success : function(result){
-                   alert(result);
+            // alert, jquery with this(the element calling the event, in
+            // this case, selectClient), get the value.
+            
+
+            // get result as string.
+            $.ajax({
+                type: "GET",
+                url: "/getClientInfo",
+                dataType: 'text',
+                success : function(result){
+                   // parse string as json object.
+                   var obj = JSON.parse(result);
+                   $("#userName").val(obj.selectedClient)
+                   $("#name").val(obj.name)
+                   $("#email").val(obj.email)
                }
-           //}).done(function() {
-               //alert($("#selectClient").val());
            });
 
            //TODO call a server action passing the username selected

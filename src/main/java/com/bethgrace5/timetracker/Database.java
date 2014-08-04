@@ -122,16 +122,4 @@ public class Database{
         return clients;
     }
 
-    public static Map<String, String> getClientInfo(String userName){
-        User user = (User) findUserByUsername(userName);
-
-        System.out.println(userName);
-
-        Map<String, String> userInfo = new HashMap<String, String>();
-        userInfo.put("userName", userName);        
-        //userInfo.put("name", user.getName());        
-        //userInfo.put("email", user.getEmail());        
-
-        return userInfo;
-    }
 }

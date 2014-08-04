@@ -7,6 +7,7 @@ import org.apache.struts2.interceptor.SessionAware;
 
 import java.lang.Object;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ public class ClientAction extends ActionSupport implements SessionAware{
     private String email;
     private String userName;
     private String selectedClient;
+    //private String clientJSON;
     private Map<String, Object> session;
     private List<String> clients;
 
@@ -48,10 +50,24 @@ public class ClientAction extends ActionSupport implements SessionAware{
     }
 
     public String getClientInfo(){
-        Map<String, String> map = Database.getClientInfo(this.selectedClient);
-        Gson converter = new Gson();
-        //return converter.toJson(map);
-        System.out.println("action called");
+        System.out.println(this.selectedClient);
+
+        User user = Database.findUserByUsername(this.selectedClient);
+
+        //this.name =  user.getName();
+        //this.email =  user.getEmail();
+
+        this.selectedClient = "typedUserName";
+        this.name = "typedName";
+        this.email = "typedEmail";
+        Map<String, String> map = new HashMap<String, String>(); 
+        //Gson converter = new Gson();
+        map.put("userName", selectedClient);
+        map.put("name",  name);
+        map.put("email",  email);
+
+        //this.clientJSON = converter.toJson(map);
+        //System.out.println(this.clientJSON);
         return "success";
     }
 
@@ -76,6 +92,12 @@ public class ClientAction extends ActionSupport implements SessionAware{
     public void setEmail(String email){
         this.email = email;
     }
+    //public String getClientJSON(){
+        //return clientJSON;
+    //}
+    //public void setClientJSON(String clientJSON){
+        //this.clientJSON = clientJSON;
+    //}
     public String getSelectedClient(){
         return selectedClient;
     }
