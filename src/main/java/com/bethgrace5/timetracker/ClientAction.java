@@ -23,7 +23,7 @@ public class ClientAction extends ActionSupport implements SessionAware{
     /**
      * Registers New Client User account
      */
-    public String execute(){
+    public String register(){
         //TODO: test if email is valid
         if(Database.existsUsernameEmail(userName, email)){
             addActionError("User or Email exists!");

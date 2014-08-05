@@ -57,29 +57,17 @@ public class Database{
         Session session = factory.openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
-        
-        // test if userName exists
-        Criteria criteria1 = session.createCriteria(User.class);
-        criteria1.add(Restrictions.eq("userName", userName ));
-        User user = (User) criteria1.uniqueResult();
-        if ( user != null ){
-            tr.commit();
-            session.close();
-            return true;
-        }
-
-        // test if email exists
-        Criteria criteria2 = session.createCriteria(User.class);
-        criteria2.add(Restrictions.eq("email", email));
-        user = (User) criteria2.uniqueResult();
-        if ( user != null ){
-            tr.commit();
-            session.close();
-            return true;
-        }
-
+       
+        User user = (User) session.createCriteria(User.class)
+            .add(Restrictions.or( 
+                Restrictions.eq("userName", userName ),
+                Restrictions.eq("email", email ))).
+                uniqueResult(); 
         tr.commit();
         session.close();
+        if( user!= null )
+            return true;
+        //else
         return false;
     }
     public static User findUserByUsernameAndPassword(String userName,
@@ -127,6 +115,14 @@ public class Database{
         tr.commit();
         session.close();
         return clients;
+    }
+    public static Integer addRepository(Repository repo){
+        Session session = factory.openSession();
+        Transaction tr = session.beginTransaction();
+        session.save(repo);
+        tr.commit();
+        session.close();
+        return repo.getId();
     }
 
 }

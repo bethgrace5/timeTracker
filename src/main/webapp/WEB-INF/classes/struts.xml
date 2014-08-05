@@ -53,7 +53,7 @@
             <result name="success" type="tiles">login</result>
         </action>
 
-        <action name="registerClient" class="com.bethgrace5.timetracker.ClientAction" method="execute">
+        <action name="registerClient" class="com.bethgrace5.timetracker.ClientAction" method="register">
             <result name="success" type="tiles">dashboard-contractor</result>
             <result name="error" type="tiles">registerClient</result>
             <result name="input" type="tiles">dashboard-contractor</result>
@@ -89,6 +89,10 @@
         <action name="setClientInfo" class="com.bethgrace5.timetracker.ClientAction" method="setClientInfo"> 
             <result name="success" type="tiles">dashboard-contractor</result>
             <result name="error" type="tiles">updateClient</result>
+        </action>
+
+        <action name="addRepository" class="com.bethgrace5.timetracker.Repository" method="addRepository"> 
+            <result name="success" type="tiles">dashboard-contractor</result>
         </action>
 
     </package>

@@ -2,8 +2,11 @@ package com.bethgrace5.timetracker;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Map;
+import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.interceptor.SessionAware;
 
-public class Repository {
+public class Repository extends ActionSupport implements SessionAware{
     private int id;
     private String githubUrl;
     private String name;
@@ -12,11 +15,22 @@ public class Repository {
     private Set<User> users = new HashSet<User>();
     private Set<Milestone> milestones = new HashSet<Milestone>();
     private Set<TimeSession> timeSessions = new HashSet<TimeSession>();
+    private Map<String, Object> session;
 
     public Repository() {
         // default constructor required by Hibernate
     }
 
+    public String addRepository(){
+        Repository repo = new Repository();
+        repo.setGithubUrl(this.githubUrl);
+        Database.addRepository(repo);
+        addActionMessage("Successfully Added Repository");
+        return "success";
+    }
+    public void setSession(Map<String, Object> session){
+        this.session = session;
+    }
     public int getId() {
         return this.id;
     }
