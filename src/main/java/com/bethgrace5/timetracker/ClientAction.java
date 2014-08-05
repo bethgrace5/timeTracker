@@ -60,16 +60,27 @@ public class ClientAction extends ActionSupport implements SessionAware{
             this.name =  user.getName();
             this.email =  user.getEmail();
         }
-
         Map<String, String> map = new HashMap<String, String>(); 
         Gson converter = new Gson();
-
         map.put("userName", selectedClient);
         map.put("name",  name);
         map.put("email",  email);
-
         this.clientJSON = converter.toJson(map);
+        return "success";
+    }
 
+    public String setClientInfo(){
+        User user = Database.findUserByUsername(this.selectedClient);
+        user.setUserName(userName);
+        user.setName(name);
+        user.setEmail(email);
+
+        if( user == null ){
+            addActionMessage("Error Updating User");
+            return "error";
+        }
+        Database.saveUser(user);
+        addActionMessage("Successfully Updated " + this.userName);
         return "success";
     }
 

@@ -85,8 +85,11 @@
                 <param name="root">clientJSON</param> 
             </result>
         </action>
-         
 
+        <action name="setClientInfo" class="com.bethgrace5.timetracker.ClientAction" method="setClientInfo"> 
+            <result name="success" type="tiles">dashboard-contractor</result>
+            <result name="error" type="tiles">updateClient</result>
+        </action>
 
     </package>
 </struts>

@@ -11,6 +11,7 @@
             <s:textfield name="name" label="Full Name"></s:textfield>
             <s:textfield name="email" label="Email Address"></s:textfield>
             <s:submit value="Register"></s:submit>
+            <a href="javascript:window.history.back()">Back</a>
         </table>
     </form>
     

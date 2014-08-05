@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -26,7 +27,12 @@ public class Database{
     public static Integer saveUser(User u){
         Session session = factory.openSession();
         Transaction tr = session.beginTransaction();
-        session.save(u);
+
+        if( getUserById(u.getId()) == null )
+            session.save(u);
+        else
+            session.update(u);
+
         tr.commit();
         session.close();
         return u.getId();
@@ -116,6 +122,7 @@ public class Database{
         tr = session.beginTransaction();
         List<String> clients = session.createCriteria(User.class).
                                add(Restrictions.eq("type", "client")).
+                               addOrder(Order.asc("userName")).
                                list();
         tr.commit();
         session.close();

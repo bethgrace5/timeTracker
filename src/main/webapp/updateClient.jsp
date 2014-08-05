@@ -5,33 +5,44 @@
 
 <section id="register-form">
     <h4>Update Existing Client Account</h4>
-    <s:form>
-        <s:select id="selectClient" name="selectedClient" label="Select" headerKey="-1" headerValue="Select Client"
-        list="clients"/>
-        <s:textfield id="userName" label="User Name"></s:textfield>
-        <s:textfield id="name" label="Name" ></s:textfield>
-        <s:textfield id="email" label="Email" ></s:textfield>
+    <s:form action="setClientInfo" method="post">
+        <s:select name="selectedClient" 
+                  id="selectClient" 
+                  label="Select" 
+                  list="clients"
+                  headerKey="-1" 
+                  headerValue="Select Client" />
+
+        <s:textfield id="userName" name="userName" label="User Name"></s:textfield>
+        <s:textfield id="name" name="name" label="Name" ></s:textfield>
+        <s:textfield id="email" name="email" label="Email" ></s:textfield>
+        <s:submit value="Submit Changes"></s:submit>
     </s:form>
+    <a href="javascript:window.history.back()">Back</a>
 </section>
 
 <script type="text/javascript">
    // jquery, with my document, when the ready event is fired, call 
    // this anonymous function.
    $(document).ready(function(){
-       // jquery, with element identified by the name "selectClient",
+       // jquery, with element identified by the id "selectClient",
        // when the change event is fired, call this anonymous function.
        $( "#selectClient" ).change(function() {
             // alert, jquery with this(the element calling the event, in
             // this case, selectClient), get the value.
-            
+
+            //alert($(this));
 
             // get result as string.
             $.ajax({
                 type: "GET",
+                data: {
+                    selectedClient: $("#selectClient").val()
+                },
                 url: "/getClientInfo",
                 dataType: 'json',
-                success : function(result){
-                    alert(result);
+                success : function(result,status,xhr){
+                   //alert(result);
                    // parse string as json object.
                    var obj = JSON.parse(result);
                    $("#userName").val(obj.userName)
