@@ -17,6 +17,7 @@ public class ClientAction extends ActionSupport implements SessionAware{
     private String userName;
     private String selectedClient;
     private String clientJSON;
+    private boolean deactivated;
     private Map<String, Object> session;
     private List<String> clients;
 
@@ -25,12 +26,12 @@ public class ClientAction extends ActionSupport implements SessionAware{
      */
     public String register(){
         //TODO: test if email is valid
-        if(Database.existsUsernameEmail(userName, email)){
+        String password = RandomStringUtils.randomAlphanumeric(15);
+        User user = new User(name, userName, email, "client", password);
+        if(Database.exists(user)){
             addActionError("User or Email exists!");
             return "error";
         }
-        String password = RandomStringUtils.randomAlphanumeric(15);
-        User user = new User(name, userName, email, "client", password);
         Integer userId = Database.saveUser(user);
         session.put("userId", user.getId());
         // TODO: automatically email userName and password to client.
@@ -56,24 +57,32 @@ public class ClientAction extends ActionSupport implements SessionAware{
             this.email = "null Email";
         }
         else{
-            User user = Database.findUserByUsername(this.selectedClient);
+            User user = Database.getUser(this.selectedClient);
             this.name =  user.getName();
             this.email =  user.getEmail();
+            this.deactivated = user.getIsDeactivated();
         }
         Map<String, String> map = new HashMap<String, String>(); 
         Gson converter = new Gson();
+        String deactivatedStr = "false";
+
+        if (deactivated)
+            deactivatedStr = "true";
+
         map.put("userName", selectedClient);
         map.put("name",  name);
         map.put("email",  email);
+        map.put("deactivated", deactivatedStr);
         this.clientJSON = converter.toJson(map);
         return "success";
     }
 
     public String setClientInfo(){
-        User user = Database.findUserByUsername(this.selectedClient);
+        User user = Database.getUser(this.selectedClient);
         user.setUserName(userName);
         user.setName(name);
         user.setEmail(email);
+        user.setIsDeactivated(deactivated);
 
         if( user == null ){
             addActionMessage("Error Updating User");
@@ -83,7 +92,16 @@ public class ClientAction extends ActionSupport implements SessionAware{
         addActionMessage("Successfully Updated " + this.userName);
         return "success";
     }
-
+    public String deactivate(){
+        User user = Database.getUser(this.selectedClient);
+        if( Database.exists(user) ){
+            user.setIsDeactivated(true);
+            Database.saveUser(user);
+            addActionMessage("Deactivated User: " + this.selectedClient);
+            return "success";
+        }
+        return "error";
+    }
     public void setSession(Map<String, Object> session){
         this.session = session;
     }
@@ -116,6 +134,12 @@ public class ClientAction extends ActionSupport implements SessionAware{
     }
     public void setSelectedClient(String selectedClient){
         this.selectedClient = selectedClient;
+    }
+    public boolean getDeactivated(){
+        return deactivated;
+    }
+    public void setDeactivated(boolean deactivated){
+        this.deactivated = deactivated;
     }
     public List<String> getClients(){
         return clients;

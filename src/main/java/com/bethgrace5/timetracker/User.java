@@ -45,8 +45,10 @@ public class User extends ActionSupport implements SessionAware {
         return;
     }
 
-    public String deactivateUser(){
-        Database.deactivateUser((int)session.get("userId"));
+    public String deactivateUser(int userId){
+        User user = Database.getUser(userId);
+        user.setIsDeactivated(true);
+        Database.saveUser(user);
         return "success";
     }
 

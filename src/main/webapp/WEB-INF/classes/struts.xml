@@ -5,11 +5,10 @@
 <struts>
     <constant name="struts.devMode" value="true" />
     <constant name="struts.action.excludePattern" value="/dbconsole/*, /static/css/.*?"></constant>
-
     <package name="default" namespace="/" extends="json-default">
         <result-types>
             <result-type name="tiles"
-                class="org.apache.struts2.views.tiles.TilesResult" />
+             class="org.apache.struts2.views.tiles.TilesResult" />
         </result-types>
 
         <interceptors>
@@ -20,7 +19,6 @@
                 <interceptor-ref name="show-login"/>
                 <interceptor-ref name="defaultStack"/>
             </interceptor-stack>
-
         </interceptors> 
 
         <default-interceptor-ref name="defaultLoginStack"></default-interceptor-ref>
@@ -42,7 +40,7 @@
             <result type="tiles">updateClient</result>
         </action>
 
-        <action name="login" class="com.bethgrace5.timetracker.LoginAction" method="execute">
+        <action name="login" class="com.bethgrace5.timetracker.LoginAction" method="login">
             <interceptor-ref name="defaultStack"/>
             <result name="contractor" type="tiles">dashboard-contractor</result>
             <result name="client" type="tiles">dashboard-client</result>
@@ -63,17 +61,10 @@
             <result name="input" type="tiles">updateClient</result>
             <result name="success" type="tiles">updateClient</result>
             <result name="error" type="tiles">updateClient</result>
-            <!-- show which client is selected -->
-            <!-- <result name="success"></result> -->
         </action>
 
-        <action name="updateClient" class="com.bethgrace5.timetracker.ClientAction" method="execute">
-            <result name="success" type="tiles">dashboard</result>
-            <result name="error">error.jsp</result>
-        </action>
-
-        <action name="deactivate" class="com.bethgrace5.timetracker.User" method="deactivateUser">
-            <result name="success">deactivateSuccess.jsp</result>
+        <action name="deactivate" class="com.bethgrace5.timetracker.ClientAction" method="deactivate">
+            <result name="success" type="tiles">dashboard-contractor</result>
         </action>
 
         <action name="index">
@@ -93,6 +84,7 @@
 
         <action name="addRepository" class="com.bethgrace5.timetracker.Repository" method="addRepository"> 
             <result name="success" type="tiles">dashboard-contractor</result>
+            <result name="error" type="tiles">dashboard-contractor</result>
         </action>
 
     </package>

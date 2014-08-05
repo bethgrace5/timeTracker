@@ -24,7 +24,11 @@ public class Repository extends ActionSupport implements SessionAware{
     public String addRepository(){
         Repository repo = new Repository();
         repo.setGithubUrl(this.githubUrl);
-        Database.addRepository(repo);
+        if( Database.exists(repo) ){
+            addActionError("Repository exists!");
+            return "error";
+        }
+        Database.saveRepository(repo);
         addActionMessage("Successfully Added Repository");
         return "success";
     }

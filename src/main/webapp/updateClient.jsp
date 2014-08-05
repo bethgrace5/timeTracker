@@ -16,6 +16,7 @@
         <s:textfield id="userName" name="userName" label="User Name"></s:textfield>
         <s:textfield id="name" name="name" label="Name" ></s:textfield>
         <s:textfield id="email" name="email" label="Email" ></s:textfield>
+        <s:checkbox id="deactivated" name="deactivated" fieldValue="false" label="Deactivate this client"/>
         <s:submit value="Submit Changes"></s:submit>
     </s:form>
     <a href="javascript:window.history.back()">Back</a>
@@ -30,8 +31,6 @@
        $( "#selectClient" ).change(function() {
             // alert, jquery with this(the element calling the event, in
             // this case, selectClient), get the value.
-
-            //alert($(this));
 
             // get result as string.
             $.ajax({
@@ -48,6 +47,7 @@
                    $("#userName").val(obj.userName)
                    $("#name").val(obj.name)
                    $("#email").val(obj.email)
+                   $("#deactivated").val(obj.deactivated)
                }
            });
 

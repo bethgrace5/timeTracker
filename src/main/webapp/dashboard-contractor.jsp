@@ -12,9 +12,12 @@
     </s:elseif> --%>
     <h5>Welcome contractor</h5>
 
-    <s:if test="hasActionMessages()">
-        <div class="success">
+    <s:if test="hasActionMessages()"> <div class="success">
             <s:actionmessage/>
+        </div>
+    </s:if>
+    <s:if test="hasActionErrors()"> <div class="success">
+            <s:actionerror/>
         </div>
     </s:if>
 
@@ -25,7 +28,7 @@
         <br/>
         <a href="<s:url action='logout' />">Logout</a>
     <s:form action="addRepository" method="post">
-        <s:textfield id="githubUrl" name="githubUrl" label="New Repository: github URL" ></s:textfield>
+        <s:textfield id="githubUrl" name="githubUrl" label="New Repository github URL" ></s:textfield>
         <s:submit value="Add"></s:submit>
     </s:form>
     </div>
