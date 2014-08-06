@@ -16,7 +16,7 @@
         <s:textfield id="userName" name="userName" label="User Name"></s:textfield>
         <s:textfield id="name" name="name" label="Name" ></s:textfield>
         <s:textfield id="email" name="email" label="Email" ></s:textfield>
-        <s:checkbox id="deactivated" name="deactivated" fieldValue="false" label="Deactivate this client"/>
+        <s:checkbox id="deactivated" name="deactivated" label="Deactivated"/>
         <s:submit value="Submit Changes"></s:submit>
     </s:form>
     <a href="javascript:window.history.back()">Back</a>
@@ -36,18 +36,17 @@
             $.ajax({
                 type: "GET",
                 data: {
-                    selectedClient: $("#selectClient").val()
+                    selectedClient: $("#selectClient").val(),
                 },
                 url: "/getClientInfo",
                 dataType: 'json',
                 success : function(result,status,xhr){
-                   //alert(result);
                    // parse string as json object.
                    var obj = JSON.parse(result);
                    $("#userName").val(obj.userName)
                    $("#name").val(obj.name)
                    $("#email").val(obj.email)
-                   $("#deactivated").val(obj.deactivated)
+                   $("#deactivated").prop("checked", (obj.deactivated))
                }
            });
 

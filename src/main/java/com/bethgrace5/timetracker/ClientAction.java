@@ -55,6 +55,7 @@ public class ClientAction extends ActionSupport implements SessionAware{
             this.selectedClient = "null Client";
             this.name = "null Name";
             this.email = "null Email";
+            this.deactivated = false;
         }
         else{
             User user = Database.getUser(this.selectedClient);
@@ -62,17 +63,13 @@ public class ClientAction extends ActionSupport implements SessionAware{
             this.email =  user.getEmail();
             this.deactivated = user.getIsDeactivated();
         }
-        Map<String, String> map = new HashMap<String, String>(); 
+        Map<String, Object> map = new HashMap<String, Object>(); 
         Gson converter = new Gson();
-        String deactivatedStr = "false";
-
-        if (deactivated)
-            deactivatedStr = "true";
 
         map.put("userName", selectedClient);
         map.put("name",  name);
         map.put("email",  email);
-        map.put("deactivated", deactivatedStr);
+        map.put("deactivated", deactivated);
         this.clientJSON = converter.toJson(map);
         return "success";
     }
