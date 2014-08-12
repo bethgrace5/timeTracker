@@ -26,11 +26,9 @@
         <br/>
         <a href="<s:url action='show-updateClient' />">Update Existing Client</a>
         <br/>
+        <a href="<s:url action='show-repositoryOptions' />">Repository Options</a>
+        <br/>
         <a href="<s:url action='logout' />">Logout</a>
-    <s:form action="addRepository" method="post">
-        <s:textfield id="githubUrl" name="githubUrl" label="New Repository github URL" ></s:textfield>
-        <s:submit value="Add"></s:submit>
-    </s:form>
     </div>
 
 </section>

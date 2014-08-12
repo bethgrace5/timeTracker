@@ -46,6 +46,11 @@
         <put-attribute name="body" value="/dashboard-client.jsp"/>
     </definition>
 
+    <definition name="repositoryOptions" extends="baseLayout">
+        <put-attribute name="title" value="Time and Mileage Tracker - Repository Options"/>
+        <put-attribute name="body" value="/repositoryOptions.jsp"/>
+    </definition>
+
     <definition name="error" extends="baseLayout">
         <put-attribute name="title" value="Time and Mileage Tracker - Error"/>
         <put-attribute name="body" value="/error.jsp"/>

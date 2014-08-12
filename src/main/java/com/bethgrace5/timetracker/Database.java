@@ -1,6 +1,8 @@
 package com.bethgrace5.timetracker;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -10,6 +12,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 
 import org.hibernate.cfg.Configuration;
 
@@ -33,13 +37,21 @@ public class Database{
         return user.getId();
     }
     // Save Repository as new, or Update if existing
-    public static Integer saveRepository(Repository repo){
+    public static Integer saveRepository(Repository repo, int userId){
         Session session = factory.openSession();
         Transaction tr = session.beginTransaction();
-        if ( getRepository(repo.getGithubUrl()) == null )
-            session.save(repo);
-        else
-            session.update(repo);
+        User user = getUser(userId);
+        session.refresh(user);
+
+        System.out.println( repo.getId());
+        if(repo.getId() != 0){
+            session.refresh(repo);
+        }
+
+        repo.getUsers().add(user);
+        user.getRepositories().add(repo);
+        session.update(user);
+
         tr.commit();
         session.close();
         return repo.getId();
@@ -135,5 +147,30 @@ public class Database{
         tr.commit();
         session.close();
         return clients;
+    }
+    public static Set<String> getRepositories(int userId){
+        Session session = factory.openSession();
+        Transaction tr = null;
+        tr = session.beginTransaction();
+
+        Criteria criteria = session.createCriteria(Repository.class, "r").
+            createAlias("r.users", "u").
+            add(Restrictions.eq("u.id", userId));
+
+        ProjectionList proList = Projections.projectionList();
+        proList.add(Projections.property("r.githubUrl"));
+
+        criteria.setProjection(proList);
+
+        Set<String> repositories = new HashSet<String>(criteria.list());
+
+        //List<String> repositories = session.createCriteria(Repository.class "r").
+        //createAlias("r.users", "u").
+        //add(Restrictions.eq("u.id", userId)).
+        //list();
+
+        tr.commit();
+        session.close();
+        return repositories;
     }
 }

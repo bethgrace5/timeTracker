@@ -2,9 +2,8 @@ package com.bethgrace5.timetracker;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
 
-import com.opensymphony.xwork2.ActionSupport;
-import org.apache.struts2.interceptor.SessionAware;
 import java.util.Map;
 
 /**
@@ -13,15 +12,15 @@ import java.util.Map;
  * Contractor's userName must be github username. Contractor is authenticated via github.
  * Client's userName must be company name. Client is added by a contractor.
  */
-public class User extends ActionSupport implements SessionAware {
+public class User{
     private int id;
     private String name;
     private String userName;
     private String email;
     private String type;
     private String password;
+    private String selectedRepository;
     private boolean isDeactivated = false;
-    private Map<String, Object> session;
 
     private Set<Repository> repositories = new HashSet<Repository>();
     private Set<TimeSession> timeSessions = new HashSet<TimeSession>();
@@ -30,10 +29,6 @@ public class User extends ActionSupport implements SessionAware {
         // default constructor required by Hibernate
     }
 
-    /**
-     * Create a new user based on the specified name, userName, email, type, and
-     * password
-     */
     public User(String name, String userName, String email,
                 String type, String password) {
         this.name = name;
@@ -43,13 +38,6 @@ public class User extends ActionSupport implements SessionAware {
         this.password = password;
         this.isDeactivated = false;
         return;
-    }
-
-    public String deactivateUser(int userId){
-        User user = Database.getUser(userId);
-        user.setIsDeactivated(true);
-        Database.saveUser(user);
-        return "success";
     }
 
     public int getId() {
@@ -107,6 +95,13 @@ public class User extends ActionSupport implements SessionAware {
         this.password = password;
         return;
     }
+    public String getSelectedRepository() {
+        return selectedRepository;
+    }
+    public void setSelectedRepository(String selectedClient) {
+        this.selectedRepository = selectedRepository;
+        return;
+    }
 
     public Set<Repository> getRepositories() {
         return this.repositories;
@@ -125,8 +120,10 @@ public class User extends ActionSupport implements SessionAware {
     public String toString() {
         return getUserName();
     }
-
-    public void setSession(Map<String, Object> session){
-        this.session = session;
+    public boolean equals( User user ){
+        if ( this.email == user.getEmail())
+            return true;
+        //else
+        return false;
     }
 }

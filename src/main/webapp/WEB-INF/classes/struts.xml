@@ -40,6 +40,10 @@
             <result type="tiles">updateClient</result>
         </action>
 
+        <action name="show-repositoryOptions"  class="com.bethgrace5.timetracker.UserAction" method="listRepositories">
+            <result type="tiles">repositoryOptions</result>
+        </action>
+
         <action name="login" class="com.bethgrace5.timetracker.LoginAction" method="login">
             <interceptor-ref name="defaultStack"/>
             <result name="contractor" type="tiles">dashboard-contractor</result>
@@ -82,7 +86,7 @@
             <result name="error" type="tiles">updateClient</result>
         </action>
 
-        <action name="addRepository" class="com.bethgrace5.timetracker.Repository" method="addRepository"> 
+        <action name="addRepository" class="com.bethgrace5.timetracker.RepositoryAction" method="addRepository"> 
             <result name="success" type="tiles">dashboard-contractor</result>
             <result name="error" type="tiles">dashboard-contractor</result>
         </action>

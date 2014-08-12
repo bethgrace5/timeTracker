@@ -50,9 +50,6 @@
                }
            });
 
-           //TODO call a server action passing the username selected
-           //     which returns the user properties. 
-
            // use jquery's $.ajaxSetup and $.ajax to talk to the server
        });
    });

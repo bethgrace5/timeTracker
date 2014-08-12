@@ -3,10 +3,8 @@ package com.bethgrace5.timetracker;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Map;
-import com.opensymphony.xwork2.ActionSupport;
-import org.apache.struts2.interceptor.SessionAware;
 
-public class Repository extends ActionSupport implements SessionAware{
+public class Repository {
     private int id;
     private String githubUrl;
     private String name;
@@ -15,26 +13,11 @@ public class Repository extends ActionSupport implements SessionAware{
     private Set<User> users = new HashSet<User>();
     private Set<Milestone> milestones = new HashSet<Milestone>();
     private Set<TimeSession> timeSessions = new HashSet<TimeSession>();
-    private Map<String, Object> session;
 
     public Repository() {
         // default constructor required by Hibernate
     }
 
-    public String addRepository(){
-        Repository repo = new Repository();
-        repo.setGithubUrl(this.githubUrl);
-        if( Database.exists(repo) ){
-            addActionError("Repository exists!");
-            return "error";
-        }
-        Database.saveRepository(repo);
-        addActionMessage("Successfully Added Repository");
-        return "success";
-    }
-    public void setSession(Map<String, Object> session){
-        this.session = session;
-    }
     public int getId() {
         return this.id;
     }
@@ -59,7 +42,6 @@ public class Repository extends ActionSupport implements SessionAware{
     public RepositoryStatus getStatus() {
         return this.status;
     }
-
     public void setStatus(RepositoryStatus status) {
         this.status = status;
     }
@@ -83,6 +65,15 @@ public class Repository extends ActionSupport implements SessionAware{
     }
     public void setTimeSessions(Set<TimeSession> timeSessions) {
         this.timeSessions = timeSessions;
+    }
+    public String toString() {
+        return getName();
+    }
+    public boolean equals( Repository repo ){
+        if ( this.githubUrl == repo.getGithubUrl())
+            return true;
+        //else
+        return false;
     }
 
     // don't use these -- used by hibernate
