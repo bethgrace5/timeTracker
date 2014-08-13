@@ -22,11 +22,11 @@
     </s:if>
 
     <div>
-        <a href="<s:url action='show-registerClient' />">Add New Client</a>
-        <br/>
-        <a href="<s:url action='show-updateClient' />">Update Existing Client</a>
+        <a href="<s:url action='show-updateClient' />">Client Options</a>
         <br/>
         <a href="<s:url action='show-repositoryOptions' />">Repository Options</a>
+        <br/>
+        <a href="<s:url action='show-timeOptions' />">Time Session</a>
         <br/>
         <a href="<s:url action='logout' />">Logout</a>
     </div>

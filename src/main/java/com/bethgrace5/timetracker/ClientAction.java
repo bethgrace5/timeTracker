@@ -24,14 +24,14 @@ public class ClientAction extends ActionSupport implements SessionAware{
     /**
      * Registers New Client User account
      */
-    public String register(){
+    public String register(User user){
         //TODO: test if email is valid
         String password = RandomStringUtils.randomAlphanumeric(15);
-        User user = new User(name, userName, email, "client", password);
-        if(Database.exists(user)){
-            addActionError("User or Email exists!");
-            return "error";
-        }
+        user = new User(name, userName, email, "client", password);
+        //if(Database.exists(user)){
+            //addActionError("User or Email exists!");
+            //return "error";
+        //}
         Integer userId = Database.saveUser(user);
         session.put("userId", user.getId());
         // TODO: automatically email userName and password to client.
@@ -76,6 +76,13 @@ public class ClientAction extends ActionSupport implements SessionAware{
 
     public String setClientInfo(){
         User user = Database.getUser(this.selectedClient);
+
+        // we need to add the user if they do not exist
+        if(user == null){
+            register(user);
+            return "success";
+        }
+
         user.setUserName(userName);
         user.setName(name);
         user.setEmail(email);

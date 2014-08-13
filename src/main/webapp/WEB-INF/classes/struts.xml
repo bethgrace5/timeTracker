@@ -44,6 +44,10 @@
             <result type="tiles">repositoryOptions</result>
         </action>
 
+        <action name="show-timeOptions"  class="com.bethgrace5.timetracker.TimeSessionAction" method="listTimeSessions">
+            <result type="tiles">timeOptions</result>
+        </action>
+
         <action name="login" class="com.bethgrace5.timetracker.LoginAction" method="login">
             <interceptor-ref name="defaultStack"/>
             <result name="contractor" type="tiles">dashboard-contractor</result>

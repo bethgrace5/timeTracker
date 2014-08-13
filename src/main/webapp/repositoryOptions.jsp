@@ -26,7 +26,6 @@
                 data: {
                     selectedRepository: $("#repositoryNames").val(),
                 },
-                //url: "/getRepositoryInfo",
                 dataType: 'json',
                 success : function(result,status,xhr){
                     alert(result);

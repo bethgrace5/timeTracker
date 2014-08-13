@@ -26,6 +26,14 @@
    // jquery, with my document, when the ready event is fired, call 
    // this anonymous function.
    $(document).ready(function(){
+
+        $('#selectClient').selectize({
+            create: true,
+            createOnBlur: true,
+            highlight: true,
+        });
+
+
        // jquery, with element identified by the id "selectClient",
        // when the change event is fired, call this anonymous function.
        $( "#selectClient" ).change(function() {
@@ -52,6 +60,7 @@
 
            // use jquery's $.ajaxSetup and $.ajax to talk to the server
        });
+
    });
 
    $

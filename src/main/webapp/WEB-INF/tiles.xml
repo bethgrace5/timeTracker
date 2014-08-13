@@ -51,6 +51,11 @@
         <put-attribute name="body" value="/repositoryOptions.jsp"/>
     </definition>
 
+    <definition name="timeOptions" extends="baseLayout">
+        <put-attribute name="title" value="Time and Mileage Tracker - Time Options"/>
+        <put-attribute name="body" value="/timeOptions.jsp"/>
+    </definition>
+
     <definition name="error" extends="baseLayout">
         <put-attribute name="title" value="Time and Mileage Tracker - Error"/>
         <put-attribute name="body" value="/error.jsp"/>

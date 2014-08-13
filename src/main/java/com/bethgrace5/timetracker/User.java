@@ -53,7 +53,6 @@ public class User{
     }
     public void setName(String name) {
         this.name = name;
-        return;
     }
 
     public boolean getIsDeactivated() {
@@ -61,7 +60,6 @@ public class User{
     }
     public void setIsDeactivated(boolean isDeactivated) {
         this.isDeactivated = isDeactivated;
-        return;
     }
 
     public String getUserName() {
@@ -69,7 +67,6 @@ public class User{
     }
     public void setUserName(String userName) {
         this.userName = userName;
-        return;
     }
 
     public String getEmail() {
@@ -77,7 +74,6 @@ public class User{
     }
     public void setEmail(String email) {
         this.email = email;
-        return;
     }
 
     public String getType() {
@@ -85,7 +81,6 @@ public class User{
     }
     public void setType(String type) {
         this.type = type;
-        return;
     }
 
     public String getPassword() {
@@ -93,14 +88,12 @@ public class User{
     }
     public void setPassword(String password) {
         this.password = password;
-        return;
     }
     public String getSelectedRepository() {
         return selectedRepository;
     }
     public void setSelectedRepository(String selectedClient) {
         this.selectedRepository = selectedRepository;
-        return;
     }
 
     public Set<Repository> getRepositories() {
