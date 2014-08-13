@@ -8,11 +8,10 @@ import java.util.Map;
 public class LoggingInterceptor implements Interceptor, SessionAware{
     private Map<String, Object> session;
 
+    // when a user is not logged in, redirect to login page
     public String intercept(ActionInvocation invocation) throws Exception{
-
         session = invocation.getInvocationContext().getSession();
         if(session.get("userId") == null){
-            System.out.println("Session is null");
             return "show-login";
         }
         String result = invocation.invoke();

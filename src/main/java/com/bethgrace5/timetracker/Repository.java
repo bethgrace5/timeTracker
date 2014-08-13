@@ -70,10 +70,7 @@ public class Repository {
         return getName();
     }
     public boolean equals( Repository repo ){
-        if ( this.githubUrl == repo.getGithubUrl())
-            return true;
-        //else
-        return false;
+        return ( this.githubUrl.equals(repo.getGithubUrl()));
     }
 
     // don't use these -- used by hibernate

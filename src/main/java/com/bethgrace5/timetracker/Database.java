@@ -11,10 +11,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
-
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.cfg.Configuration;
 
 /**
@@ -28,8 +27,10 @@ public class Database{
     public static Integer saveUser(User user){
         Session session = factory.openSession();
         Transaction tr = session.beginTransaction();
+        // add user if they do not exist
         if( getUser(user.getId()) == null )
             session.save(user);
+        // update if they do exist
         else
             session.update(user);
         tr.commit();
@@ -43,11 +44,16 @@ public class Database{
         User user = getUser(userId);
         session.refresh(user);
 
-        System.out.println( repo.getId());
+        // refresh the repository if it has not been saved to the database 
         if(repo.getId() != 0){
             session.refresh(repo);
+
+            // check for an existing connection between user and repository
+            if(repo.getUsers().contains(user) || user.getRepositories().contains(repo))
+                return 0;
         }
 
+        // make the connection between the user and repository
         repo.getUsers().add(user);
         user.getRepositories().add(repo);
         session.update(user);
@@ -61,11 +67,15 @@ public class Database{
         Session session = factory.openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
+
+        // we need to make sure there are no two usernames or emails
+        // that are the same
         user = (User) session.createCriteria(User.class)
             .add(Restrictions.or( 
                         Restrictions.eq("userName", user.getUserName() ),
                         Restrictions.eq("email", user.getEmail() ))).
             uniqueResult(); 
+
         tr.commit();
         session.close();
         if( user != null )
@@ -77,10 +87,13 @@ public class Database{
         Session session = factory.openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
+
+        // we need to make sure there are no two github urls that are the same
         repository = (Repository) session.createCriteria(Repository.class)
             .add(Restrictions.or( 
                         Restrictions.eq("githubUrl", repository.getGithubUrl() ))).
             uniqueResult(); 
+
         tr.commit();
         session.close();
         if( repository != null )
@@ -105,9 +118,12 @@ public class Database{
         Session session = factory.openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
+
+        // userName is expected to be unique
         User user = (User) session.createCriteria(User.class).
             add(Restrictions.eq("userName", userName)).
             uniqueResult();
+
         tr.commit();
         session.close();
         return user;
@@ -117,7 +133,9 @@ public class Database{
         Session session = factory.openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
+
         User user = (User) session.get(User.class, id);
+
         tr.commit();
         session.close();
         return user;
@@ -127,10 +145,12 @@ public class Database{
         Session session = factory.openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
+
         Repository repo = (Repository) session.
             createCriteria(Repository.class).
             add(Restrictions.eq("githubUrl", githubUrl)).
             uniqueResult();
+
         tr.commit();
         session.close();
         return repo;
@@ -140,10 +160,12 @@ public class Database{
         Session session = factory.openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
+
         List<String> clients = session.createCriteria(User.class).
             add(Restrictions.eq("type", "client")).
             addOrder(Order.asc("userName")).
             list();
+
         tr.commit();
         session.close();
         return clients;
@@ -153,21 +175,18 @@ public class Database{
         Transaction tr = null;
         tr = session.beginTransaction();
 
+        // we need to look through the users in the repository class 
+        // for this specific user
         Criteria criteria = session.createCriteria(Repository.class, "r").
             createAlias("r.users", "u").
             add(Restrictions.eq("u.id", userId));
 
+        // we need a list of the github urls from the repository class
         ProjectionList proList = Projections.projectionList();
         proList.add(Projections.property("r.githubUrl"));
-
         criteria.setProjection(proList);
-
+        // the list needs to be a set to filter out duplicates
         Set<String> repositories = new HashSet<String>(criteria.list());
-
-        //List<String> repositories = session.createCriteria(Repository.class "r").
-        //createAlias("r.users", "u").
-        //add(Restrictions.eq("u.id", userId)).
-        //list();
 
         tr.commit();
         session.close();

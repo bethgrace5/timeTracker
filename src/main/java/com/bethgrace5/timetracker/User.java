@@ -121,9 +121,6 @@ public class User{
         return getUserName();
     }
     public boolean equals( User user ){
-        if ( this.email == user.getEmail())
-            return true;
-        //else
-        return false;
+        return ( this.email.equals(user.getEmail()) );
     }
 }

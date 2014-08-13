@@ -11,10 +11,11 @@ public class UserAction extends ActionSupport implements SessionAware {
     private Set<String> repositoryNames;
 
     public String listRepositories(){
+        // we need to get a list of github urls from all repositories
+        // that are connected to the user logged in
         this.repositoryNames = Database.getRepositories((int) session.get("userId"));
         return "success";
     }
-
     public String deactivateUser(int userId){
         User user = Database.getUser(userId);
         user.setIsDeactivated(true);
@@ -24,7 +25,6 @@ public class UserAction extends ActionSupport implements SessionAware {
     public void setSession(Map<String, Object> session){
         this.session = session;
     }
-
     public Set<String> getRepositoryNames(){
         return repositoryNames;
     }
