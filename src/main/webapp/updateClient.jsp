@@ -4,14 +4,14 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
 <section id="register-form">
-    <h4>Update Existing Client Account</h4>
+    <h4>Add or Update Client Account</h4>
     <s:form action="setClientInfo" method="post">
         <s:select name="selectedClient" 
                   id="selectClient" 
-                  label="Select" 
+                  label="Select, or Add new" 
                   list="clients"
                   headerKey="-1" 
-                  headerValue="Select Client" />
+                  headerValue="choose client..." />
 
         <s:textfield id="userName" name="userName" label="User Name"></s:textfield>
         <s:textfield id="name" name="name" label="Name" ></s:textfield>
