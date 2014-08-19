@@ -40,11 +40,15 @@
             <result type="tiles">updateClient</result>
         </action>
 
-        <action name="show-repositoryOptions"  class="com.bethgrace5.timetracker.UserAction" method="listRepositories">
+        <action name="show-repositoryOptions"  class="com.bethgrace5.timetracker.LoginAction" method="listRepositories">
             <result type="tiles">repositoryOptions</result>
         </action>
 
-        <action name="show-timeOptions"  class="com.bethgrace5.timetracker.TimeSessionAction" method="listTimeSessions">
+        <action name="show-timeOptions"  class="com.bethgrace5.timetracker.TimeSessionAction" method="setupPageWithArtificialData">
+            <result type="tiles">timeOptions</result>
+        </action>
+
+        <action name="startTimeSession"  class="com.bethgrace5.timetracker.TimeSessionAction" method="startTimeSession">
             <result type="tiles">timeOptions</result>
         </action>
 

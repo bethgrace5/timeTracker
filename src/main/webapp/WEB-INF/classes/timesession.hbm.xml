@@ -8,6 +8,7 @@
     <id name="id" type="int" column="id">
         <generator class="increment"></generator>
     </id>
+    <property name="description" type="text" column="description"></property>
     <many-to-one name="user" class="com.bethgrace5.timetracker.User" fetch="select">
         <column name="user_id" not-null="true" />
     </many-to-one>

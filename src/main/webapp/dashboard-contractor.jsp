@@ -10,7 +10,6 @@
     <s:elseif test="%{#context['struts.actionMapping'].name=='login'}">
         <h5>Successfully logged in as <s:property value="%{#parameters.userName}"/></h5>
     </s:elseif> --%>
-    <h5>Welcome contractor</h5>
 
     <s:if test="hasActionMessages()"> <div class="success">
             <s:actionmessage/>
@@ -22,13 +21,25 @@
     </s:if>
 
     <div>
+        <s:action name="show-repositoryOptions" executeResult="true"/>
+    <%--
+        <s:action name="show-timeOptions" executeResult="true"/> 
+    --%>
+        <s:action name="show-updateClient" executeResult="true"/>
+        <a href="<s:url action='logout' />">Logout</a>
+
+
+    <%--
         <a href="<s:url action='show-updateClient' />">Client Options</a>
         <br/>
         <a href="<s:url action='show-repositoryOptions' />">Repository Options</a>
         <br/>
+    --%>
         <a href="<s:url action='show-timeOptions' />">Time Session</a>
+        <%--
         <br/>
         <a href="<s:url action='logout' />">Logout</a>
+        --%>
     </div>
 
 </section>

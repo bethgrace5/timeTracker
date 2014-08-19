@@ -4,11 +4,12 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
 <section id="register-form">
-    <h4>Add or Update Client Account</h4>
+    <h4>Client info </h4>
+    <h5>view, update, or add new...</h5>
     <s:form action="setClientInfo" method="post">
         <s:select name="selectedClient" 
                   id="selectClient" 
-                  label="Select, or Add new" 
+                  label="Select, or type new" 
                   list="clients"
                   headerKey="-1" 
                   headerValue="choose client..." />
@@ -19,7 +20,6 @@
         <s:checkbox id="deactivated" name="deactivated" label="Deactivated"/>
         <s:submit value="Submit Changes"></s:submit>
     </s:form>
-    <a href="javascript:window.history.back()">Back</a>
 </section>
 
 <script type="text/javascript">

@@ -8,14 +8,8 @@ import org.apache.struts2.interceptor.SessionAware;
 
 public class UserAction extends ActionSupport implements SessionAware {
     private Map<String, Object> session;
-    private Set<String> repositoryNames;
+    private String selectedRepository;
 
-    public String listRepositories(){
-        // we need to get a list of github urls from all repositories
-        // that are connected to the user logged in
-        this.repositoryNames = Database.getRepositories((int) session.get("userId"));
-        return "success";
-    }
     public String deactivateUser(int userId){
         User user = Database.getUser(userId);
         user.setIsDeactivated(true);
@@ -25,10 +19,10 @@ public class UserAction extends ActionSupport implements SessionAware {
     public void setSession(Map<String, Object> session){
         this.session = session;
     }
-    public Set<String> getRepositoryNames(){
-        return repositoryNames;
+    public String getSelectedRepository() {
+        return this.selectedRepository;
     }
-    public void setRepositoryNames(Set<String> repositoryNames){
-        this.repositoryNames = repositoryNames;
+    public void setSelectedRepository(String selectedRepository) {
+        this.selectedRepository = selectedRepository;
     }
 }

@@ -7,6 +7,7 @@ import java.util.Set;
 
 public class TimeSession {
     private int id;
+    private String description;
     private User user;
     private Repository repository;
     private Milestone milestone;
@@ -25,6 +26,13 @@ public class TimeSession {
     }
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+    public void setDescription(String id) {
+        this.description = description;
     }
 
     public User getUser() {

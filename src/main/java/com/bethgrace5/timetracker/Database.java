@@ -2,6 +2,7 @@ package com.bethgrace5.timetracker;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Set;
 
 import org.hibernate.Criteria;
@@ -170,7 +171,7 @@ public class Database{
         session.close();
         return clients;
     }
-    public static Set<String> getRepositories(int userId){
+    public static List<String> getRepositories(int userId){
         Session session = factory.openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
@@ -185,8 +186,7 @@ public class Database{
         ProjectionList proList = Projections.projectionList();
         proList.add(Projections.property("r.githubUrl"));
         criteria.setProjection(proList);
-        // the list needs to be a set to filter out duplicates
-        Set<String> repositories = new HashSet<String>(criteria.list());
+        List<String> repositories = new ArrayList<String>(criteria.list());
 
         tr.commit();
         session.close();

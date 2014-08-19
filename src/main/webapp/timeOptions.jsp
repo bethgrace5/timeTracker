@@ -4,19 +4,28 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
 <section>
-    <h4>Time Options</h4>
-    <s:form action="beginTime" method="post">
-        <s:select name="selectedTimeSession" 
-                  id="select" 
-                  label="Select" 
-                  list="timeSessions"
-                  headerKey="-1" 
-                  headerValue="Select Time Session" />
-        <s:textfield id="repositoryName" name="repositoryName" label="Repository" ></s:textfield>
-        <s:textfield id="location" name="location" label="Location" ></s:textfield>
-        <s:submit value="Start"></s:submit>
+    <s:form action="startTimeSession" method="post">
+        <s:textfield id="description" name="description" label="Description"/>
+        <s:textfield id="miles" name="milesDriven" label="Miles Driven"/>
+        <s:textfield id="rate" name="hourlyRate" label="Hourly Rate"/>
+        <s:textfield id="repo" name="selectedRepository" label="selectedRepository"/>
+        <%-- <s:select id="selectRepository" 
+                  name="selectedRepository"
+                  list="repositories"
+                  headerKey="1" />
+        <s:select id="selectMilestone" 
+                  name="selectedMilestone" 
+                  list="milestones"
+                  headerKey="1" />
+        <s:select id="selectIssue" 
+                  name="selectedIssue"
+                  list="issues"
+                  headerKey="1" />
+                  --%>
+        <s:submit value="Start"/>
     </s:form>
 
+</section>
 
 <script type="text/javascript">
    $(document).ready(function(){

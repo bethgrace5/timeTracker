@@ -4,31 +4,35 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
 <section>
-    <h4>Repository Options</h4>
     <s:form action="addRepository" method="post">
-        <s:textfield id="githubUrl" name="githubUrl" label="New Repository github URL" ></s:textfield>
-        <s:submit value="Add"></s:submit>
-    </s:form>
-    <s:form action="" method="post">
         <s:select name="selectedRepository" 
                   id="repositoryNames" 
                   label="Select" 
-                  list="repositoryNames"
+                  list="repositories"
                   headerKey="-1" 
                   headerValue="Select Repository" />
     </s:form>
 
+</section>
+
+
 <script type="text/javascript">
    $(document).ready(function(){
+        $('#repositoryNames').selectize({
+            create: true,
+            createOnBlur: true,
+            highlight: true,
+        });
        $( "#repositoryNames" ).change(function() {
             $.ajax({
+                //url: get action for listing repositories
                 type: "GET",
                 data: {
                     selectedRepository: $("#repositoryNames").val(),
                 },
-                dataType: 'json',
                 success : function(result,status,xhr){
-                    alert(result);
+                    $("#userName").val( $("#repositoryNames").val())
+                   //alert(result);
                    // parse string as json object.
                    //var obj = JSON.parse(result);
                    //$("#userName").val(obj.userName)
