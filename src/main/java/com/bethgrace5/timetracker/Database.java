@@ -1,6 +1,5 @@
 package com.bethgrace5.timetracker;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -176,11 +175,12 @@ public class Database{
         Transaction tr = null;
         tr = session.beginTransaction();
 
-        // we need to look through the users in the repository class 
+        // we need to look through the users in the repository class
         // for this specific user
         Criteria criteria = session.createCriteria(Repository.class, "r").
             createAlias("r.users", "u").
-            add(Restrictions.eq("u.id", userId));
+            add(Restrictions.eq("u.id", userId)).
+            addOrder(Order.asc("r.githubUrl"));
 
         // we need a list of the github urls from the repository class
         ProjectionList proList = Projections.projectionList();
