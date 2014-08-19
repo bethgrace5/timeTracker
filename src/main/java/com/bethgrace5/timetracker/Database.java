@@ -1,5 +1,7 @@
 package com.bethgrace5.timetracker;
 
+import java.sql.Timestamp;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
@@ -192,4 +194,13 @@ public class Database{
         session.close();
         return repositories;
     }
+
+    // update the last login for the specified user
+    public static Integer updateLastLogin(User user) {
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        user.setLastLogin(now);
+
+        return saveUser(user);
+    }
+
 }

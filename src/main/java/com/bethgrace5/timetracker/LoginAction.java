@@ -31,6 +31,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
             addActionError("Invalid Username or Password!");
             return "error";
         }
+        Database.updateLastLogin(user);
         addActionMessage("Welcome " + user.getName());
         session.put("userId", user.getId());
         return user.getType();

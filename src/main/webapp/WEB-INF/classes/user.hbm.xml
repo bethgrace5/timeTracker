@@ -22,5 +22,6 @@
     <property name="email" type="string" column="email" unique="true"></property>
     <property name="type" type="string" column="type"></property>
     <property name="password" type="string" column="password"></property>
+    <property name="lastLogin" type="timestamp" column="last_login"></property>
 </class>
 </hibernate-mapping>
