@@ -6,19 +6,19 @@
 <section>
     <s:form action="startTimeSession" method="post">
         <s:textfield id="description" name="description" label="Description"/>
-        <s:textfield id="miles" name="milesDriven" label="Miles Driven"/>
-        <s:textfield id="rate" name="hourlyRate" label="Hourly Rate"/>
-        <s:textfield id="repo" name="selectedRepository" label="selectedRepository"/>
+        <s:textfield id="miles" name="miles" label="Miles Driven"/>
+        <s:textfield id="rate" name="rate" label="Hourly Rate"/>
+        <s:textfield id="repo" name="repo" label="selectedRepository"/>
         <%-- <s:select id="selectRepository" 
                   name="selectedRepository"
                   list="repositories"
                   headerKey="1" />
         <s:select id="selectMilestone" 
-                  name="selectedMilestone" 
+                  name="selectMilestone" 
                   list="milestones"
                   headerKey="1" />
         <s:select id="selectIssue" 
-                  name="selectedIssue"
+                  name="selectIssue"
                   list="issues"
                   headerKey="1" />
                   --%>

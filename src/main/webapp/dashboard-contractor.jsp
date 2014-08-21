@@ -21,6 +21,8 @@
     </s:if>
 
     <div>
+    <%--
+    --%>
         <s:action name="show-repositoryOptions" executeResult="true"/>
     <%--
         <s:action name="show-timeOptions" executeResult="true"/> 
