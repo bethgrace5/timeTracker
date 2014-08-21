@@ -5,7 +5,7 @@
 
 <section>
     <s:form action="addRepository" method="post">
-        <s:select name="selectedRepository"
+        <s:select name="selectRepository"
                   id="repositoryNames"
                   label="Select"
                   list="repositoryNames"
