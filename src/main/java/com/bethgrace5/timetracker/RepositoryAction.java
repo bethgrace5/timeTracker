@@ -60,10 +60,10 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
         this.repositoryNames = repositoryNames;
     }
 
-    public String getSelectedRepository() {
+    public String getSelectRepository() {
         return this.selectRepository;
     }
-    public void setSelectedRepository(String selectRepository) {
+    public void setSelectRepository(String selectRepository) {
         this.selectRepository = selectRepository;
     }
 
