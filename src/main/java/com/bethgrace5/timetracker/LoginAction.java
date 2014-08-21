@@ -1,9 +1,6 @@
 package com.bethgrace5.timetracker;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.struts2.interceptor.SessionAware;
 import org.apache.struts2.dispatcher.SessionMap;
@@ -14,16 +11,6 @@ public class LoginAction extends ActionSupport implements SessionAware {
     private String userName;
     private String password;
     private Map<String, Object> session;
-    private List<String> repositoryNames;
-
-
-    public String listRepositories(){
-        // we need to get a list of github urls from all repositories
-        // that are connected to the user logged in
-        int userId = (int) session.get("userId");
-        repositoryNames = new ArrayList(Database.getRepositories(userId));
-        return "success";
-    }
 
     public String login() {
         User user = Database.getUser(this.userName, this.password);
@@ -40,12 +27,6 @@ public class LoginAction extends ActionSupport implements SessionAware {
         ((SessionMap) session).invalidate();
         addActionMessage("Successfully logged out.");
         return "success";
-    }
-    public List<String> getRepositoryNames(){
-        return repositoryNames;
-    }
-    public void setRepositoryNames(List<String> repositoryNames){
-        this.repositoryNames = repositoryNames;
     }
 
     public void setSession(Map<String, Object> session) {

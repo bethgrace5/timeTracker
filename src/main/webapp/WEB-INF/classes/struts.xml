@@ -40,7 +40,7 @@
             <result type="tiles">updateClient</result>
         </action>
 
-        <action name="show-repositoryOptions"  class="com.bethgrace5.timetracker.LoginAction" method="listRepositories">
+        <action name="show-repositoryOptions"  class="com.bethgrace5.timetracker.RepositoryAction" method="listRepositories">
             <result type="tiles">repositoryOptions</result>
         </action>
 
