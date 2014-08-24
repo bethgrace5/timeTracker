@@ -29,7 +29,7 @@ public class TimeSessionAction extends ActionSupport implements SessionAware{
     // use for testing while no data is in database
     public String setupPageWithArtificialData(){
         int userId = (int) session.get("userId");
-        user = Database.getUser(userId);
+        user = Database.getUserById(userId);
 
         // we need to get the last time session this user was working on
         //TODO: implement Database.getLastTimeSession()
@@ -64,7 +64,7 @@ public class TimeSessionAction extends ActionSupport implements SessionAware{
 
     //public String setupPage(){
         //int userId = (int) session.get("userId");
-        //user = Database.getUser(userId);
+        //user = Database.getUserById(userId);
 
         // we need to get the last time session this user was working on
         //TODO: implement Database.getLastTimeSession()
@@ -99,7 +99,7 @@ public class TimeSessionAction extends ActionSupport implements SessionAware{
     //}
 
     public String clearFields(){
-        user = Database.getUser((int) session.get("userId"));
+        user = Database.getUserById((int) session.get("userId"));
         milesDriven = 0;
         hourlyRate = 0;
         inProgress = false;

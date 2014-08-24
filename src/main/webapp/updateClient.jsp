@@ -8,17 +8,16 @@
     <h5>view, update, or add new...</h5>
     <s:form action="setClientInfo" method="post">
         <s:select name="selectedClient" 
-                  id="selectClient" 
-                  label="Select, or type new" 
+                  id="selectedClient" 
+                  label="Client" 
                   list="clients"
                   headerKey="-1" 
-                  headerValue="choose client..." />
+                  headerValue="select or add new..." />
 
-        <s:textfield id="userName" name="userName" label="User Name"></s:textfield>
         <s:textfield id="name" name="name" label="Name" ></s:textfield>
-        <s:textfield id="email" name="email" label="Email" ></s:textfield>
+        <s:textfield id="clientUserName" name="clientUserName" label="Email" ></s:textfield>
         <s:checkbox id="deactivated" name="deactivated" label="Deactivated"/>
-        <s:submit value="Submit Changes"></s:submit>
+        <s:submit value="Submit Changes" onclick="setSelect()"></s:submit>
     </s:form>
 </section>
 
@@ -27,16 +26,17 @@
    // this anonymous function.
    $(document).ready(function(){
 
-        $('#selectClient').selectize({
+        $('#selectedClient').selectize({
             create: true,
-            createOnBlur: true,
+            createOnBlur: false,
             highlight: true,
+
         });
 
 
        // jquery, with element identified by the id "selectClient",
        // when the change event is fired, call this anonymous function.
-       $( "#selectClient" ).change(function() {
+       $( "#selectedClient" ).change(function() {
             // alert, jquery with this(the element calling the event, in
             // this case, selectClient), get the value.
 
@@ -44,16 +44,16 @@
             $.ajax({
                 type: "GET",
                 data: {
-                    selectedClient: $("#selectClient").val(),
+                    selectedClient: $("#selectedClient").val(),
                 },
                 url: "/getClientInfo",
                 dataType: 'json',
                 success : function(result,status,xhr){
                    // parse string as json object.
                    var obj = JSON.parse(result);
-                   $("#userName").val(obj.userName)
+                   $("#selectedClient").val(obj.name)
                    $("#name").val(obj.name)
-                   $("#email").val(obj.email)
+                   $("#clientUserName").val(obj.userName)
                    $("#deactivated").prop("checked", (obj.deactivated))
                }
            });
@@ -64,4 +64,16 @@
    });
 
    $
+
+   function setSelect(){
+
+       // we need to reset the select to the new value
+       // so if any other changes are made without reselecting the 
+       // drop down menu, it won't crash.
+       var newName = document.getElementById('clientUserName').value;
+       document.getElementById('selectedClient').value = newName;
+       //$("#selectedClient").val(name.val());
+
+
+   }
 </script>

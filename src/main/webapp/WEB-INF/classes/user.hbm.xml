@@ -16,10 +16,9 @@
         <key column="user_id"></key>
         <one-to-many class="com.bethgrace5.timetracker.TimeSession"></one-to-many>
     </set>
-    <property name="name" type="string" column="name"></property>
-    <property name="isDeactivated" type="boolean" column="isDeactivated"></property>
+    <property name="name" type="string" column="name" unique="true"></property>
     <property name="userName" type="string" column="UserName" unique="true"></property>
-    <property name="email" type="string" column="email" unique="true"></property>
+    <property name="isDeactivated" type="boolean" column="isDeactivated"></property>
     <property name="type" type="string" column="type"></property>
     <property name="password" type="string" column="password"></property>
     <property name="lastLogin" type="timestamp" column="last_login"></property>

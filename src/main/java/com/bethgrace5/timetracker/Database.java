@@ -29,7 +29,7 @@ public class Database{
         Session session = factory.openSession();
         Transaction tr = session.beginTransaction();
         // add user if they do not exist
-        if( getUser(user.getId()) == null )
+        if( !exists(user) )
             session.save(user);
         // update if they do exist
         else
@@ -42,7 +42,7 @@ public class Database{
     public static Integer saveRepository(Repository repo, int userId){
         Session session = factory.openSession();
         Transaction tr = session.beginTransaction();
-        User user = getUser(userId);
+        User user = getUserById(userId);
         session.refresh(user);
 
         // refresh the repository if it has not been saved to the database 
@@ -69,19 +69,13 @@ public class Database{
         Transaction tr = null;
         tr = session.beginTransaction();
 
-        // we need to make sure there are no two usernames or emails
-        // that are the same
-        user = (User) session.createCriteria(User.class)
-            .add(Restrictions.or( 
-                        Restrictions.eq("userName", user.getUserName() ),
-                        Restrictions.eq("email", user.getEmail() ))).
+        user = (User) session.createCriteria(User.class).
+            add( Restrictions.eq("id", user.getId()) ).
             uniqueResult(); 
 
         tr.commit();
         session.close();
-        if( user != null )
-            return true;
-        return false;
+        return( user != null );
     }
     // Check if Repository exists in database
     public static boolean exists( Repository repository ){
@@ -102,7 +96,7 @@ public class Database{
         return false;
     }
     // get User by userName and password
-    public static User getUser(String userName, String password) {
+    public static User getUserByUserNamePassword(String userName, String password) {
         Session session = factory.openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
@@ -114,13 +108,13 @@ public class Database{
         session.close();
         return user;
     }
-    // get User by userName only
-    public static User getUser(String userName){
+    // get User by UserName only
+    public static User getUserByUserName(String userName){
         Session session = factory.openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
 
-        // userName is expected to be unique
+        // name is expected to be unique
         User user = (User) session.createCriteria(User.class).
             add(Restrictions.eq("userName", userName)).
             uniqueResult();
@@ -129,8 +123,23 @@ public class Database{
         session.close();
         return user;
     }
+    // get User by Name only
+    public static User getUserByName(String name){
+        Session session = factory.openSession();
+        Transaction tr = null;
+        tr = session.beginTransaction();
+
+        // name is expected to be unique
+        User user = (User) session.createCriteria(User.class).
+            add(Restrictions.eq("name", name)).
+            uniqueResult();
+
+        tr.commit();
+        session.close();
+        return user;
+    }
     // get User by id
-    public static User getUser(int id){
+    public static User getUserById(int id){
         Session session = factory.openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
@@ -162,10 +171,14 @@ public class Database{
         Transaction tr = null;
         tr = session.beginTransaction();
 
-        List<String> clients = session.createCriteria(User.class).
+        Criteria criteria = session.createCriteria(User.class, "u").
             add(Restrictions.eq("type", "client")).
-            addOrder(Order.asc("userName")).
-            list();
+            addOrder(Order.asc("userName"));
+
+        ProjectionList proList = Projections.projectionList();
+        proList.add(Projections.property("u.name"));
+        criteria.setProjection(proList);
+        List<String> clients = new ArrayList<String>(criteria.list());
 
         tr.commit();
         session.close();

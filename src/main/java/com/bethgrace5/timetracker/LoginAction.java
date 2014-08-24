@@ -13,7 +13,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
     private Map<String, Object> session;
 
     public String login() {
-        User user = Database.getUser(this.userName, this.password);
+        User user = Database.getUserByUserNamePassword(this.userName, this.password);
         if( user == null ){
             addActionError("Invalid Username or Password!");
             return "error";

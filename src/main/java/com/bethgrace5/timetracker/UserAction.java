@@ -11,7 +11,7 @@ public class UserAction extends ActionSupport implements SessionAware {
     private String selectedRepository;
 
     public String deactivateUser(int userId){
-        User user = Database.getUser(userId);
+        User user = Database.getUserById(userId);
         user.setIsDeactivated(true);
         Database.saveUser(user);
         return "success";
