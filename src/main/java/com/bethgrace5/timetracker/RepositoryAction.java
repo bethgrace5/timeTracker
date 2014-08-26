@@ -5,7 +5,13 @@ import java.util.Map;
 import java.util.Set;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.google.gson.Gson;
 import org.apache.struts2.interceptor.SessionAware;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 public class RepositoryAction extends ActionSupport implements SessionAware{
     private Map<String, Object> session;
@@ -14,6 +20,7 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
     private List<String> issueNames;
     private List<String> milestoneNames;
     private String selectedRepository;
+    private String repositoryJSON;
 
 
     // we need to list all repositories associated with this user
@@ -26,7 +33,8 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
         return "success";
     }
 
-    public String addRepository() {
+    // when a repository is added the current user is linked to it
+    public String addRepository() throws Exception{
         Repository repo = new Repository();
         repo.setGithubUrl(selectedRepository);
         int userId = (int) session.get("userId");
@@ -34,19 +42,34 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
         if( selectedRepository == null )
             return "success";
 
-
-        if( Database.exists(repo) ){
+        if( Database.exists(repo) )
             repo = Database.getRepository(this.githubUrl);
-
-        //TODO: fill in issues and milestones associated with repository
-        }
-
-
-        // when a repository is saved, it also connects the current
-        // user to the repository
 
         Database.saveRepository(repo, userId);
         addActionMessage("Successfully Added Repository");
+
+        return "success";
+    }
+
+    public String getRepositoryInfo() throws Exception{
+        HttpClient httpclient = new DefaultHttpClient();
+        Gson gson = new Gson();
+        try{
+            HttpGet httpget = new HttpGet("https://api.github.com/users/bethgrace5/repos");
+
+            //System.out.println("executing request " + httpget.getURI());
+            httpget.getURI();
+
+            //create a response handler
+            ResponseHandler<String> responseHandler = new BasicResponseHandler();
+            // Body contains your json string
+            String responseBody = httpclient.execute(httpget, responseHandler);
+
+            repositoryJSON = gson.toJson(responseBody);
+
+        }finally{
+            httpclient.getConnectionManager().shutdown();
+        }
         return "success";
     }
 
@@ -62,26 +85,28 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
     public void setSession(Map<String, Object> session){
         this.session = session;
     }
-
     public String getGithubUrl() {
         return this.githubUrl;
     }
     public void setGithubUrl(String githubUrl) {
         this.githubUrl = githubUrl;
     }
-
     public List<String> getRepositoryNames() {
         return repositoryNames;
     }
     public void setRepositoryNames(List<String> repositoryNames) {
         this.repositoryNames = repositoryNames;
     }
-
     public String getSelectedRepository() {
         return this.selectedRepository;
     }
     public void setSelectedRepository(String selectedRepository) {
         this.selectedRepository = selectedRepository;
     }
-
+    public String getRepositoryJSON(){
+        return repositoryJSON;
+    }
+    public void setRepositoryJSON(String repositoryJSON){
+        this.repositoryJSON = repositoryJSON;
+    }
 }

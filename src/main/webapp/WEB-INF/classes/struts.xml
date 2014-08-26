@@ -80,6 +80,11 @@
             <result name="success" type="tiles">dashboard-contractor</result>
             <result name="error" type="tiles">dashboard-contractor</result>
         </action>
+        <action name="getRepositoryInfo" 
+                class="com.bethgrace5.timetracker.RepositoryAction" 
+                method="getRepositoryInfo"> 
+                <result type="json"><param name="root">repositoryJSON</param></result>
+        </action>
 
         <!-- TimeSessionAction class -->
         <action name="show-timeOptions"  
