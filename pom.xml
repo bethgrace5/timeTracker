@@ -56,6 +56,11 @@
             <artifactId>jetty-maven-plugin</artifactId>
             <version>9.2.1.v20140609</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.4-alpha1</version>
+        </dependency>
     </dependencies>
 
     <build>
