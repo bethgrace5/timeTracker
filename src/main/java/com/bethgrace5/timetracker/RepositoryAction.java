@@ -13,7 +13,7 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
     private List<String> repositoryNames;
     private List<String> issueNames;
     private List<String> milestoneNames;
-    private String selectRepository;
+    private String selectedRepository;
 
 
     // we need to list all repositories associated with this user
@@ -28,10 +28,10 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
 
     public String addRepository() {
         Repository repo = new Repository();
-        repo.setGithubUrl(selectRepository);
+        repo.setGithubUrl(selectedRepository);
         int userId = (int) session.get("userId");
 
-        if( selectRepository == null )
+        if( selectedRepository == null )
             return "success";
 
 
@@ -78,10 +78,10 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
     }
 
     public String getSelectedRepository() {
-        return this.selectRepository;
+        return this.selectedRepository;
     }
-    public void setSelectedRepository(String selectRepository) {
-        this.selectRepository = selectRepository;
+    public void setSelectedRepository(String selectedRepository) {
+        this.selectedRepository = selectedRepository;
     }
 
 }
