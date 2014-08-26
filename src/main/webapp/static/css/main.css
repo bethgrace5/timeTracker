@@ -1,6 +1,6 @@
-#login-form, #register-form
+#login-form, #register-form, #time-form
 {
     border: 1px solid black;
     display: block;
-    width: 200px;
+    width: 300px;
 }

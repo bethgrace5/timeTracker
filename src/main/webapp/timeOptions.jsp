@@ -3,7 +3,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
-<section>
+<section id="time-form">
     <h4>Time Session info </h4>
     <h5>view, update, or add new...</h5>
     <s:form action="startTimeSession" method="post">
