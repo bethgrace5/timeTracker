@@ -32,71 +32,66 @@
             <result type="tiles">login</result>
         </action>
 
-        <action name="show-registerClient" class="com.bethgrace5.timetracker.ClientAction" method="listClients">
-            <result type="tiles">registerClient</result>
-        </action>
-
-        <action name="show-updateClient" class="com.bethgrace5.timetracker.ClientAction" method="listClients">
-            <result type="tiles">updateClient</result>
-        </action>
-
-        <action name="show-repositoryOptions"  class="com.bethgrace5.timetracker.RepositoryAction" method="listRepositories">
-            <result type="tiles">repositoryOptions</result>
-        </action>
-
-        <action name="show-timeOptions"  class="com.bethgrace5.timetracker.TimeSessionAction" method="setupPage">
-            <result type="tiles">timeOptions</result>
-        </action>
-
-        <action name="startTimeSession"  class="com.bethgrace5.timetracker.TimeSessionAction" method="startTimeSession">
-            <result type="tiles">timeOptions</result>
-        </action>
-
-        <action name="login" class="com.bethgrace5.timetracker.LoginAction" method="login">
+        <!-- LoginAction class -->
+        <action name="login" 
+                class="com.bethgrace5.timetracker.LoginAction" 
+                method="login">
             <interceptor-ref name="defaultStack"/>
             <result name="contractor" type="tiles">dashboard-contractor</result>
             <result name="client" type="tiles">dashboard-client</result>
             <result name="error" type="tiles">login</result>
         </action>
 
-        <action name="logout" class="com.bethgrace5.timetracker.LoginAction" method="logout">
+        <action name="logout" 
+                class="com.bethgrace5.timetracker.LoginAction" 
+                method="logout">
             <result name="success" type="tiles">login</result>
         </action>
 
-        <action name="registerClient" class="com.bethgrace5.timetracker.ClientAction" method="register">
-            <result name="success" type="tiles">dashboard-contractor</result>
-            <result name="error" type="tiles">registerClient</result>
-            <result name="input" type="tiles">dashboard-contractor</result>
-        </action>
+        <!-- ClientAction class -->
+        <action name="show-updateClient" 
+                class="com.bethgrace5.timetracker.ClientAction" 
+                method="listClients">
+            <result type="tiles">updateClient</result> </action>
 
-        <action name="getSelectedClient" class="com.bethgrace5.timetracker.ClientAction" method="getClient">
-            <result name="input" type="tiles">updateClient</result>
-            <result name="success" type="tiles">updateClient</result>
-            <result name="error" type="tiles">updateClient</result>
-        </action>
-
-        <action name="deactivate" class="com.bethgrace5.timetracker.ClientAction" method="deactivate">
+        <action name="deactivate" 
+                class="com.bethgrace5.timetracker.ClientAction" 
+                method="deactivate">
             <result name="success" type="tiles">dashboard-contractor</result>
         </action>
 
-        <action name="index">
-            <result>index.jsp</result>
+        <action name="getClientInfo" 
+                class="com.bethgrace5.timetracker.ClientAction" 
+                method="getClientInfo"> 
+            <result type="json"><param name="root">clientJSON</param></result>
         </action>
 
-        <action name="getClientInfo" class="com.bethgrace5.timetracker.ClientAction" method="getClientInfo"> 
-            <result type="json">
-                <param name="root">clientJSON</param> 
-            </result>
-        </action>
-
-        <action name="setClientInfo" class="com.bethgrace5.timetracker.ClientAction" method="setClientInfo"> 
+        <action name="setClientInfo" 
+                class="com.bethgrace5.timetracker.ClientAction" 
+                method="setClientInfo"> 
             <result name="success" type="tiles">dashboard-contractor</result>
             <result name="error" type="tiles">updateClient</result>
         </action>
 
-        <action name="addRepository" class="com.bethgrace5.timetracker.RepositoryAction" method="addRepository"> 
+        <!-- RepositoryAction class -->
+        <action name="addRepository" 
+                class="com.bethgrace5.timetracker.RepositoryAction" 
+                method="addRepository"> 
             <result name="success" type="tiles">dashboard-contractor</result>
             <result name="error" type="tiles">dashboard-contractor</result>
+        </action>
+
+        <!-- TimeSessionAction class -->
+        <action name="show-timeOptions"  
+                class="com.bethgrace5.timetracker.TimeSessionAction" 
+                method="setupPage">
+            <result type="tiles">timeOptions</result>
+        </action>
+
+        <action name="startTimeSession"  
+                class="com.bethgrace5.timetracker.TimeSessionAction" 
+                method="startTimeSession">
+            <result type="tiles">timeOptions</result>
         </action>
 
     </package>

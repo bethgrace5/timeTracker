@@ -21,19 +21,9 @@
         <put-attribute name="body" value="/login.jsp"/>
     </definition>
 
-    <definition name="registerClient" extends="baseLayout">
-        <put-attribute name="title" value="Time and Mileage Tracker - Register Client"/>
-        <put-attribute name="body" value="/registerClient.jsp"/>
-    </definition>
-    
     <definition name="updateClient" extends="baseLayout">
         <put-attribute name="title" value="Time and Mileage Tracker - Update Client"/>
         <put-attribute name="body" value="/updateClient.jsp"/>
-    </definition>
-
-    <definition name="dashboard" extends="baseLayout">
-        <put-attribute name="title" value="Time and Mileage Tracker - Dashboard"/>
-        <put-attribute name="body" value="/dashboard.jsp"/>
     </definition>
 
     <definition name="dashboard-contractor" extends="baseLayout">
@@ -46,11 +36,6 @@
         <put-attribute name="body" value="/dashboard-client.jsp"/>
     </definition>
 
-    <definition name="repositoryOptions" extends="baseLayout">
-        <put-attribute name="title" value="Time and Mileage Tracker - Repository Options"/>
-        <put-attribute name="body" value="/repositoryOptions.jsp"/>
-    </definition>
-
     <definition name="timeOptions" extends="baseLayout">
         <put-attribute name="title" value="Time and Mileage Tracker - Time Options"/>
         <put-attribute name="body" value="/timeOptions.jsp"/>
@@ -60,6 +45,5 @@
         <put-attribute name="title" value="Time and Mileage Tracker - Error"/>
         <put-attribute name="body" value="/error.jsp"/>
     </definition>
-
 
 </tiles-definitions>
