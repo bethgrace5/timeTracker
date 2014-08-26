@@ -26,8 +26,8 @@
         <s:textfield id="description" name="description" label="Description"/>
         <s:textfield id="milesDriven" name="milesDriven" label="Miles Driven"/>
         <s:textfield id="hourlyRate" name="hourlyRate" label="Hourly Rate"/>
-        <s:textfield id="repositoryName" name="repositoryName" label="Hourly Rate"/>
-        <s:textfield id="repositoryFullName" name="repositoryFullName" label="Hourly Rate"/>
+        <s:textfield id="repositoryName" name="repositoryName" label="Repository Name"/>
+        <s:textfield id="repositoryFullName" name="repositoryFullName" label="Repository Full Name"/>
         <s:submit value="Start"/>
     </s:form>
 
@@ -61,7 +61,7 @@
                     success: function(result, status, xhr) {
                         //alert(result);
                         var obj = JSON.parse(result);
-                        alert(obj);
+                        //alert(obj);
                         $("#repositoryName").val(obj.name)
                         $("#repositoryFullName").val(obj.full_name)
                     },
