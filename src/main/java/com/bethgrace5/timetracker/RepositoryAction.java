@@ -65,7 +65,11 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
             // Body contains your json string
             String responseBody = httpclient.execute(httpget, responseHandler);
 
+            // TODO: gson needs to be an object instead of a string
+            // look into creating a map<String, Object> out of 
+            // this gson object.
             repositoryJSON = gson.toJson(responseBody);
+
 
         }finally{
             httpclient.getConnectionManager().shutdown();
