@@ -44,12 +44,12 @@
             <result type="tiles">repositoryOptions</result>
         </action>
 
-        <action name="show-timeOptions"  class="com.bethgrace5.timetracker.TimeSessionAction" method="setupPageWithArtificialData">
+        <action name="show-timeOptions"  class="com.bethgrace5.timetracker.TimeSessionAction" method="setupPage">
             <result type="tiles">timeOptions</result>
         </action>
 
         <action name="startTimeSession"  class="com.bethgrace5.timetracker.TimeSessionAction" method="startTimeSession">
-            <result type="tiles">timeOptions</result>
+            <result type="tiles">dashboard-contractor</result>
         </action>
 
         <action name="login" class="com.bethgrace5.timetracker.LoginAction" method="login">

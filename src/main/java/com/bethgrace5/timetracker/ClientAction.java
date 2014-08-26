@@ -83,6 +83,7 @@ public class ClientAction extends ActionSupport implements SessionAware{
         }
         return "error";
     }
+    // getters and setters
     public void setSession(Map<String, Object> session){
         this.session = session;
     }

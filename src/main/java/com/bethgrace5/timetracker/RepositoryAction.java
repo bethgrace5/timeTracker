@@ -11,7 +11,20 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
     private Map<String, Object> session;
     private String githubUrl;
     private List<String> repositoryNames;
+    private List<String> issueNames;
+    private List<String> milestoneNames;
     private String selectRepository;
+
+
+    // we need to list all repositories associated with this user
+    // set the selected value to the repository being worked on last
+    // use that repository to fill in the issues and milestones
+    public String setupPage(){
+        Database.getLastTimeSession( (int) session.get("userId") );
+        listRepositories();
+
+        return "success";
+    }
 
     public String addRepository() {
         Repository repo = new Repository();
@@ -22,8 +35,11 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
             return "success";
 
 
-        if( Database.exists(repo) )
+        if( Database.exists(repo) ){
             repo = Database.getRepository(this.githubUrl);
+
+        //TODO: fill in issues and milestones associated with repository
+        }
 
 
         // when a repository is saved, it also connects the current
@@ -42,6 +58,7 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
         return "success";
     }
 
+    // getters and setters
     public void setSession(Map<String, Object> session){
         this.session = session;
     }

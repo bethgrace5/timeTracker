@@ -5,23 +5,22 @@
 
 <section>
     <s:form action="startTimeSession" method="post">
-        <s:textfield id="description" name="description" label="Description"/>
-        <s:textfield id="miles" name="miles" label="Miles Driven"/>
-        <s:textfield id="rate" name="rate" label="Hourly Rate"/>
-        <s:textfield id="repo" name="repo" label="selectedRepository"/>
-        <%-- <s:select id="selectRepository" 
+         <s:select id="selectedRepository" 
+                  label="Select"
                   name="selectedRepository"
                   list="repositories"
                   headerKey="1" />
-        <s:select id="selectMilestone" 
-                  name="selectMilestone" 
+        <s:textfield id="description" name="description" label="Description"/>
+        <s:textfield id="milesDriven" name="milesDriven" label="Miles Driven"/>
+        <s:textfield id="hourlyRate" name="hourlyRate" label="Hourly Rate"/>
+        <s:select id="selectedMilestone" 
+                  name="selectedMilestone" 
                   list="milestones"
                   headerKey="1" />
-        <s:select id="selectIssue" 
-                  name="selectIssue"
+        <s:select id="selectedIssue" 
+                  name="selectedIssue"
                   list="issues"
                   headerKey="1" />
-                  --%>
         <s:submit value="Start"/>
     </s:form>
 
@@ -29,9 +28,17 @@
 
 <script type="text/javascript">
    $(document).ready(function(){
-        $('#select').selectize({
+        $('#selectedRepository').selectize({
             create: true,
-            createOnBlur: true,
+            openOnFocus: true,
+            highlight: true,
+        });
+        $('#selectedMilestone').selectize({
+            create: false,
+            highlight: true,
+        });
+        $('#selectedIssue').selectize({
+            create: false,
             highlight: true,
         });
 

@@ -22,11 +22,9 @@
 
     <div>
     <%--
-    --%>
         <s:action name="show-repositoryOptions" executeResult="true"/>
-    <%--
-        <s:action name="show-timeOptions" executeResult="true"/> 
     --%>
+        <s:action name="show-timeOptions" executeResult="true"/> 
         <s:action name="show-updateClient" executeResult="true"/>
         <a href="<s:url action='logout' />">Logout</a>
 

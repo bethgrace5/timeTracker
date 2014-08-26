@@ -1,5 +1,6 @@
 package com.bethgrace5.timetracker;
 
+import java.sql.Timestamp;
 import java.util.Map;
 import java.util.Set;
 import java.util.List;
@@ -26,21 +27,55 @@ public class TimeSessionAction extends ActionSupport implements SessionAware{
     private List<String> issues = new ArrayList<String>();
     private List<String> timeSessions = new ArrayList<String>();
 
-    // use for testing while no data is in database
-    public String setupPageWithArtificialData(){
+
+    public String setupPage(){
         int userId = (int) session.get("userId");
         user = Database.getUserById(userId);
 
+        repositories = Database.getRepositories(userId);
+
         // we need to get the last time session this user was working on
-        //TODO: implement Database.getLastTimeSession()
+        // TODO: implement Database.getLastTimeSession()
+        // lastTimeSession = Database.getLastTimeSession(userId);
+        // lastRepository = lastTimeSession.getRepository();
+
+        // page should display a stop button if the time is still running
+        // if(lastTimeSession.getTimeStamp() == null){
+            // inProgress = true;
+        // }
+
+        // fill in suggestions based on the last time session.
+        // description = lastTimeSession.getDescription();
+        // milesDriven = lastTimeSession.getMilesDriven();
+        // hourlyRate = lastTimeSession.getHourlyRate();
+
+        // fill in suggestions for repositories based on the user logged in
+        // repositories = new ArrayList(Database.getRepositories(userId));
+
+        // fill in suggestions for milestones and issues 
+        // based on the last repository worked on.
+        // milestones = new ArrayList(lastRepository.getMilestones());
+        // issues = new ArrayList(lastRepository.getIssues());
+
+        // we need to put the last repository on top of its list,
+        // the last milestone on top of its list,
+        // and the last issue on top of its list.
+
+        // return "success";
+        setupPageWithArtificialData();
+        return "success";
+    }
+    // use for testing while no data is in database
+    public String setupPageWithArtificialData(){
+
+        // we need to get the last time session this user was working on
+        // TODO: implement Database.getLastTimeSession()
         lastTimeSession = new TimeSession();
         // I added "github.com/repository as githubUrl to database
         lastRepository = Database.getRepository("github.com/repository");
-        selectedRepository = "selectedrepository";
 
         // page should display a stop button if the time is still running
         inProgress = false;
-
 
         // fill in suggestions based on the last time session.
         description = "artificially supplied description";
@@ -48,7 +83,7 @@ public class TimeSessionAction extends ActionSupport implements SessionAware{
         hourlyRate = 9.0;
 
         // fill in suggestions for repositories based on the user logged in
-        repositories = new ArrayList(Database.getRepositories(userId));
+        //repositories = new ArrayList(Database.getRepositories(userId));
 
         // fill in suggestions for milestones and issues 
         // based on the last repository worked on.
@@ -61,42 +96,6 @@ public class TimeSessionAction extends ActionSupport implements SessionAware{
 
         return "success";
     }
-
-    //public String setupPage(){
-        //int userId = (int) session.get("userId");
-        //user = Database.getUserById(userId);
-
-        // we need to get the last time session this user was working on
-        //TODO: implement Database.getLastTimeSession()
-        //lastTimeSession = Database.getLastTimeSession(userId);
-        //lastRepository = lastTimeSession.getRepository();
-
-        //page should display a stop button if the time is still running
-        //if(lastTimeSession.getTimeStamp() == null){
-            //inProgress = true;
-        //}
-
-
-        // fill in suggestions based on the last time session.
-        //description = lastTimeSession.getDescription();
-        //milesDriven = lastTimeSession.getMilesDriven();
-        //hourlyRate = lastTimeSession.getHourlyRate();
-
-        // fill in suggestions for repositories based on the user logged in
-        //repositories = new ArrayList(Database.getRepositories(userId));
-
-        // fill in suggestions for milestones and issues 
-        // based on the last repository worked on.
-        //milestones = new ArrayList(lastRepository.getMilestones());
-        //issues = new ArrayList(lastRepository.getIssues());
-
-        // we need to put the last repository on top of its list,
-        // the last milestone on top of its list,
-        // and the last issue on top of its list.
-        //putMostRecentItemsOnTop();
-
-        //return "success";
-    //}
 
     public String clearFields(){
         user = Database.getUserById((int) session.get("userId"));
@@ -112,19 +111,25 @@ public class TimeSessionAction extends ActionSupport implements SessionAware{
 
     public String startTimeSession(){
         // create a new time session from the fields filled in
-        TimeSession timeSession = new TimeSession();
-        //timeSession.setDescription(description);
-        //timeSession.setUser(user);
-        //timeSession.setRepository(Database.getRepository(selectedRepository));
-        //timeSession.setMilestone(Database.getMilestone(selectedMilestone));
-        //timeSession.setIssue(Database.getIssue(selectedIssue));
-        //timeSession.setStartDate(/*current time*/);
-        //timeSession.setEndDate(null);
-        //timeSession.setMilesDriven(milesDriven);
-        //timeSession.setHourlyRate(hourlyRate);
+        //if (lastTimeSession.getEndDate() != null )
+            //return "sessionInProgress";
+
+        int userId = (int) session.get("userId");
+        user = Database.getUserById(userId);
+
+        lastTimeSession = new TimeSession();
+        lastTimeSession.setDescription(description);
+        lastTimeSession.setUser(user);
+        lastTimeSession.setRepository(Database.getRepository(selectedRepository));
+        //lastTimeSession.setMilestone(Database.getMilestone(selectedMilestone));
+        //lastTimeSession.setIssue(Database.getIssue(selectedIssue));
+        lastTimeSession.setStartDate(new Timestamp(System.currentTimeMillis()));
+        lastTimeSession.setEndDate(null);
+        lastTimeSession.setMilesDriven(milesDriven);
+        lastTimeSession.setHourlyRate(hourlyRate);
 
         //TODO: implement Database.saveTimeSession();
-        //Database.saveTimeSession(timeSession);
+        Database.saveTimeSession(lastTimeSession);
 
         return "success";
     }
@@ -141,35 +146,7 @@ public class TimeSessionAction extends ActionSupport implements SessionAware{
         return "success";
     }
 
-
-
-    public void putMostRecentItemsOnTop(){
-    // (consider using Linked list for less expensive data operations)
-
-        for(String s : repositories){
-            if(s.equals(lastRepository.getGithubUrl())){
-                repositories.remove(s);
-                repositories.add(0, s);
-                break;
-            }
-        }
-        for(String s : milestones){
-            if(s.equals(lastTimeSession.getMilestone().getName())){
-                milestones.remove(s);
-                milestones.add(0, s);
-                break;
-            }
-        }
-        for(String s : issues){
-            if(s.equals(lastTimeSession.getIssue().getTitle())){
-                issues.remove(s);
-                issues.add(0, s);
-                break;
-            }
-        }
-
-    }
-
+    //getters and setters
     public String getDescription() {
         return this.description;
     }

@@ -63,6 +63,23 @@ public class Database{
         session.close();
         return repo.getId();
     }
+    
+    // Save time session as new, or update if existing
+    public static Integer saveTimeSession(TimeSession timeSession){
+        Session session = factory.openSession();
+        Transaction tr = session.beginTransaction();
+
+        if( !exists(timeSession) )
+            session.save(timeSession);
+        // update if they do exist
+        else
+            session.update(timeSession);
+
+        tr.commit();
+        session.close();
+        return timeSession.getId();
+    }
+
     // Check if User exists in database
     public static boolean exists( User user ){
         Session session = factory.openSession();
@@ -83,17 +100,26 @@ public class Database{
         Transaction tr = null;
         tr = session.beginTransaction();
 
-        // we need to make sure there are no two github urls that are the same
         repository = (Repository) session.createCriteria(Repository.class)
-            .add(Restrictions.or( 
-                        Restrictions.eq("githubUrl", repository.getGithubUrl() ))).
+            .add( Restrictions.eq("id", repository.getId() )).
             uniqueResult(); 
 
         tr.commit();
         session.close();
-        if( repository != null )
-            return true;
-        return false;
+        return( repository != null );
+    }
+    public static boolean exists( TimeSession timeSession ){
+        Session session = factory.openSession();
+        Transaction tr = null;
+        tr = session.beginTransaction();
+
+        timeSession = (TimeSession) session.createCriteria(TimeSession.class)
+            .add( Restrictions.eq("id", timeSession.getId() )).
+            uniqueResult(); 
+
+        tr.commit();
+        session.close();
+        return( timeSession != null );
     }
     // get User by userName and password
     public static User getUserByUserNamePassword(String userName, String password) {
@@ -213,6 +239,25 @@ public class Database{
         user.setLastLogin(now);
 
         return saveUser(user);
+    }
+
+    public static  TimeSession getLastTimeSession( int userId ){
+        Session session = factory.openSession();
+        Transaction tr = null;
+        tr = session.beginTransaction();
+
+        // get the timesessions associated with the user ordered by 
+        // newest to oldest. Time session id increments, so the newest
+        // should have the highest id number.
+        List<TimeSession> timeSessions = session.createCriteria(TimeSession.class, "t").
+            createAlias("t.user", "u").
+            add(Restrictions.eq("u.id", userId)).
+            addOrder(Order.desc("t.id")).
+            list();
+
+        tr.commit();
+        session.close();
+        return timeSessions.get(0);
     }
 
 }

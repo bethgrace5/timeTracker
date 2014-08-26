@@ -19,7 +19,6 @@ public class User {
     private String userName;
     private String type;
     private String password;
-    private String selectedRepository;
     private Timestamp lastLogin;
     private boolean isDeactivated = false;
 
@@ -87,13 +86,6 @@ public class User {
     }
     public void setLastLogin(Timestamp lastLogin) {
         this.lastLogin = lastLogin;
-    }
-
-    public String getSelectedRepository() {
-        return selectedRepository;
-    }
-    public void setSelectedRepository(String selectedClient) {
-        this.selectedRepository = selectedRepository;
     }
 
     public Set<Repository> getRepositories() {

@@ -6,7 +6,7 @@
 <section>
     <s:form action="addRepository" method="post">
         <s:select name="selectRepository"
-                  id="repositoryNames"
+                  id="selectRepository"
                   label="Select"
                   list="repositoryNames"
                   headerKey="-1"
@@ -18,19 +18,19 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#repositoryNames').selectize({
+        $('#selectRepository').selectize({
             create: true,
             createOnBlur: true,
             highlight: true,
         });
-        $("#repositoryNames").change(function() {
-            var selectedRepo = $("#repositoryNames").val();
-            if (!selectedRepo)
+        $("#selectRepository").change(function() {
+            var selectedRepo = $("#selectRepository").val();
+            if (!selectedRepo || selctedRepo == -1)
                 return false;
 
             $.ajax({
                 data: {
-                    selectedRepository: selectedRepo,
+                    selectRepository: selectedRepo,
                 },
                 url: "/addRepository",
                 success: function(result, status, xhr) {
