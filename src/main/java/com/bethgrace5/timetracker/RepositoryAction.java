@@ -4,14 +4,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.opensymphony.xwork2.ActionSupport;
 import com.google.gson.Gson;
-import org.apache.struts2.interceptor.SessionAware;
-import org.apache.http.client.ResponseHandler;
+import com.opensymphony.xwork2.ActionSupport;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.struts2.interceptor.SessionAware;
 
 public class RepositoryAction extends ActionSupport implements SessionAware{
     private Map<String, Object> session;
@@ -53,11 +53,9 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
 
     public String getRepositoryInfo() throws Exception{
         HttpClient httpclient = new DefaultHttpClient();
-        Gson gson = new Gson();
+        Gson converter = new Gson();
         try{
-            HttpGet httpget = new HttpGet("https://api.github.com/users/bethgrace5/repos");
-
-            //System.out.println("executing request " + httpget.getURI());
+            HttpGet httpget = new HttpGet("https://api.github.com/users/" + selectedRepository);
             httpget.getURI();
 
             //create a response handler
@@ -65,11 +63,8 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
             // Body contains your json string
             String responseBody = httpclient.execute(httpget, responseHandler);
 
-            // TODO: gson needs to be an object instead of a string
-            // look into creating a map<String, Object> out of 
-            // this gson object.
-            repositoryJSON = gson.toJson(responseBody);
-
+            Map<String, Object> response = converter.fromJson(responseBody, Map.class);
+            //System.out.println(response.get("name"));
 
         }finally{
             httpclient.getConnectionManager().shutdown();

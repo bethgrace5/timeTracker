@@ -46,7 +46,7 @@
                     },
                     url: "/addRepository",
                     success: function(result, status, xhr) {
-                        //alert(value);
+                        alert(value);
                     },
                 });
             },
@@ -61,7 +61,7 @@
                     success: function(result, status, xhr) {
                         //alert(result);
                         var obj = JSON.parse(result);
-                        //alert(obj);
+                        alert(obj);
                         $("#repositoryName").val(obj.name)
                         $("#repositoryFullName").val(obj.full_name)
                     },
