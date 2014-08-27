@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
@@ -24,8 +25,10 @@ public class LoginAction extends ActionSupport implements SessionAware {
     public String login() throws Exception {
         user = Database.getUserByUserNamePassword(userName, password);
         if( user == null ){
-            //TODO: check that username is not an email before checking github
-            getUserFromGithub( userName );
+            if( !getUserFromGithub( userName )){
+                // user is not registered with this site or github
+                return "error";
+            }
         }
         Database.updateLastLogin(user);
         addActionMessage("Welcome " + user.getName());
@@ -43,14 +46,21 @@ public class LoginAction extends ActionSupport implements SessionAware {
         HttpClient httpclient = new DefaultHttpClient();
         Gson converter = new Gson();
         try{
+            // TODO: check that userName does not have illegal characters
+            //       ( not able to be read as url )
             HttpGet httpget = new HttpGet("https://api.github.com/users/" + userName);
             httpget.getURI();
 
             //create a response handler
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
             // Body contains your json string
-            String responseBody = httpclient.execute(httpget, responseHandler);
-            response = converter.fromJson(responseBody, Map.class);
+            try{
+                String responseBody = httpclient.execute(httpget, responseHandler);
+                response = converter.fromJson(responseBody, Map.class);
+            }
+            catch( HttpResponseException e){
+                return false;
+            }
             //TODO: set user properties here, remove storing excess in database
             //System.out.println(response.get("name"));
 
