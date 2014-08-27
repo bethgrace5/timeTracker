@@ -7,6 +7,7 @@ import java.util.Set;
 import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
@@ -21,7 +22,8 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
     private List<String> milestoneNames;
     private String selectedRepository;
     private String repositoryJSON;
-
+    private Map<String, Object> response;
+    private Repository repository;
 
     // we need to list all repositories associated with this user
     // set the selected value to the repository being worked on last
@@ -35,41 +37,54 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
 
     // when a repository is added the current user is linked to it
     public String addRepository() throws Exception{
-        Repository repo = new Repository();
-        repo.setGithubUrl(selectedRepository);
-        int userId = (int) session.get("userId");
+        repository = Database.getRepository(this.githubUrl);
 
-        if( selectedRepository == null )
-            return "success";
-
-        if( Database.exists(repo) )
-            repo = Database.getRepository(this.githubUrl);
-
-        Database.saveRepository(repo, userId);
+        if( repository == null ){
+            if( !getRepositoryFromGithub( selectedRepository )){
+                // repositorty does not exist on github
+                return "error";
+            }
+        }
         addActionMessage("Successfully Added Repository");
-
         return "success";
     }
 
-    public String getRepositoryInfo() throws Exception{
+    public boolean getRepositoryFromGithub( String repoFullName) throws Exception{
+        //System.out.println(repoFullName);
         HttpClient httpclient = new DefaultHttpClient();
         Gson converter = new Gson();
         try{
-            HttpGet httpget = new HttpGet("https://api.github.com/users/" + selectedRepository);
+            HttpGet httpget = 
+                //repoName must be formatted "owner/repository"
+                new HttpGet("https://api.github.com/repos/" + repoFullName);
             httpget.getURI();
 
             //create a response handler
-            ResponseHandler<String> responseHandler = new BasicResponseHandler();
-            // Body contains your json string
-            String responseBody = httpclient.execute(httpget, responseHandler);
+            ResponseHandler<String> responseHandler = 
+                new BasicResponseHandler();
+            // Body contains json string
+            try{
+                String responseBody = httpclient.execute(httpget, responseHandler);
+                response = converter.fromJson(responseBody, Map.class);
+            }
+            catch(HttpResponseException e){
+                return false;
+            }
+            String name = (String) response.get("name");
+            //System.out.println(name);
+            repository = new Repository();
 
-            Map<String, Object> response = converter.fromJson(responseBody, Map.class);
-            //System.out.println(response.get("name"));
+            // repositories are automatically set as "in progress"
+            repository.setStatus( RepositoryStatus.InProgress );
+            repository.setName(name);
+
+            int userId = (int) session.get("userId");
+            Database.saveRepository( repository, userId);
 
         }finally{
             httpclient.getConnectionManager().shutdown();
         }
-        return "success";
+        return true;
     }
 
     public String listRepositories() {
