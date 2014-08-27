@@ -1,5 +1,8 @@
 #git ignore files
 
+#vim undo files
+*~
+
 #vim swapfiles
 *.swp
 *.swo
