@@ -109,12 +109,4 @@ public class User {
     public boolean equals(User user) {
         return (this.userName.equals(user.getUserName()));
     }
-
-    public boolean isContractor(){
-        return this.getType().equals("contractor");
-    }
-
-    public boolean isClient(){
-        return this.getType().equals("client");
-    }
 }

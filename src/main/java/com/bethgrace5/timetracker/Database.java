@@ -217,9 +217,12 @@ public class Database{
 
         // we need to look through the users in the repository class
         // for this specific user
+        System.out.println("searching for repositories for User "+userId+"...");
         Criteria criteria = session.createCriteria(Repository.class, "r").
-            createAlias("r.users", "u").
-            add(Restrictions.eq("u.id", userId)).
+            //FIXME: when we try to list repositories for only this user,
+            //       the list is empty.
+            //createAlias("r.users", "u").
+            //add(Restrictions.eq("u.id", userId)).
             addOrder(Order.asc("r.githubUrl"));
 
         // we need a list of the github urls from the repository class

@@ -22,8 +22,9 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
     private List<String> milestoneNames;
     private String selectedRepository;
     private String repositoryJSON;
-    private Map<String, Object> response;
-    private Repository repository;
+    private String repositoryName;
+    private Repository repo;
+
 
     // we need to list all repositories associated with this user
     // set the selected value to the repository being worked on last
@@ -37,51 +38,49 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
 
     // when a repository is added the current user is linked to it
     public String addRepository() throws Exception{
-        repository = Database.getRepository(this.githubUrl);
+        repo = new Repository();
+        repo = Database.getRepository(this.githubUrl);
+        int userId = (int) session.get("userId");
 
-        if( repository == null ){
-            if( !getRepositoryFromGithub( selectedRepository )){
-                // repositorty does not exist on github
-                return "error";
-            }
+        if( repo == null && !getRepositoryInfo() ){
+            return "success";
         }
+
+        //Database.saveRepository(repo, userId);
         addActionMessage("Successfully Added Repository");
+
         return "success";
     }
 
-    public boolean getRepositoryFromGithub( String repoFullName) throws Exception{
-        //System.out.println(repoFullName);
+    public boolean getRepositoryInfo() throws Exception{
+        int userId = (int) session.get("userId");
         HttpClient httpclient = new DefaultHttpClient();
         Gson converter = new Gson();
+
+        HttpGet httpget = new HttpGet("https://api.github.com/repos/" + selectedRepository);
+        httpget.getURI();
+
+        //create a response handler
+        ResponseHandler<String> responseHandler = new BasicResponseHandler();
+        // Body contains your json string
+
         try{
-            HttpGet httpget = 
-                //repoName must be formatted "owner/repository"
-                new HttpGet("https://api.github.com/repos/" + repoFullName);
-            httpget.getURI();
-
-            //create a response handler
-            ResponseHandler<String> responseHandler = 
-                new BasicResponseHandler();
-            // Body contains json string
-            try{
-                String responseBody = httpclient.execute(httpget, responseHandler);
-                response = converter.fromJson(responseBody, Map.class);
-            }
-            catch(HttpResponseException e){
-                return false;
-            }
-            String name = (String) response.get("name");
-            //System.out.println(name);
-            repository = new Repository();
-
-            // repositories are automatically set as "in progress"
-            repository.setStatus( RepositoryStatus.InProgress );
-            repository.setName(name);
-
-            int userId = (int) session.get("userId");
-            Database.saveRepository( repository, userId);
-
-        }finally{
+            String responseBody = httpclient.execute(httpget, responseHandler);
+            Map<String, Object> response = converter.fromJson(responseBody, Map.class);
+            repo = new Repository();
+            repo.setGithubUrl((String) response.get("full_name"));
+            repo.setName((String) response.get("name"));
+            repositoryName = repo.getName();
+            //FIXME: repository not being saved when status is set.
+            //repo.setStatus(RepositoryStatus.InProgress);
+            Database.saveRepository(repo, userId);
+        }
+        catch (HttpResponseException e){
+            System.out.println(e);
+            httpclient.getConnectionManager().shutdown();
+            return false;
+        }
+        finally{
             httpclient.getConnectionManager().shutdown();
         }
         return true;
@@ -122,5 +121,11 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
     }
     public void setRepositoryJSON(String repositoryJSON){
         this.repositoryJSON = repositoryJSON;
+    }
+    public String getRepositoryName(){
+        return repositoryName;
+    }
+    public void setRepositoryName(String repositoryName){
+        this.repositoryName = repositoryName;
     }
 }

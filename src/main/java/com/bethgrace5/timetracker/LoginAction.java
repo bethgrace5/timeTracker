@@ -30,10 +30,6 @@ public class LoginAction extends ActionSupport implements SessionAware {
                 return "error";
             }
         }
-        if( user.isContractor() ){
-            // get repositories
-        }
-
         Database.updateLastLogin(user);
         addActionMessage("Welcome " + user.getName());
         session.put("userId", user.getId());
@@ -57,23 +53,31 @@ public class LoginAction extends ActionSupport implements SessionAware {
 
             //create a response handler
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
-            // get json string
+            // Body contains your json string
             try{
                 String responseBody = httpclient.execute(httpget, responseHandler);
                 response = converter.fromJson(responseBody, Map.class);
             }
             catch( HttpResponseException e){
-                // user not found
                 return false;
             }
+            //TODO: set user properties here, remove storing excess in database
+            //System.out.println(response.get("name"));
 
             String name = (String) response.get("name");
             user = new User(name, userName, "contractor", "");
             Database.saveUser( user );
 
+
         }finally{
             httpclient.getConnectionManager().shutdown();
         }
+            //if( response.get("message").equals("Not Found")){
+                //httpclient.getConnectionManager().shutdown();
+                //return false;
+            //}
+
+
         return true;
     }
 

@@ -46,27 +46,27 @@
                     },
                     url: "/addRepository",
                     success: function(result, status, xhr) {
-                        alert(value);
+                        //alert(value);
                     },
                 });
             },
-            onChange: function(value){
-                $.ajax({
-                    type: "GET",
-                    data: {
-                        selectedRepository: value,
-                    },
-                    url: "/getRepositoryInfo",
-                    dataType: 'json',
-                    success: function(result, status, xhr) {
+            //onChange: function(value){
+                //$.ajax({
+                    //type: "GET",
+                    //data: {
+                        //selectedRepository: value,
+                    //},
+                    //url: "/getRepositoryInfo",
+                    //dataType: 'json',
+                    //success: function(result, status, xhr) {
                         //alert(result);
-                        var obj = JSON.parse(result);
-                        alert(obj);
-                        $("#repositoryName").val(obj.name)
-                        $("#repositoryFullName").val(obj.full_name)
-                    },
-                });
-            },
+                        //var obj = JSON.parse(result);
+                        //alert(obj);
+                        //$("#repositoryName").val(obj.name)
+                        //$("#repositoryFullName").val(obj.full_name)
+                    //},
+                //});
+            //},
 
         });
         $('#selectedMilestone').selectize({

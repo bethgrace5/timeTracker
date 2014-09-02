@@ -18,6 +18,7 @@ public class TimeSessionAction extends ActionSupport implements SessionAware{
     private String selectedRepository;
     private String selectedMilestone;
     private String selectedIssue;
+    private String selectedRepositoryStatus;
     private User user;
     private Repository lastRepository;
     private TimeSession lastTimeSession;
@@ -26,7 +27,7 @@ public class TimeSessionAction extends ActionSupport implements SessionAware{
     private List<String> milestones = new ArrayList<String>();
     private List<String> issues = new ArrayList<String>();
     private List<String> timeSessions = new ArrayList<String>();
-
+    private List<String> statuses = new ArrayList<String>();
 
     public String setupPage(){
         int userId = (int) session.get("userId");
@@ -93,6 +94,15 @@ public class TimeSessionAction extends ActionSupport implements SessionAware{
         issues = new ArrayList();
         issues.add("artificial issue1");
         issues.add("artificial issue2");
+        issues.add("artificial issue3");
+        issues.add("artificial issue4");
+        selectedIssue = "artificial issue3";
+        selectedMilestone = "artificial milestone2";
+        statuses = new ArrayList();
+        statuses.add(RepositoryStatus.InProgress.toString());
+        statuses.add(RepositoryStatus.Pending.toString());
+        statuses.add(RepositoryStatus.Canceled.toString());
+        statuses.add(RepositoryStatus.Complete.toString());
 
         return "success";
     }
@@ -198,6 +208,12 @@ public class TimeSessionAction extends ActionSupport implements SessionAware{
     public void setSelectedIssue(String selectedIssue){
         this.selectedIssue = selectedIssue;
     }
+    public String getSelectedRepositoryStatus(){
+        return selectedRepositoryStatus;
+    }
+    public void setSelectedRepositoryStatus(String selectedRepositoryStatus){
+        this.selectedRepositoryStatus = selectedRepositoryStatus;
+    }
 
     public User getUser(){
         return user;
@@ -236,5 +252,11 @@ public class TimeSessionAction extends ActionSupport implements SessionAware{
     }
     public void setIssues(List<String> issues){
         this.issues = issues;
+    }
+    public List<String> getStatuses(){
+        return statuses;
+    }
+    public void setStatuses(List<String> statuses){
+        this.statuses = statuses;
     }
 }
