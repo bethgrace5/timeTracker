@@ -80,6 +80,11 @@
                 <version>9.2.1.v20140609</version>
                 <configuration>
                     <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <webAppSourceDirectory>${basedir}/src/main/webapp/</webAppSourceDirectory>
+                    <webAppConfig>
+                        <contextPath>/</contextPath>
+                        <descriptor>${basedir}/src/main/webapp/WEB-INF/web.xml</descriptor>
+                    </webAppConfig>
                 </configuration>
             </plugin>
         </plugins>
