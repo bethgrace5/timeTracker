@@ -20,6 +20,7 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
     private List<String> issueNames;
     private List<String> milestoneNames;
     private String selectedRepository;
+    private String selectedStatus;
     private String repositoryJSON;
     private String repositoryName;
     private Repository repo;
@@ -70,7 +71,7 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
             repo.setName((String) response.get("full_name"));
             repositoryName = repo.getName();
             //FIXME: repository not being saved when status is set.
-            repo.setStatus(RepositoryStatus.InProgress);
+            //repo.setStatus(RepositoryStatus.InProgress);
             Database.saveRepository(repo, userId);
         }
         catch (HttpResponseException e){
@@ -92,6 +93,13 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
         return "success";
     }
 
+    public String updateStatus(){
+        Repository repository = Database.getRepository(selectedRepository);
+        //update status here
+        Database.saveRepository(repository, (int) session.get("userId"));
+        return "success";
+    }
+
     // getters and setters
     public void setSession(Map<String, Object> session){
         this.session = session;
@@ -107,6 +115,12 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
     }
     public void setSelectedRepository(String selectedRepository) {
         this.selectedRepository = selectedRepository;
+    }
+    public String getSelectedStatus() {
+        return this.selectedStatus;
+    }
+    public void setSelectedStatus(String selectedStatus) {
+        this.selectedStatus = selectedStatus;
     }
     public String getRepositoryJSON(){
         return repositoryJSON;

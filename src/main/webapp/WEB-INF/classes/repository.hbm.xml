@@ -21,6 +21,6 @@
         <one-to-many class="com.bethgrace5.timetracker.TimeSession"></one-to-many>
     </set>
     <property name="name" type="string" column="name"></property>
-    <property name="statusString" type="string" column="statusString"></property>
+    <property name="status" type="string" column="status"></property>
 </class>
 </hibernate-mapping>

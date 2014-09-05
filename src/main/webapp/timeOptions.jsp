@@ -83,6 +83,17 @@
         $('#selectedStatus').selectize({
             create: false,
             highlight: true,
+            onChange: function(value){
+                $.ajax({
+                    data: {
+                        selectedStatus: value,
+                    },
+                    url: "/updateStatus",
+                    success: function(result, status, xhr) {
+                        alert(value);
+                    },
+                });
+            },
         });
 
        //$( "#selectedRepository" ).change(function() {
