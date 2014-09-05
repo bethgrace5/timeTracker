@@ -42,12 +42,16 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
         repo = Database.getRepository(this.selectedRepository);
         int userId = (int) session.get("userId");
 
-        if( repo == null && !getRepositoryInfo() ){
-            return "success";
+        if( repo!=null ){
+            // connect the user with it in the database
+            Database.saveRepository( repo, userId );
         }
-
-        //Database.saveRepository(repo, userId);
-        addActionMessage("Successfully Added Repository");
+        else {
+            // adds repository to database if it exists on github.
+            // connects user with new repository
+            // error message if repository does not exist on github.
+            getRepositoryInfo();
+        }
 
         return "success";
     }
