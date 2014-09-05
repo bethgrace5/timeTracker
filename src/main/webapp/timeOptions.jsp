@@ -13,6 +13,11 @@
                   list="repositories"
                   headerKey="-1"
                   headerValue="select or add new..." />
+        <s:select id="selectedStatus" 
+                  label="Status"
+                  name="selectedStatus"
+                  list="statuses"
+                  headerKey="1" />
         <s:select id="selectedMilestone" 
                   label="Milestone"
                   name="selectedMilestone" 
@@ -72,6 +77,10 @@
             highlight: true,
         });
         $('#selectedIssue').selectize({
+            create: false,
+            highlight: true,
+        });
+        $('#selectedStatus').selectize({
             create: false,
             highlight: true,
         });
