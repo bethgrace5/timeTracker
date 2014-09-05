@@ -27,7 +27,6 @@
         <s:textfield id="milesDriven" name="milesDriven" label="Miles Driven"/>
         <s:textfield id="hourlyRate" name="hourlyRate" label="Hourly Rate"/>
         <s:textfield id="repositoryName" name="repositoryName" label="Repository Name"/>
-        <s:textfield id="repositoryFullName" name="repositoryFullName" label="Repository Full Name"/>
         <s:submit value="Start"/>
     </s:form>
 
@@ -62,8 +61,7 @@
                         //alert(result);
                         //var obj = JSON.parse(result);
                         //alert(obj);
-                        //$("#repositoryName").val(obj.name)
-                        //$("#repositoryFullName").val(obj.full_name)
+                        //$("#repositoryName").val(obj.full_name)
                     //},
                 //});
             //},
@@ -94,8 +92,7 @@
                    // parse string as json object.
                    //alert(result);
                    //var obj = JSON.parse(result);
-                   //$("#repositoryName").val(obj.name)
-                   //$("#repositoryFullName").val(obj.full_name)
+                   //$("#repositoryName").val(obj.full_name)
                //}
            //});
 

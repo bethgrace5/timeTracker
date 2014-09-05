@@ -176,15 +176,15 @@ public class Database{
         session.close();
         return user;
     }
-    // get Repository by github URL
-    public static Repository getRepository(String githubUrl){
+    // get Repository by name 
+    public static Repository getRepository(String name){
         Session session = factory.openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
 
         Repository repo = (Repository) session.
             createCriteria(Repository.class).
-            add(Restrictions.eq("githubUrl", githubUrl)).
+            add(Restrictions.eq("name", name)).
             uniqueResult();
 
         tr.commit();
@@ -220,11 +220,11 @@ public class Database{
         Criteria criteria = session.createCriteria(User.class, "u").
             createAlias("u.repositories", "r").
             add(Restrictions.eq("u.id", userId)).
-            addOrder(Order.asc("r.githubUrl"));
+            addOrder(Order.asc("r.name"));
 
-        // we need a list of the github urls from the repository class
+        // we need a list of the names from the repository class
         ProjectionList proList = Projections.projectionList();
-        proList.add(Projections.property("r.githubUrl"));
+        proList.add(Projections.property("r.name"));
         criteria.setProjection(proList);
         List<String> repositories = new ArrayList<String>(criteria.list());
 

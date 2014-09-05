@@ -6,7 +6,6 @@ import java.util.Map;
 
 public class Repository {
     private int id;
-    private String githubUrl;
     private String name;
     private RepositoryStatus status;
 
@@ -23,13 +22,6 @@ public class Repository {
     }
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getGithubUrl() {
-        return this.githubUrl;
-    }
-    public void setGithubUrl(String githubUrl) {
-        this.githubUrl = githubUrl;
     }
 
     public String getName() {
@@ -70,7 +62,7 @@ public class Repository {
         return getName();
     }
     public boolean equals( Repository repo ){
-        return ( this.githubUrl.equals(repo.getGithubUrl()));
+        return ( this.name.equals(repo.getName()));
     }
 
     // don't use these -- used by hibernate

@@ -20,8 +20,7 @@
         <key column="repository_id"></key>
         <one-to-many class="com.bethgrace5.timetracker.TimeSession"></one-to-many>
     </set>
-    <property name="githubUrl" type="string" column="github_url" unique="true"></property>
     <property name="name" type="string" column="name"></property>
-    <property name="status" type="string" column="status"></property>
+    <property name="statusString" type="string" column="statusString"></property>
 </class>
 </hibernate-mapping>
