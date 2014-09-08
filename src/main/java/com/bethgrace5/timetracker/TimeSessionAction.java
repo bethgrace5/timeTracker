@@ -78,7 +78,9 @@ public class TimeSessionAction extends ActionSupport implements SessionAware{
         // TODO: implement Database.getLastTimeSession()
         lastTimeSession = new TimeSession();
         // I added "github.com/repository as githubUrl to database
-        lastRepository = Database.getRepository("github.com/repository");
+        Repository repo = Database.getRepository("bethgrace5/timeTracker");
+        selectedRepository = repo.getName();
+        selectedStatus = repo.getStatus();
 
         // page should display a stop button if the time is still running
         inProgress = false;

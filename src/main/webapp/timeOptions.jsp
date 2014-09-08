@@ -54,6 +54,16 @@
                     },
                 });
             },
+            onChange: function(value){
+                $.ajax({
+                    data: {
+                    },
+                    url: "",
+                    success: function(result, status, xhr) {
+                        alert(value);
+                    },
+                });
+            },
             //onChange: function(value){
                 //$.ajax({
                     //type: "GET",
