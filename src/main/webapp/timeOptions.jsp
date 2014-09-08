@@ -86,11 +86,11 @@
             onChange: function(value){
                 $.ajax({
                     data: {
+                        selectedRepository: $("#selectedRepository").val(),
                         selectedStatus: value,
                     },
                     url: "/updateStatus",
                     success: function(result, status, xhr) {
-                        alert(value);
                     },
                 });
             },

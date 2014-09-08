@@ -46,24 +46,38 @@ public class Database{
         session.refresh(user);
 
         // refresh the repository if it has not been saved to the database 
-        if(repo.getId() != 0){
+        if( !exists(repo)){
+            session.save(repo);
+        }
+        else{
             session.refresh(repo);
-
-            // check for an existing connection between user and repository
-            if(repo.getUsers().contains(user) || user.getRepositories().contains(repo))
-                return 0;
+        }
+        // check for an existing connection between user and repository
+        if(!(repo.getUsers().contains(user) || user.getRepositories().contains(repo))){
+            // make the connection between the user and repository
+            repo.getUsers().add(user);
+            user.getRepositories().add(repo);
+            session.update(user);
         }
 
-        // make the connection between the user and repository
-        repo.getUsers().add(user);
-        user.getRepositories().add(repo);
-        session.update(user);
-
+        session.update(repo);
         tr.commit();
         session.close();
         return repo.getId();
     }
-    
+    public static void updateRepositoryStatus(Repository repo, String status){
+        Session session = factory.openSession();
+        Transaction tr = session.beginTransaction();
+        session.refresh(repo);
+
+        repo.setStatus(status);
+        session.update(repo);
+
+        tr.commit();
+        session.close();
+
+    }
+
     // Save time session as new, or update if existing
     public static Integer saveTimeSession(TimeSession timeSession){
         Session session = factory.openSession();

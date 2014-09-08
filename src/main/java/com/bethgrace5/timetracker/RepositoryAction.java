@@ -75,7 +75,7 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
             repo.setName((String) response.get("full_name"));
             repositoryName = repo.getName();
             //FIXME: repository not being saved when status is set.
-            //repo.setStatus(RepositoryStatus.InProgress);
+            repo.setStatus(RepositoryStatus.InProgress.toString());
             Database.saveRepository(repo, userId);
         }
         catch (HttpResponseException e){
@@ -98,9 +98,14 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
     }
 
     public String updateStatus(){
+
         Repository repository = Database.getRepository(selectedRepository);
-        //update status here
-        Database.saveRepository(repository, (int) session.get("userId"));
+        repository.setStatus( selectedStatus );
+        System.out.println("selected repo: " + selectedRepository );
+        System.out.println("status: " + selectedStatus );
+
+        Database.updateRepositoryStatus(repository, selectedStatus);
+
         return "success";
     }
 
