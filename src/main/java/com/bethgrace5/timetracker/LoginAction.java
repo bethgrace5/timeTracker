@@ -32,12 +32,14 @@ public class LoginAction extends ActionSupport implements SessionAware {
             }
         }
         else{
+            if( user.getType().equals("client") ){
+                return "client";
+            }
             try{
                 getUserFromGithub( userName );
             }
             catch( NullPointerException e ){
                 System.out.println(e);
-
             }
         }
         Database.updateLastLogin(user);
@@ -69,7 +71,8 @@ public class LoginAction extends ActionSupport implements SessionAware {
                 response = converter.fromJson(responseBody, Map.class);
             }
             catch( HttpResponseException e){
-                addActionMessage(userName + " does not exist on github.");
+                addActionMessage("cannot retrieve user infor for " 
+                        + userName + " at this time.");
                 System.out.println(e);
                 return false;
             }

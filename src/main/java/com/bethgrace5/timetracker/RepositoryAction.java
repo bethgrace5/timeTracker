@@ -101,8 +101,8 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
 
         Repository repository = Database.getRepository(selectedRepository);
         repository.setStatus( selectedStatus );
-        System.out.println("selected repo: " + selectedRepository );
-        System.out.println("status: " + selectedStatus );
+        //System.out.println("selected repo: " + selectedRepository );
+        //System.out.println("status: " + selectedStatus );
 
         Database.updateRepositoryStatus(repository, selectedStatus);
 
