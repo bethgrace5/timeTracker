@@ -30,8 +30,11 @@ public class LoginActionTestCase extends StrutsTestCase {
         this.action.setSession(session);
     }
 
-    public void testGoodLogin() throws Exception {
+    public void testContractorLoginWhenUserDoesNotExistInDatabaseButExistsOnGitHub() throws Exception {
         this.init("/login");
+
+        // TODO -- assert that the database does not contain the user
+        // `bethgrace5`
 
         // verify that to start, we are not logged in, which we can tell when
         // the session doesn't have a userId stored in it
@@ -42,13 +45,16 @@ public class LoginActionTestCase extends StrutsTestCase {
         this.action.setPassword("doesntmatter");
         String response = this.action.login();
 
-        // verify that we received a "success" response from the action, if the
+        // verify that we received a "contractor" response from the action, if the
         // user exists on GitHub
-        assertEquals("Login response should be 'success'", "success", response);
+        assertEquals("Login response should be 'contractor'", "contractor", response);
 
         // verify that the session now stores a userId, proving we are logged
         // in
         assertNotNull("User should be logged in", session.get("userId")) ;
+
+        // TODO -- assert that the database now does contain the user
+        // `bethgrace5`
     }
 
     public void tearDown() throws Exception {
