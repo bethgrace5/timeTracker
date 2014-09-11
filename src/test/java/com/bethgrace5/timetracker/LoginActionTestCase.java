@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.apache.struts2.StrutsTestCase;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionProxy;
 
 public class LoginActionTestCase extends StrutsTestCase {
@@ -26,11 +25,9 @@ public class LoginActionTestCase extends StrutsTestCase {
         ActionProxy proxy = getActionProxy(url);
         proxy.setExecuteResult(false);
         this.action = (LoginAction) proxy.getAction();
-        // ActionContext actionContext = proxy.getInvocation().getInvocationContext();
 
         this.session = new HashMap<String, Object>();
         this.action.setSession(session);
-        // actionContext.setSession(session);
     }
 
     public void testGoodLogin() throws Exception {
