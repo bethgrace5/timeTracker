@@ -30,6 +30,29 @@ public class LoginActionTestCase extends StrutsTestCase {
         this.action.setSession(session);
     }
 
+    public void testClientLoginWhenUserDoesNotExistInDatabaseOrGitHub() throws Exception {
+        this.init("/login");
+
+        // TODO -- assert that the database does not contain the user
+        // `foxnewsisthegreatest`
+
+        // verify that to start, we are not logged in, which we can tell when
+        // the session doesn't have a userId stored in it
+        assertNull("User should not be logged in", session.get("userId"));
+
+        // FIXME -- add requirement for password when we support passwords
+        this.action.setUserName("foxnewsisthegreatest");
+        this.action.setPassword("doesntmatter");
+        String response = this.action.login();
+
+        // verify that we received an "error" response from the action, if the
+        // user does not exist in the database, and also does not exist on GitHub
+        assertEquals("Login response should be 'error'", "error", response);
+
+        // TODO -- assert that the database still does not contain the user
+        // `foxnewsisthegreatest`
+    }
+
     public void testContractorLoginWhenUserDoesNotExistInDatabaseButExistsOnGitHub() throws Exception {
         this.init("/login");
 
