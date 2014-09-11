@@ -32,28 +32,32 @@ public class LoginAction extends ActionSupport implements SessionAware {
 
     public String login() throws Exception {
         user = Database.getUserByUserNamePassword(userName, password);
+        String type;
 
-        if( user == null ){
+        if( user != null){
+            type = user.getType();
+        }
+        else{
+            type = "error";
+        }
+
+        if(type.equals("client")){
+            // do not check for user on github 
+        }
+        else {
             if( !getUserFromGithub( userName, password )){
                 // user is not registered with this site or github
                 return "error";
             }
-        }
-        else{
-            if( user.getType().equals("client") ){
-                return "client";
-            }
-            try{
-                getUserFromGithub( userName, password );
-            }
-            catch( NullPointerException e ){
-                System.out.println(e);
+            else{
+                // user has been established in getUserFromGithub()
+                type = user.getType();
             }
         }
         Database.updateLastLogin(user);
         addActionMessage("Welcome " + user.getName());
         session.put("userId", user.getId());
-        return user.getType();
+        return type;
     }
 
     public String logout(){
@@ -62,59 +66,70 @@ public class LoginAction extends ActionSupport implements SessionAware {
         return "success";
     }
 
+    /** Creates a new user or updates user that exists in the database
+     * @param userName the username to check for
+     * @param password the password for authentication
+     * @return true if the user is found on github, false if not
+     */
     public boolean getUserFromGithub( String userName, String password ) throws Exception{
         // TODO: check that userName does not have illegal characters
         //       ( it should be able to be read as url )
-
         Gson converter = new Gson();
         CredentialsProvider provider = new BasicCredentialsProvider();
         UsernamePasswordCredentials credentials = 
             new UsernamePasswordCredentials(userName, password);
-
         provider.setCredentials(AuthScope.ANY, credentials);
         HttpClient httpclient = HttpClientBuilder.create().setDefaultCredentialsProvider(provider).build();
+
         try{
-            try{
-                HttpResponse httpResponse = httpclient.execute(new HttpGet( "https://api.github.com/users/" + userName));
-                HttpEntity entity = httpResponse.getEntity();
-                String responseString = EntityUtils.toString(entity, "UTF-8");
-                //System.out.println(responseString);
-                responseMap = converter.fromJson(responseString, Map.class);
-            }
-            catch( HttpResponseException e){
-                addActionMessage("cannot retrieve user info for " 
-                        + userName + " at this time.");
-                System.out.println(e);
+            HttpResponse httpResponse = httpclient.execute(new HttpGet( "https://api.github.com/users/" + userName));
+            HttpEntity entity = httpResponse.getEntity();
+            String responseString = EntityUtils.toString(entity, "UTF-8");
+            responseMap = converter.fromJson(responseString, Map.class);
+        }
+        catch( HttpResponseException e){
+            addActionMessage("cannot retrieve user info for " 
+                    + userName + " at this time.");
+            System.out.println(e);
+            httpclient.getConnectionManager().shutdown();
+            return false;
+        }
+
+        // we need to check that the user does not exist on github
+        if(responseMap.containsKey("message")){
+            String responseMessage = (String) responseMap.get("message");
+            if(responseMessage.equals("Not Found")){
+                httpclient.getConnectionManager().shutdown();
                 return false;
             }
-            //TODO: set user properties here, remove storing excess in database
-            if( user == null ){
-                user = new User();
-            }
-            String name = "";
-            try{
-                name = (String) responseMap.get("name");
-            }
-            catch( NullPointerException e ){
-            }
-
-            if (name.equals("")){
-                // the user's name is not supplied on github
-                //TODO: prompt to get name
-            }
-            // currently the user's name is the only data being updated
-            user.setName( name );
-            user.setUserName( userName );
-            //TODO: if a client has a github account, they would be set as
-            // a contractor. find a way to prevent this.
-            user.setType( "contractor" );
-            user.setPassword("");
-            Database.saveUser( user );
-        }finally{
-            httpclient.getConnectionManager().shutdown();
         }
+        // create new account
+        if( user == null ){
+            user = new User();
+        }
+
+        String name = (String) responseMap.get("name");
+
+        // the user has not set their name in their profile,
+        // or they've removed their name after setting it.
+        if(null==name || "".equals(name)){
+            // the user's name is not supplied on github
+            //TODO: prompt to get name
+        }
+
+        // update  user info
+        user.setName(name);
+        user.setUserName(userName);
+
+        //TODO: client users that do not exist in the database, but are registered
+        //with github are created as contractors.
+        user.setType("contractor");
+
+        user.setPassword("");
+        Database.saveUser(user);
+        httpclient.getConnectionManager().shutdown();
         return true;
-    }
+}
 
     public void setSession(Map<String, Object> session) {
         this.session = session;
