@@ -1,6 +1,8 @@
 package com.bethgrace5.timetracker;
 
+import java.sql.Connection;
 import java.sql.Timestamp;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -21,8 +23,21 @@ import org.hibernate.cfg.Configuration;
  *  Class that accesses or edits Database using the Hibernate framework
  */
 public class Database{
-    private static final SessionFactory factory =
-        new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+    private static SessionFactory factory;
+
+    static {
+        Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
+        try {
+            // usually we want to build connections based on the Hibernate
+            // configuration
+            factory = cfg.buildSessionFactory();
+        } catch (Exception ex) {
+            // when connections fail, it usually means we are running the
+            // application within the context of a unit/integration test
+            cfg.setProperty("hibernate.connection.url", "jdbc:h2:mem:test");
+            factory = cfg.buildSessionFactory();
+        }
+    }
 
     // Save User as new, or Update if existing
     public static Integer saveUser(User user){
