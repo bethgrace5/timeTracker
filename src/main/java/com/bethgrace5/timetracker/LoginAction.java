@@ -2,16 +2,24 @@ package com.bethgrace5.timetracker;
 
 import java.util.Map;
 
-import com.google.gson.Gson;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.SessionAware;
 
+import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class LoginAction extends ActionSupport implements SessionAware {
@@ -19,14 +27,14 @@ public class LoginAction extends ActionSupport implements SessionAware {
     private String password;
     private User user;
     private Map<String, Object> session;
-    private Map<String, Object> response;
+    private Map<String, Object> responseMap;
 
 
     public String login() throws Exception {
         user = Database.getUserByUserNamePassword(userName, password);
 
         if( user == null ){
-            if( !getUserFromGithub( userName )){
+            if( !getUserFromGithub( userName, password )){
                 // user is not registered with this site or github
                 return "error";
             }
@@ -36,7 +44,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
                 return "client";
             }
             try{
-                getUserFromGithub( userName );
+                getUserFromGithub( userName, password );
             }
             catch( NullPointerException e ){
                 System.out.println(e);
@@ -54,24 +62,27 @@ public class LoginAction extends ActionSupport implements SessionAware {
         return "success";
     }
 
-    public boolean getUserFromGithub( String userName ) throws Exception{
-        HttpClient httpclient = new DefaultHttpClient();
-        Gson converter = new Gson();
-        try{
-            // TODO: check that userName does not have illegal characters
-            //       ( it should be able to be read as url )
-            HttpGet httpget = new HttpGet("https://api.github.com/users/" + userName);
-            httpget.getURI();
+    public boolean getUserFromGithub( String userName, String password ) throws Exception{
+        // TODO: check that userName does not have illegal characters
+        //       ( it should be able to be read as url )
 
-            //create a response handler
-            ResponseHandler<String> responseHandler = new BasicResponseHandler();
-            // Body contains your json string
+        Gson converter = new Gson();
+        CredentialsProvider provider = new BasicCredentialsProvider();
+        UsernamePasswordCredentials credentials = 
+            new UsernamePasswordCredentials(userName, password);
+
+        provider.setCredentials(AuthScope.ANY, credentials);
+        HttpClient httpclient = HttpClientBuilder.create().setDefaultCredentialsProvider(provider).build();
+        try{
             try{
-                String responseBody = httpclient.execute(httpget, responseHandler);
-                response = converter.fromJson(responseBody, Map.class);
+                HttpResponse httpResponse = httpclient.execute(new HttpGet( "https://api.github.com/users/" + userName));
+                HttpEntity entity = httpResponse.getEntity();
+                String responseString = EntityUtils.toString(entity, "UTF-8");
+                //System.out.println(responseString);
+                responseMap = converter.fromJson(responseString, Map.class);
             }
             catch( HttpResponseException e){
-                addActionMessage("cannot retrieve user infor for " 
+                addActionMessage("cannot retrieve user info for " 
                         + userName + " at this time.");
                 System.out.println(e);
                 return false;
@@ -82,7 +93,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
             }
             String name = "";
             try{
-                name = (String) response.get("name");
+                name = (String) responseMap.get("name");
             }
             catch( NullPointerException e ){
             }

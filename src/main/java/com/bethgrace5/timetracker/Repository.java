@@ -5,7 +5,8 @@ import java.util.Set;
 import java.util.Map;
 
 public class Repository {
-    private int id=0;
+    private int id;
+    private Double githubId;
     private String name;
     private String status;
 
@@ -22,6 +23,13 @@ public class Repository {
     }
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Double getGithubId() {
+        return this.githubId;
+    }
+    public void setGithubId(Double githubId) {
+        this.githubId = githubId;
     }
 
     public String getName() {

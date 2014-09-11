@@ -73,9 +73,13 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
             Map<String, Object> response = converter.fromJson(responseBody, Map.class);
             repo = new Repository();
             repo.setName((String) response.get("full_name"));
+
+            repo.setGithubId( (Double) response.get("id") );
+            //repo.setGithubId( 12345 );
+
             repositoryName = repo.getName();
-            //FIXME: repository not being saved when status is set.
             repo.setStatus(RepositoryStatus.InProgress.toString());
+
             Database.saveRepository(repo, userId);
         }
         catch (HttpResponseException e){

@@ -20,6 +20,7 @@
         <key column="repository_id"></key>
         <one-to-many class="com.bethgrace5.timetracker.TimeSession"></one-to-many>
     </set>
+    <property name="githubId" type="double" column="github_id"></property>
     <property name="name" type="string" column="name"></property>
     <property name="status" type="string" column="status"></property>
 </class>
