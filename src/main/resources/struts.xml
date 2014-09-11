@@ -85,6 +85,11 @@
                 method="getRepositoryInfo"> 
                 <result type="json"><param name="root">repositoryJSON</param></result>
         </action>
+        <action name="updateStatus" 
+                class="com.bethgrace5.timetracker.RepositoryAction" 
+                method="updateStatus"> 
+            <result name="success" type="tiles">dashboard-contractor</result>
+        </action>
 
         <!-- TimeSessionAction class -->
         <action name="show-timeOptions"  

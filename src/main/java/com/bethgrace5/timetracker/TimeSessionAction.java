@@ -18,7 +18,7 @@ public class TimeSessionAction extends ActionSupport implements SessionAware{
     private String selectedRepository;
     private String selectedMilestone;
     private String selectedIssue;
-    private String selectedRepositoryStatus;
+    private String selectedStatus;
     private User user;
     private Repository lastRepository;
     private TimeSession lastTimeSession;
@@ -34,6 +34,11 @@ public class TimeSessionAction extends ActionSupport implements SessionAware{
         user = Database.getUserById(userId);
 
         repositories = Database.getRepositories(userId);
+
+        statuses.add(RepositoryStatus.InProgress.toString());
+        statuses.add(RepositoryStatus.Complete.toString());
+        statuses.add(RepositoryStatus.Pending.toString());
+        statuses.add(RepositoryStatus.Canceled.toString());
 
         // we need to get the last time session this user was working on
         // TODO: implement Database.getLastTimeSession()
@@ -73,12 +78,14 @@ public class TimeSessionAction extends ActionSupport implements SessionAware{
         // TODO: implement Database.getLastTimeSession()
         lastTimeSession = new TimeSession();
         // I added "github.com/repository as githubUrl to database
-        lastRepository = Database.getRepository("github.com/repository");
+        Repository repo = Database.getRepository("bethgrace5/timeTracker");
+        selectedRepository = repo.getName();
+        selectedStatus = repo.getStatus();
 
         // page should display a stop button if the time is still running
         inProgress = false;
 
-        // fill in suggestions based on the last time session.
+        // fill in values based on the last time session.
         description = "artificially supplied description";
         milesDriven = 2;
         hourlyRate = 9.0;
@@ -91,18 +98,24 @@ public class TimeSessionAction extends ActionSupport implements SessionAware{
         milestones = new ArrayList();
         milestones.add("artificial milestone1");
         milestones.add("artificial milestone2");
+        // set selected value
+        selectedMilestone = "artificial milestone2";
+
         issues = new ArrayList();
         issues.add("artificial issue1");
         issues.add("artificial issue2");
         issues.add("artificial issue3");
         issues.add("artificial issue4");
+        // set selected value
         selectedIssue = "artificial issue3";
-        selectedMilestone = "artificial milestone2";
+
         statuses = new ArrayList();
         statuses.add(RepositoryStatus.InProgress.toString());
         statuses.add(RepositoryStatus.Pending.toString());
         statuses.add(RepositoryStatus.Canceled.toString());
         statuses.add(RepositoryStatus.Complete.toString());
+        // set selected value
+        selectedStatus = RepositoryStatus.InProgress.toString();
 
         return "success";
     }
@@ -113,6 +126,7 @@ public class TimeSessionAction extends ActionSupport implements SessionAware{
         hourlyRate = 0;
         inProgress = false;
         description = null;
+        selectedStatus = RepositoryStatus.InProgress.toString();
         repositories = new ArrayList(Database.getRepositories(user.getId()));
         lastRepository = null;
         lastTimeSession = null;
@@ -133,6 +147,7 @@ public class TimeSessionAction extends ActionSupport implements SessionAware{
         lastTimeSession.setRepository(Database.getRepository(selectedRepository));
         //lastTimeSession.setMilestone(Database.getMilestone(selectedMilestone));
         //lastTimeSession.setIssue(Database.getIssue(selectedIssue));
+        //lastTimeSession.setStatus();
         lastTimeSession.setStartDate(new Timestamp(System.currentTimeMillis()));
         lastTimeSession.setEndDate(null);
         lastTimeSession.setMilesDriven(milesDriven);
@@ -208,11 +223,11 @@ public class TimeSessionAction extends ActionSupport implements SessionAware{
     public void setSelectedIssue(String selectedIssue){
         this.selectedIssue = selectedIssue;
     }
-    public String getSelectedRepositoryStatus(){
-        return selectedRepositoryStatus;
+    public String getSelectedStatus(){
+        return selectedStatus;
     }
-    public void setSelectedRepositoryStatus(String selectedRepositoryStatus){
-        this.selectedRepositoryStatus = selectedRepositoryStatus;
+    public void setSelectedStatus(String selectedStatus){
+        this.selectedStatus = selectedStatus;
     }
 
     public User getUser(){

@@ -24,10 +24,20 @@ public class LoginAction extends ActionSupport implements SessionAware {
 
     public String login() throws Exception {
         user = Database.getUserByUserNamePassword(userName, password);
+
         if( user == null ){
             if( !getUserFromGithub( userName )){
                 // user is not registered with this site or github
                 return "error";
+            }
+        }
+        else{
+            try{
+                getUserFromGithub( userName );
+            }
+            catch( NullPointerException e ){
+                System.out.println(e);
+
             }
         }
         Database.updateLastLogin(user);
@@ -47,7 +57,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
         Gson converter = new Gson();
         try{
             // TODO: check that userName does not have illegal characters
-            //       ( not able to be read as url )
+            //       ( it should be able to be read as url )
             HttpGet httpget = new HttpGet("https://api.github.com/users/" + userName);
             httpget.getURI();
 
@@ -59,25 +69,36 @@ public class LoginAction extends ActionSupport implements SessionAware {
                 response = converter.fromJson(responseBody, Map.class);
             }
             catch( HttpResponseException e){
+                addActionMessage(userName + " does not exist on github.");
+                System.out.println(e);
                 return false;
             }
             //TODO: set user properties here, remove storing excess in database
-            //System.out.println(response.get("name"));
+            if( user == null ){
+                user = new User();
+            }
+            String name = "";
+            try{
+                name = (String) response.get("name");
+            }
+            catch( NullPointerException e ){
+            }
 
-            String name = (String) response.get("name");
-            user = new User(name, userName, "contractor", "");
+            if (name.equals("")){
+                // the user's name is not supplied on github
+                //TODO: prompt to get name
+            }
+            // currently the user's name is the only data being updated
+            user.setName( name );
+            user.setUserName( userName );
+            //TODO: if a client has a github account, they would be set as
+            // a contractor. find a way to prevent this.
+            user.setType( "contractor" );
+            user.setPassword("");
             Database.saveUser( user );
-
-
         }finally{
             httpclient.getConnectionManager().shutdown();
         }
-            //if( response.get("message").equals("Not Found")){
-                //httpclient.getConnectionManager().shutdown();
-                //return false;
-            //}
-
-
         return true;
     }
 

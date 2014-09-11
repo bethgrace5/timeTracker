@@ -6,9 +6,8 @@ import java.util.Map;
 
 public class Repository {
     private int id;
-    private String githubUrl;
     private String name;
-    private RepositoryStatus status;
+    private String status;
 
     private Set<User> users = new HashSet<User>();
     private Set<Milestone> milestones = new HashSet<Milestone>();
@@ -25,13 +24,6 @@ public class Repository {
         this.id = id;
     }
 
-    public String getGithubUrl() {
-        return this.githubUrl;
-    }
-    public void setGithubUrl(String githubUrl) {
-        this.githubUrl = githubUrl;
-    }
-
     public String getName() {
         return this.name;
     }
@@ -39,11 +31,19 @@ public class Repository {
         this.name = name;
     }
 
-    public RepositoryStatus getStatus() {
+    public String getStatus() {
         return this.status;
     }
-    public void setStatus(RepositoryStatus status) {
-        this.status = status;
+    public void setStatus(String status) {
+        if( status.equals(RepositoryStatus.InProgress.toString()) ||
+            status.equals(RepositoryStatus.Complete.toString())   ||
+            status.equals(RepositoryStatus.Canceled.toString())   ||
+            status.equals(RepositoryStatus.Pending.toString()) ){
+                this.status = status;
+        }
+        else{
+            this.status = RepositoryStatus.InProgress.toString();
+        }
     }
 
     public Set<User> getUsers() {
@@ -70,11 +70,11 @@ public class Repository {
         return getName();
     }
     public boolean equals( Repository repo ){
-        return ( this.githubUrl.equals(repo.getGithubUrl()));
+        return ( this.name.equals(repo.getName()));
     }
 
     // don't use these -- used by hibernate
-    public String getStatusString() {
+    /*public String getStatusString() {
         if (this.status == null)
             return null;
         return this.status.toString();
@@ -83,5 +83,6 @@ public class Repository {
     public void setStatusString(String statusString) {
         this.status = Enum.valueOf(RepositoryStatus.class, statusString);
     }
+    */
 
 }

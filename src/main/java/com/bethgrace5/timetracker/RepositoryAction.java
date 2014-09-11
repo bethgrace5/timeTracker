@@ -16,11 +16,11 @@ import org.apache.struts2.interceptor.SessionAware;
 
 public class RepositoryAction extends ActionSupport implements SessionAware{
     private Map<String, Object> session;
-    private String githubUrl;
     private List<String> repositoryNames;
     private List<String> issueNames;
     private List<String> milestoneNames;
     private String selectedRepository;
+    private String selectedStatus;
     private String repositoryJSON;
     private String repositoryName;
     private Repository repo;
@@ -39,15 +39,19 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
     // when a repository is added the current user is linked to it
     public String addRepository() throws Exception{
         repo = new Repository();
-        repo = Database.getRepository(this.githubUrl);
+        repo = Database.getRepository(this.selectedRepository);
         int userId = (int) session.get("userId");
 
-        if( repo == null && !getRepositoryInfo() ){
-            return "success";
+        if( repo!=null ){
+            // connect the user with it in the database
+            Database.saveRepository( repo, userId );
         }
-
-        //Database.saveRepository(repo, userId);
-        addActionMessage("Successfully Added Repository");
+        else {
+            // adds repository to database if it exists on github.
+            // connects user with new repository
+            // error message if repository does not exist on github.
+            getRepositoryInfo();
+        }
 
         return "success";
     }
@@ -68,11 +72,10 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
             String responseBody = httpclient.execute(httpget, responseHandler);
             Map<String, Object> response = converter.fromJson(responseBody, Map.class);
             repo = new Repository();
-            repo.setGithubUrl((String) response.get("full_name"));
-            repo.setName((String) response.get("name"));
+            repo.setName((String) response.get("full_name"));
             repositoryName = repo.getName();
             //FIXME: repository not being saved when status is set.
-            //repo.setStatus(RepositoryStatus.InProgress);
+            repo.setStatus(RepositoryStatus.InProgress.toString());
             Database.saveRepository(repo, userId);
         }
         catch (HttpResponseException e){
@@ -87,22 +90,28 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
     }
 
     public String listRepositories() {
-        // we need to get a list of github urls from all repositories
+        // we need to get a list of full names from all repositories
         // that are connected to the user logged in
         int userId = (int) session.get("userId");
         repositoryNames = Database.getRepositories(userId);
         return "success";
     }
 
+    public String updateStatus(){
+
+        Repository repository = Database.getRepository(selectedRepository);
+        repository.setStatus( selectedStatus );
+        System.out.println("selected repo: " + selectedRepository );
+        System.out.println("status: " + selectedStatus );
+
+        Database.updateRepositoryStatus(repository, selectedStatus);
+
+        return "success";
+    }
+
     // getters and setters
     public void setSession(Map<String, Object> session){
         this.session = session;
-    }
-    public String getGithubUrl() {
-        return this.githubUrl;
-    }
-    public void setGithubUrl(String githubUrl) {
-        this.githubUrl = githubUrl;
     }
     public List<String> getRepositoryNames() {
         return repositoryNames;
@@ -115,6 +124,12 @@ public class RepositoryAction extends ActionSupport implements SessionAware{
     }
     public void setSelectedRepository(String selectedRepository) {
         this.selectedRepository = selectedRepository;
+    }
+    public String getSelectedStatus() {
+        return this.selectedStatus;
+    }
+    public void setSelectedStatus(String selectedStatus) {
+        this.selectedStatus = selectedStatus;
     }
     public String getRepositoryJSON(){
         return repositoryJSON;

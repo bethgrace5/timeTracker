@@ -61,24 +61,38 @@ public class Database{
         session.refresh(user);
 
         // refresh the repository if it has not been saved to the database 
-        if(repo.getId() != 0){
+        if( !exists(repo)){
+            session.save(repo);
+        }
+        else{
             session.refresh(repo);
-
-            // check for an existing connection between user and repository
-            if(repo.getUsers().contains(user) || user.getRepositories().contains(repo))
-                return 0;
+        }
+        // check for an existing connection between user and repository
+        if(!(repo.getUsers().contains(user) || user.getRepositories().contains(repo))){
+            // make the connection between the user and repository
+            repo.getUsers().add(user);
+            user.getRepositories().add(repo);
+            session.update(user);
         }
 
-        // make the connection between the user and repository
-        repo.getUsers().add(user);
-        user.getRepositories().add(repo);
-        session.update(user);
-
+        session.update(repo);
         tr.commit();
         session.close();
         return repo.getId();
     }
-    
+    public static void updateRepositoryStatus(Repository repo, String status){
+        Session session = factory.openSession();
+        Transaction tr = session.beginTransaction();
+        session.refresh(repo);
+
+        repo.setStatus(status);
+        session.update(repo);
+
+        tr.commit();
+        session.close();
+
+    }
+
     // Save time session as new, or update if existing
     public static Integer saveTimeSession(TimeSession timeSession){
         Session session = factory.openSession();
@@ -191,15 +205,15 @@ public class Database{
         session.close();
         return user;
     }
-    // get Repository by github URL
-    public static Repository getRepository(String githubUrl){
+    // get Repository by name 
+    public static Repository getRepository(String name){
         Session session = factory.openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
 
         Repository repo = (Repository) session.
             createCriteria(Repository.class).
-            add(Restrictions.eq("githubUrl", githubUrl)).
+            add(Restrictions.eq("name", name)).
             uniqueResult();
 
         tr.commit();
@@ -230,19 +244,16 @@ public class Database{
         Transaction tr = null;
         tr = session.beginTransaction();
 
-        // we need to look through the users in the repository class
-        // for this specific user
-        System.out.println("searching for repositories for User "+userId+"...");
-        Criteria criteria = session.createCriteria(Repository.class, "r").
-            //FIXME: when we try to list repositories for only this user,
-            //       the list is empty.
-            //createAlias("r.users", "u").
-            //add(Restrictions.eq("u.id", userId)).
-            addOrder(Order.asc("r.githubUrl"));
+        // we need to look through the repositories in the user class
+        // for this user's repositories
+        Criteria criteria = session.createCriteria(User.class, "u").
+            createAlias("u.repositories", "r").
+            add(Restrictions.eq("u.id", userId)).
+            addOrder(Order.asc("r.name"));
 
-        // we need a list of the github urls from the repository class
+        // we need a list of the names from the repository class
         ProjectionList proList = Projections.projectionList();
-        proList.add(Projections.property("r.githubUrl"));
+        proList.add(Projections.property("r.name"));
         criteria.setProjection(proList);
         List<String> repositories = new ArrayList<String>(criteria.list());
 

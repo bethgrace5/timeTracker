@@ -13,6 +13,11 @@
                   list="repositories"
                   headerKey="-1"
                   headerValue="select or add new..." />
+        <s:select id="selectedStatus" 
+                  label="Status"
+                  name="selectedStatus"
+                  list="statuses"
+                  headerKey="1" />
         <s:select id="selectedMilestone" 
                   label="Milestone"
                   name="selectedMilestone" 
@@ -27,7 +32,6 @@
         <s:textfield id="milesDriven" name="milesDriven" label="Miles Driven"/>
         <s:textfield id="hourlyRate" name="hourlyRate" label="Hourly Rate"/>
         <s:textfield id="repositoryName" name="repositoryName" label="Repository Name"/>
-        <s:textfield id="repositoryFullName" name="repositoryFullName" label="Repository Full Name"/>
         <s:submit value="Start"/>
     </s:form>
 
@@ -50,6 +54,16 @@
                     },
                 });
             },
+            onChange: function(value){
+                $.ajax({
+                    data: {
+                    },
+                    url: "",
+                    success: function(result, status, xhr) {
+                        alert(value);
+                    },
+                });
+            },
             //onChange: function(value){
                 //$.ajax({
                     //type: "GET",
@@ -62,8 +76,7 @@
                         //alert(result);
                         //var obj = JSON.parse(result);
                         //alert(obj);
-                        //$("#repositoryName").val(obj.name)
-                        //$("#repositoryFullName").val(obj.full_name)
+                        //$("#repositoryName").val(obj.full_name)
                     //},
                 //});
             //},
@@ -76,6 +89,21 @@
         $('#selectedIssue').selectize({
             create: false,
             highlight: true,
+        });
+        $('#selectedStatus').selectize({
+            create: false,
+            highlight: true,
+            onChange: function(value){
+                $.ajax({
+                    data: {
+                        selectedRepository: $("#selectedRepository").val(),
+                        selectedStatus: value,
+                    },
+                    url: "/updateStatus",
+                    success: function(result, status, xhr) {
+                    },
+                });
+            },
         });
 
        //$( "#selectedRepository" ).change(function() {
@@ -94,8 +122,7 @@
                    // parse string as json object.
                    //alert(result);
                    //var obj = JSON.parse(result);
-                   //$("#repositoryName").val(obj.name)
-                   //$("#repositoryFullName").val(obj.full_name)
+                   //$("#repositoryName").val(obj.full_name)
                //}
            //});
 
