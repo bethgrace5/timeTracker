@@ -10,7 +10,7 @@
     </id>
     <set name="users" cascade="save-update" table="USER_REPOSITORY" inverse="false">
         <key column="repository_id"></key>
-        <many-to-many column="user_id" class="com.bethgrace5.timetracker.Repository"></many-to-many>
+        <many-to-many column="user_id" class="com.bethgrace5.timetracker.User"></many-to-many>
     </set>
     <set name="milestones" cascade="save-update" table="MILESTONE">
         <key column="repository_id"></key>
