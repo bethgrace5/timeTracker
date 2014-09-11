@@ -29,7 +29,12 @@ public class LoginAction extends ActionSupport implements SessionAware {
     private Map<String, Object> session;
     private Map<String, Object> responseMap;
 
-
+    /** establish user as existing, and direct to corect dashboard
+     * @param userName the username to check for
+     * @param password the password for authentication
+     * @return type the type of user that is logging in
+     *         error if can't be established as existing
+     */
     public String login() throws Exception {
         user = Database.getUserByUserNamePassword(userName, password);
         String type;
@@ -78,11 +83,15 @@ public class LoginAction extends ActionSupport implements SessionAware {
         CredentialsProvider provider = new BasicCredentialsProvider();
         UsernamePasswordCredentials credentials = 
             new UsernamePasswordCredentials(userName, password);
+
         provider.setCredentials(AuthScope.ANY, credentials);
-        HttpClient httpclient = HttpClientBuilder.create().setDefaultCredentialsProvider(provider).build();
+        HttpClient httpclient = HttpClientBuilder.create().
+            setDefaultCredentialsProvider(provider).build();
 
         try{
-            HttpResponse httpResponse = httpclient.execute(new HttpGet( "https://api.github.com/users/" + userName));
+            HttpResponse httpResponse = httpclient.execute(
+                    new HttpGet( "https://api.github.com/users/" + userName));
+
             HttpEntity entity = httpResponse.getEntity();
             String responseString = EntityUtils.toString(entity, "UTF-8");
             responseMap = converter.fromJson(responseString, Map.class);
