@@ -3,6 +3,7 @@ package com.bethgrace5.timetracker;
 import java.util.Map;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpStatus;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -90,7 +91,14 @@ public class LoginAction extends ActionSupport implements SessionAware {
 
         try{
             HttpResponse httpResponse = httpclient.execute(
-                    new HttpGet( "https://api.github.com/users/" + userName));
+                    new HttpGet("https://api.github.com/users/"+userName));
+            int statusCode = httpResponse.getStatusLine().getStatusCode();
+            System.out.println(statusCode);
+
+            if(statusCode != HttpStatus.SC_OK){
+                httpclient.getConnectionManager().shutdown();
+                return false;
+            }
 
             HttpEntity entity = httpResponse.getEntity();
             String responseString = EntityUtils.toString(entity, "UTF-8");
@@ -122,6 +130,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
         // the user has not set their name in their profile,
         // or they've removed their name after setting it.
         if(null==name || "".equals(name)){
+            name="";
             // the user's name is not supplied on github
             //TODO: prompt to get name
         }
