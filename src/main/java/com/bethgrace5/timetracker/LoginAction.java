@@ -31,35 +31,26 @@ public class LoginAction extends ActionSupport implements SessionAware {
     private Map<String, Object> responseMap;
 
     /** establish user as existing, and direct to corect dashboard
-     * @param userName the username to check for
+     * @param userName the userName to check for
      * @param password the password for authentication
      * @return type the type of user that is logging in
      *         error if can't be established as existing
      */
     public String login() throws Exception {
-        user = Database.getUserByUserNamePassword(userName, password);
+
         String type;
 
-        if( user != null){
-            type = user.getType();
-        }
-        else{
-            type = "error";
+        user = Database.getUserByUserNamePassword(userName, password);
+
+        if(user==null || user.equals(null)){ // user not found in database
+            user = new User("", userName, "", "");
+            if(!getUserFromGithub(user.getUserName(), user.getPassword())){
+                addActionMessage("Invalid login try creating an account with "
+                        + user.getName() + "@gihub");
+            }
         }
 
-        if(type.equals("client")){
-            // do not check for user on github 
-        }
-        else {
-            if( !getUserFromGithub( userName, password )){
-                // user is not registered with this site or github
-                return "error";
-            }
-            else{
-                // user has been established in getUserFromGithub()
-                type = user.getType();
-            }
-        }
+        type = user.getType();
         Database.updateLastLogin(user);
         addActionMessage("Welcome " + user.getName());
         session.put("userId", user.getId());
@@ -73,16 +64,30 @@ public class LoginAction extends ActionSupport implements SessionAware {
     }
 
     /** Creates a new user or updates user that exists in the database
-     * @param userName the username to check for
+     * @param userName the userName to check for
      * @param password the password for authentication
      * @return true if the user is found on github, false if not
      */
     public boolean getUserFromGithub( String userName, String password ) throws Exception{
         // TODO: check that userName does not have illegal characters
         //       ( it should be able to be read as url )
+
+        // not a github account
+        if (!userName.contains("@github")){
+            addActionMessage("cannot retrieve user info. "
+                    + " Do you have a github account? try: "
+                    + userName + "@github");
+
+            return false;
+        }
+        else{
+            // strip "@github" from userName
+            System.out.println(userName.split("@")[0]);
+        }
+
         Gson converter = new Gson();
         CredentialsProvider provider = new BasicCredentialsProvider();
-        UsernamePasswordCredentials credentials = 
+        UsernamePasswordCredentials credentials =
             new UsernamePasswordCredentials(userName, password);
 
         provider.setCredentials(AuthScope.ANY, credentials);
@@ -105,7 +110,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
             responseMap = converter.fromJson(responseString, Map.class);
         }
         catch( HttpResponseException e){
-            addActionMessage("cannot retrieve user info for " 
+            addActionMessage("cannot retrieve user info for "
                     + userName + " at this time.");
             System.out.println(e);
             httpclient.getConnectionManager().shutdown();
